@@ -1,0 +1,122 @@
+/* Variable fonts bundled locally via @fontsource - no runtime CDN dependency. */
+@import '@fontsource-variable/oswald';
+@import '@fontsource-variable/inter';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-brand-black text-brand-white font-sans antialiased;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display uppercase tracking-tight;
+  }
+
+  /* Visible focus rings for keyboard navigation (WCAG 2.1 AA). */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-cyan ring-offset-2 ring-offset-brand-black;
+  }
+
+  /* Respect users who prefer reduced motion. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-semibold
+           uppercase tracking-wide transition-colors duration-150 focus-visible:ring-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand-cyan text-brand-black hover:bg-brand-cyan/85;
+  }
+
+  .btn-outline {
+    @apply btn border border-white/25 text-brand-white hover:border-brand-cyan hover:text-brand-cyan;
+  }
+
+  .btn-ghost {
+    @apply btn text-brand-white/80 hover:text-brand-cyan;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-brand-grey px-3.5 py-1.5
+           text-xs font-semibold uppercase tracking-wide text-brand-white/85
+           transition-colors hover:border-brand-cyan hover:text-brand-cyan;
+  }
+
+  .card {
+    @apply rounded-xl border border-white/10 bg-brand-grey shadow-card;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-brand-white/70;
+  }
+
+  .field-input {
+    @apply w-full rounded-md border border-white/15 bg-brand-black px-3 py-2.5 text-sm text-brand-white
+           placeholder:text-white/35 focus:border-brand-cyan focus:outline-none;
+  }
+
+  .field-error {
+    @apply mt-1 text-xs font-medium text-red-400;
+  }
+
+  .section-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-brand-cyan;
+  }
+}
+
+/* Skeleton shimmer used by loading placeholders. */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #202020;
+}
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.06),
+    transparent
+  );
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}

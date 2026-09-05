@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en-IE">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <title>CF Motor Sales Ltd | UK &amp; Japanese Car Imports Ireland</title>
+    <meta
+      name="description"
+      content="CF Motor Sales Ltd - independent Irish dealership specialising in quality UK and Japanese car imports. Browse live stock, low-mileage imports and full VRT handling."
+    />
+
+    <!-- SPA redirect handoff for GitHub Pages deep links (see public/404.html) -->
+    <script>
+      (function () {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, '', redirect);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

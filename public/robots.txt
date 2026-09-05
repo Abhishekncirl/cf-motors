@@ -1,0 +1,7 @@
+# CF Motor Sales Ltd
+User-agent: *
+Allow: /
+Disallow: /admin
+
+# Update the host/sitemap to your live domain once confirmed.
+Sitemap: https://www.cfmotorsales.ie/sitemap.xml

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en-IE">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CF Motor Sales Ltd</title>
+    <!--
+      GitHub Pages serves this file for any unknown path (deep links such as
+      /stock/2019-toyota-corolla). We stash the requested URL and bounce to the
+      SPA root, which restores it via history.replaceState (see index.html).
+      Assumes deployment at the domain root (base '/'). If you deploy under a
+      project sub-path, update the redirect target to include that sub-path.
+    -->
+    <script>
+      sessionStorage.redirect = location.href;
+      location.replace(location.origin + '/');
+    </script>
+    <meta http-equiv="refresh" content="0;url=/" />
+  </head>
+  <body>
+    Redirecting…
+  </body>
+</html>

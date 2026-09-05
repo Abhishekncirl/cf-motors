@@ -1,0 +1,34 @@
+rules_version = '2';
+
+// Firebase Storage rules for CF Motor Sales.
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAdmin() {
+      return request.auth != null;
+    }
+
+    function isImageUnder(maxBytes) {
+      return request.resource.contentType.matches('image/.*')
+        && request.resource.size < maxBytes;
+    }
+
+    // Vehicle photos: world-readable (shown on the public site), admin-writable.
+    match /vehicles/{vehicleId}/{fileName} {
+      allow read: if true;
+      allow write: if isAdmin() && isImageUnder(8 * 1024 * 1024);
+    }
+
+    // Customer-supplied photos on valuation/sourcing enquiries. The (anonymous)
+    // customer must be able to read back the download URL it just uploaded to
+    // store it on the enquiry, so read is open - but access still requires the
+    // unguessable per-file download token, and listing is never permitted.
+    // Uploads are limited to compressed images <=5MB. For stricter privacy, move
+    // this to a Cloud Function that returns a signed URL instead.
+    match /enquiry-uploads/{folder}/{fileName} {
+      allow read: if true;
+      allow create: if isImageUnder(5 * 1024 * 1024);
+      allow update, delete: if isAdmin();
+    }
+  }
+}

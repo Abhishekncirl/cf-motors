@@ -1,0 +1,47 @@
+rules_version = '2';
+
+// Firestore security rules for CF Motor Sales.
+// Model: the public can READ available vehicles and site settings, and CREATE
+// enquiries. Everything else (all writes to vehicles/settings, and reading
+// enquiries) requires an authenticated admin. There is no public sign-up, so any
+// authenticated user is a staff account you created in the Firebase console.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null;
+    }
+
+    // ---- Vehicles ----
+    match /vehicles/{vehicleId} {
+      // Public may read only vehicles that are currently available. Admins read all.
+      allow read: if isAdmin() || resource.data.status == 'available';
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ---- Enquiries ----
+    match /enquiries/{enquiryId} {
+      // Anyone can submit an enquiry, but only with a sane, size-limited shape.
+      allow create: if isValidEnquiry();
+      // Only admins can read, flag or delete enquiries.
+      allow read, update, delete: if isAdmin();
+    }
+
+    function isValidEnquiry() {
+      let d = request.resource.data;
+      return d.name is string && d.name.size() > 0 && d.name.size() < 200
+        && d.email is string && d.email.size() < 320
+        && d.phone is string && d.phone.size() < 60
+        && d.message is string && d.message.size() < 5000
+        && d.type in ['general', 'vehicle', 'valuation', 'sourcing', 'finance']
+        && d.isRead == false
+        && d.isActioned == false;
+    }
+
+    // ---- Site settings (single doc) ----
+    match /site_settings/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

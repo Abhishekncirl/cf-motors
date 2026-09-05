@@ -1,0 +1,92 @@
+[
+  {
+    "make": "Toyota", "model": "Corolla", "variant": "Hybrid Excel", "year": 2020,
+    "price": 22950, "weeklyPrice": 89, "mileageKm": 48000, "fuelType": "Hybrid",
+    "transmission": "Automatic", "engineSize": "1.8L", "bodyType": "Hatchback",
+    "doors": 5, "seats": 5, "colour": "Pearl White", "previousOwners": 1,
+    "nctExpiry": "2027-05-01", "taxBand": "€180/yr", "importOrigin": "UK",
+    "stockRef": "CF001", "status": "available", "featured": true,
+    "description": "Superb low-mileage Corolla Hybrid Excel, imported from the UK. Full service history, one owner, and the efficient 1.8 self-charging hybrid drivetrain. VRT and NCT completed.\n\nSpec highlights: adaptive cruise, heated seats, reversing camera, Apple CarPlay."
+  },
+  {
+    "make": "Honda", "model": "Fit", "variant": "e:HEV Luxe", "year": 2021,
+    "price": 19750, "weeklyPrice": 75, "mileageKm": 31000, "fuelType": "Hybrid",
+    "transmission": "Automatic", "engineSize": "1.5L", "bodyType": "Hatchback",
+    "doors": 5, "seats": 5, "colour": "Crystal Blue", "previousOwners": 1,
+    "nctExpiry": "2027-02-01", "taxBand": "€180/yr", "importOrigin": "Japan",
+    "stockRef": "CF002", "status": "available", "featured": true,
+    "description": "Fresh Japanese import Honda Fit e:HEV in immaculate condition. Genuine low kilometres with a documented history. Roomy, economical and superbly reliable."
+  },
+  {
+    "make": "Nissan", "model": "X-Trail", "variant": "20Xi 4WD", "year": 2019,
+    "price": 24500, "weeklyPrice": null, "mileageKm": 62000, "fuelType": "Petrol",
+    "transmission": "Automatic", "engineSize": "2.0L", "bodyType": "SUV",
+    "doors": 5, "seats": 5, "colour": "Gunmetal Grey", "previousOwners": 1,
+    "nctExpiry": "2026-11-01", "taxBand": "€400/yr", "importOrigin": "Japan",
+    "stockRef": "CF003", "status": "available", "featured": true,
+    "description": "Japanese-spec X-Trail 20Xi with intelligent 4WD, ProPILOT and a high equipment level rarely seen on Irish models. Ideal family SUV."
+  },
+  {
+    "make": "Mazda", "model": "CX-5", "variant": "GT Sport", "year": 2019,
+    "price": 26900, "weeklyPrice": 99, "mileageKm": 54000, "fuelType": "Diesel",
+    "transmission": "Automatic", "engineSize": "2.2L", "bodyType": "SUV",
+    "doors": 5, "seats": 5, "colour": "Soul Red", "previousOwners": 2,
+    "nctExpiry": "2026-09-01", "taxBand": "€280/yr", "importOrigin": "UK",
+    "stockRef": "CF004", "status": "available", "featured": true,
+    "description": "Striking Soul Red CX-5 GT Sport, UK import, with leather, Bose audio and the punchy 2.2 diesel automatic. Beautifully finished inside and out."
+  },
+  {
+    "make": "Toyota", "model": "Aqua", "variant": "S", "year": 2018,
+    "price": 14950, "weeklyPrice": 57, "mileageKm": 45000, "fuelType": "Hybrid",
+    "transmission": "Automatic", "engineSize": "1.5L", "bodyType": "Hatchback",
+    "doors": 5, "seats": 5, "colour": "Silver", "previousOwners": 1,
+    "nctExpiry": "2027-01-01", "taxBand": "€170/yr", "importOrigin": "Japan",
+    "stockRef": "CF005", "status": "available", "featured": true,
+    "description": "The famously frugal Toyota Aqua (Prius C) - perfect city hybrid with tiny running costs. Fresh Japanese import, verified mileage."
+  },
+  {
+    "make": "Volkswagen", "model": "Golf", "variant": "GT TSI", "year": 2018,
+    "price": 17950, "weeklyPrice": 69, "mileageKm": 71000, "fuelType": "Petrol",
+    "transmission": "Manual", "engineSize": "1.5L", "bodyType": "Hatchback",
+    "doors": 5, "seats": 5, "colour": "Deep Black", "previousOwners": 2,
+    "nctExpiry": "2026-08-01", "taxBand": "€270/yr", "importOrigin": "UK",
+    "stockRef": "CF006", "status": "available", "featured": true,
+    "description": "Well-specced Golf GT 1.5 TSI, UK import, with adaptive cruise, sat-nav and a full service history. Drives as it should."
+  },
+  {
+    "make": "Lexus", "model": "CT", "variant": "200h F Sport", "year": 2019,
+    "price": 23450, "weeklyPrice": 89, "mileageKm": 39000, "fuelType": "Hybrid",
+    "transmission": "Automatic", "engineSize": "1.8L", "bodyType": "Hatchback",
+    "doors": 5, "seats": 5, "colour": "Sonic Titanium", "previousOwners": 1,
+    "nctExpiry": "2027-04-01", "taxBand": "€180/yr", "importOrigin": "UK",
+    "stockRef": "CF007", "status": "available", "featured": false,
+    "description": "Premium Lexus CT 200h F Sport hybrid - refined, economical and superbly built. UK import with heated leather, sat-nav and Lexus reliability."
+  },
+  {
+    "make": "Subaru", "model": "Forester", "variant": "X-Break", "year": 2020,
+    "price": 28900, "weeklyPrice": null, "mileageKm": 41000, "fuelType": "Petrol",
+    "transmission": "Automatic", "engineSize": "2.5L", "bodyType": "SUV",
+    "doors": 5, "seats": 5, "colour": "Jasper Green", "previousOwners": 1,
+    "nctExpiry": "2027-03-01", "taxBand": "€600/yr", "importOrigin": "Japan",
+    "stockRef": "CF008", "status": "available", "featured": false,
+    "description": "Capable Subaru Forester X-Break with symmetrical AWD and X-Mode. Japanese import in a distinctive spec, ready for anything."
+  },
+  {
+    "make": "BMW", "model": "3 Series", "variant": "320d M Sport", "year": 2019,
+    "price": 27950, "weeklyPrice": 105, "mileageKm": 68000, "fuelType": "Diesel",
+    "transmission": "Automatic", "engineSize": "2.0L", "bodyType": "Saloon",
+    "doors": 4, "seats": 5, "colour": "Mineral Grey", "previousOwners": 2,
+    "nctExpiry": "2026-10-01", "taxBand": "€280/yr", "importOrigin": "UK",
+    "stockRef": "CF009", "status": "reserved", "featured": false,
+    "description": "Sharp 320d M Sport saloon, UK import, with the smooth 8-speed auto, leather and full M Sport styling. Currently reserved."
+  },
+  {
+    "make": "Honda", "model": "Vezel", "variant": "Hybrid Z", "year": 2018,
+    "price": 18950, "weeklyPrice": 72, "mileageKm": 52000, "fuelType": "Hybrid",
+    "transmission": "Automatic", "engineSize": "1.5L", "bodyType": "SUV",
+    "doors": 5, "seats": 5, "colour": "White Orchid", "previousOwners": 1,
+    "nctExpiry": "2027-06-01", "taxBand": "€180/yr", "importOrigin": "Japan",
+    "stockRef": "CF010", "status": "available", "featured": false,
+    "description": "Honda Vezel Hybrid Z (HR-V) - stylish compact SUV with a great hybrid system and generous spec. Fresh Japanese import with low kilometres."
+  }
+]
