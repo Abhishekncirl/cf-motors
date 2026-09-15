@@ -10,7 +10,11 @@ import {
   serverTimestamp,
 } from 'firebase/firestore/lite';
 import { requireDb } from './firebase';
+import { deleteImageByUrl } from './storage';
 import type { Enquiry, EnquiryType } from './types';
+
+// Payload keys that hold arrays of uploaded image URLs.
+const PHOTO_KEYS = ['photoUrls', 'photos', 'images'];
 
 export const ENQUIRIES = 'enquiries';
 
@@ -77,8 +81,20 @@ export async function setEnquiryFlags(
   await updateDoc(doc(db, ENQUIRIES, id), flags);
 }
 
-/** Permanently delete an enquiry. */
-export async function deleteEnquiry(id: string): Promise<void> {
+/**
+ * Permanently delete an enquiry AND any photos the customer uploaded with it,
+ * freeing that Cloud Storage space. Photo deletion is best-effort - a missing
+ * file never blocks removing the enquiry record.
+ */
+export async function deleteEnquiry(enquiry: Enquiry): Promise<void> {
   const db = requireDb();
-  await deleteDoc(doc(db, ENQUIRIES, id));
+  const urls: string[] = [];
+  for (const key of PHOTO_KEYS) {
+    const v = enquiry.payload?.[key];
+    if (Array.isArray(v)) {
+      for (const item of v) if (typeof item === 'string') urls.push(item);
+    }
+  }
+  await Promise.all(urls.map((u) => deleteImageByUrl(u)));
+  await deleteDoc(doc(db, ENQUIRIES, enquiry.id));
 }

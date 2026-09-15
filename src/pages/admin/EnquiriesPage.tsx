@@ -45,7 +45,7 @@ export function EnquiriesPage() {
     if (!toDelete) return;
     setDeleting(true);
     try {
-      await deleteEnquiry(toDelete.id);
+      await deleteEnquiry(toDelete);
       setToDelete(null);
       await reload();
     } finally {
@@ -186,7 +186,7 @@ export function EnquiriesPage() {
         open={Boolean(toDelete)}
         destructive
         title="Delete this enquiry?"
-        message="This permanently removes the enquiry and can't be undone. Any photos the customer uploaded stay in storage."
+        message="This permanently removes the enquiry and any photos the customer uploaded, freeing that storage. This can't be undone."
         confirmLabel="Delete enquiry"
         onConfirm={confirmDelete}
         onCancel={() => setToDelete(null)}

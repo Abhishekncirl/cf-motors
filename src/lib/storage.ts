@@ -87,3 +87,18 @@ export async function deleteVehicleImage(storagePath: string): Promise<void> {
     // Ignore missing objects - keeps archive/edit flows resilient.
   }
 }
+
+/**
+ * Delete a stored object by its public download URL. Used to remove
+ * customer-uploaded enquiry photos (we only keep their URLs, not storage paths).
+ * The Storage `ref()` helper accepts an https download URL directly.
+ */
+export async function deleteImageByUrl(url: string): Promise<void> {
+  if (!url || !/^https?:\/\//.test(url)) return;
+  const storage = requireStorage();
+  try {
+    await deleteObject(ref(storage, url));
+  } catch {
+    // Ignore missing objects / already-deleted files.
+  }
+}
