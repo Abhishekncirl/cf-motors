@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X, Phone, Lock } from 'lucide-react';
 import { Logo } from '../brand/Logo';
 import { useSiteSettings } from '../../hooks/useSiteSettings';
 import { telLink } from '../../config/business';
@@ -74,6 +74,10 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <Link to="/admin" className="btn-outline hidden lg:inline-flex">
+            <Lock size={15} aria-hidden />
+            <span>Admin</span>
+          </Link>
           <a href={telLink()} className="btn-primary hidden sm:inline-flex">
             <Phone size={16} aria-hidden />
             <span>{settings.phoneDisplay}</span>
@@ -116,6 +120,9 @@ export function Header() {
             <a href={telLink()} className="btn-outline mt-2">
               <Phone size={16} aria-hidden /> Call {settings.phoneDisplay}
             </a>
+            <Link to="/admin" className="btn-outline mt-2">
+              <Lock size={16} aria-hidden /> Admin
+            </Link>
           </nav>
         </div>
       )}
