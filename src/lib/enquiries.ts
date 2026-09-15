@@ -5,6 +5,7 @@ import {
   query,
   orderBy,
   updateDoc,
+  deleteDoc,
   doc,
   serverTimestamp,
 } from 'firebase/firestore/lite';
@@ -74,4 +75,10 @@ export async function setEnquiryFlags(
 ): Promise<void> {
   const db = requireDb();
   await updateDoc(doc(db, ENQUIRIES, id), flags);
+}
+
+/** Permanently delete an enquiry. */
+export async function deleteEnquiry(id: string): Promise<void> {
+  const db = requireDb();
+  await deleteDoc(doc(db, ENQUIRIES, id));
 }

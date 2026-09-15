@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { ChevronLeft, Save, Archive } from 'lucide-react';
-import { getVehicleById, createVehicleWithId, updateVehicle, type VehicleInput } from '../../lib/vehicles';
+import { ChevronLeft, Save, Archive, Trash2 } from 'lucide-react';
+import { getVehicleById, createVehicleWithId, updateVehicle, hardDeleteVehicle, type VehicleInput } from '../../lib/vehicles';
 import type { Vehicle, VehicleImage } from '../../lib/types';
 import { TextField, TextAreaField, SelectField } from '../../components/forms/Fields';
 import { ImageManager } from './ImageManager';
@@ -48,6 +48,7 @@ export function VehicleEditPage({ mode }: { mode: 'create' | 'edit' }) {
   const [loading, setLoading] = useState(mode === 'edit');
   const [saving, setSaving] = useState(false);
   const [confirmArchive, setConfirmArchive] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const [existing, setExisting] = useState<Vehicle | null>(null);
 
   useEffect(() => {
@@ -104,6 +105,13 @@ export function VehicleEditPage({ mode }: { mode: 'create' | 'edit' }) {
     if (!routeId) return;
     setSaving(true);
     await updateVehicle(routeId, { status: 'sold' });
+    navigate('/admin/vehicles');
+  };
+
+  const doDelete = async () => {
+    if (!existing) return;
+    setSaving(true);
+    await hardDeleteVehicle(existing);
     navigate('/admin/vehicles');
   };
 
@@ -188,9 +196,14 @@ export function VehicleEditPage({ mode }: { mode: 'create' | 'edit' }) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           {mode === 'edit' && (
-            <button type="button" onClick={() => setConfirmArchive(true)} className="btn-outline border-red-400/40 text-red-300 hover:border-red-400">
-              <Archive size={16} aria-hidden /> Mark as sold (archive)
-            </button>
+            <div className="flex flex-wrap gap-3">
+              <button type="button" onClick={() => setConfirmArchive(true)} className="btn-outline border-amber-400/40 text-amber-300 hover:border-amber-400">
+                <Archive size={16} aria-hidden /> Mark as sold (archive)
+              </button>
+              <button type="button" onClick={() => setConfirmDelete(true)} className="btn border border-red-400/40 text-red-300 hover:border-red-400 hover:text-red-200">
+                <Trash2 size={16} aria-hidden /> Delete permanently
+              </button>
+            </div>
           )}
         </div>
         <div className="flex gap-3">
@@ -209,6 +222,17 @@ export function VehicleEditPage({ mode }: { mode: 'create' | 'edit' }) {
         confirmLabel="Mark as sold"
         onConfirm={doArchive}
         onCancel={() => setConfirmArchive(false)}
+        busy={saving}
+      />
+
+      <ConfirmDialog
+        open={confirmDelete}
+        destructive
+        title="Delete this vehicle permanently?"
+        message="This removes the vehicle and all its photos for good. This can't be undone. To just hide it from the site instead, use 'Mark as sold'."
+        confirmLabel="Delete permanently"
+        onConfirm={doDelete}
+        onCancel={() => setConfirmDelete(false)}
         busy={saving}
       />
     </form>

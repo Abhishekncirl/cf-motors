@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Copy, Star, Search } from 'lucide-react';
-import { listAllVehicles, updateVehicle, createVehicle } from '../../lib/vehicles';
+import { Plus, Copy, Star, Search, Trash2 } from 'lucide-react';
+import { listAllVehicles, updateVehicle, createVehicle, hardDeleteVehicle } from '../../lib/vehicles';
 import type { Vehicle, VehicleStatus } from '../../lib/types';
 import { Spinner } from '../../components/ui/Spinner';
 import { StatusBadge } from '../../components/ui/Badges';
+import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
 import { formatPrice, formatMileage, vehicleTitle } from '../../lib/format';
 import { vehicleSlug } from '../../lib/slug';
 import { VEHICLE_STATUSES } from '../../config/options';
@@ -13,6 +14,8 @@ export function VehicleListPage() {
   const [vehicles, setVehicles] = useState<Vehicle[] | null>(null);
   const [search, setSearch] = useState('');
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [toDelete, setToDelete] = useState<Vehicle | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   const reload = () => listAllVehicles().then(setVehicles).catch(() => setVehicles([]));
   useEffect(() => {
@@ -50,6 +53,18 @@ export function VehicleListPage() {
     });
     await reload();
     setBusyId(null);
+  };
+
+  const confirmDelete = async () => {
+    if (!toDelete) return;
+    setDeleting(true);
+    try {
+      await hardDeleteVehicle(toDelete);
+      setToDelete(null);
+      await reload();
+    } finally {
+      setDeleting(false);
+    }
   };
 
   if (!vehicles) return <Spinner label="Loading vehicles" />;
@@ -132,6 +147,14 @@ export function VehicleListPage() {
                       <Copy size={14} aria-hidden /> Duplicate
                     </button>
                     <Link to={`/admin/vehicles/${v.id}`} className="btn-outline px-3 py-1 text-xs">Edit</Link>
+                    <button
+                      onClick={() => setToDelete(v)}
+                      disabled={busyId === v.id}
+                      className="btn border border-red-400/40 px-2 py-1 text-xs text-red-300 hover:border-red-400 hover:text-red-200"
+                      title="Delete permanently"
+                    >
+                      <Trash2 size={14} aria-hidden /> Delete
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -143,9 +166,24 @@ export function VehicleListPage() {
         )}
         <div className="mt-2 flex items-center gap-2">
           <StatusBadge status="available" />
-          <span className="text-xs text-brand-white/40">Sold/reserved cars stay in the database but drop off the public site.</span>
+          <span className="text-xs text-brand-white/40">Sold/reserved cars stay in the database but drop off the public site. Delete removes a car and its photos for good.</span>
         </div>
       </div>
+
+      <ConfirmDialog
+        open={Boolean(toDelete)}
+        destructive
+        title="Delete this vehicle permanently?"
+        message={
+          toDelete
+            ? `"${vehicleTitle(toDelete, true)}" and all its photos will be permanently removed. This can't be undone. To just hide it from the site instead, set its status to Sold.`
+            : ''
+        }
+        confirmLabel="Delete permanently"
+        onConfirm={confirmDelete}
+        onCancel={() => setToDelete(null)}
+        busy={deleting}
+      />
     </div>
   );
 }

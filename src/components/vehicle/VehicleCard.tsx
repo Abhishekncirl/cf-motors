@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Gauge, Fuel, Cog, Phone } from 'lucide-react';
+import { Gauge, Fuel, Cog } from 'lucide-react';
 import type { Vehicle } from '../../lib/types';
 import { ImportOriginBadge } from '../ui/Badges';
 import { formatPrice, formatMileage, formatWeekly, vehicleTitle, vehicleAlt } from '../../lib/format';
-import { telLink, whatsappLink } from '../../config/business';
+import { whatsappLink } from '../../config/business';
 import { WhatsAppIcon } from '../brand/WhatsAppIcon';
 
 const PLACEHOLDER =
@@ -99,9 +99,6 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
             className="btn-outline justify-center py-2 text-xs"
           >
             <WhatsAppIcon className="h-4 w-4" /> WhatsApp
-          </a>
-          <a href={telLink()} className="btn-ghost col-span-2 justify-center py-1.5 text-xs">
-            <Phone size={14} aria-hidden /> Call about this car
           </a>
         </div>
       </div>

@@ -10,11 +10,13 @@ import {
   addDoc,
   setDoc,
   updateDoc,
+  deleteDoc,
   serverTimestamp,
   type QueryConstraint,
   type DocumentData,
 } from 'firebase/firestore/lite';
 import { requireDb } from './firebase';
+import { deleteVehicleImage } from './storage';
 import type {
   Vehicle,
   VehicleStatus,
@@ -263,7 +265,19 @@ export async function updateVehicle(id: string, patch: Partial<VehicleInput>): P
   });
 }
 
-/** Vehicles are archived (status change), never hard-deleted, to keep history. */
+/** Soft-archive: mark sold so it drops off the public site but stays on record. */
 export async function archiveVehicle(id: string): Promise<void> {
   await updateVehicle(id, { status: 'sold' });
+}
+
+/**
+ * Permanently delete a vehicle: removes all its images from Storage, then the
+ * Firestore document. Irreversible - the admin UI guards this behind a confirm.
+ */
+export async function hardDeleteVehicle(vehicle: Vehicle): Promise<void> {
+  const db = requireDb();
+  await Promise.all(
+    vehicle.images.map((img) => (img.storagePath ? deleteVehicleImage(img.storagePath) : Promise.resolve()))
+  );
+  await deleteDoc(doc(db, VEHICLES, vehicle.id));
 }
