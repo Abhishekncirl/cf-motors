@@ -1,6 +1,5 @@
 import { Seo } from '../lib/seo';
 import { HeroSection } from '../components/home/HeroSection';
-import { QuickFilters } from '../components/home/QuickFilters';
 import { FeaturedStock } from '../components/home/FeaturedStock';
 import { WhyImports } from '../components/home/WhyImports';
 import { ImportProcess } from '../components/home/ImportProcess';
@@ -17,7 +16,6 @@ export function HomePage() {
         path="/"
       />
       <HeroSection />
-      <QuickFilters />
       <FeaturedStock />
       <WhyImports />
       <ImportProcess />
