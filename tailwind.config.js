@@ -4,16 +4,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Brand tokens sampled from the CF Motor Sales logo (white + cyan on black).
+        // Brand tokens - "softer dark": charcoal base + lighter cards for a
+        // premium-but-lighter feel (still white + cyan on dark, per the logo).
         brand: {
-          black: '#0A0A0A', // primary background, header, footer
+          black: '#15171C', // primary background, header, footer (was near-black)
           cyan: '#4FE3DE', // accent, CTAs, active states, highlight bars
           white: '#FFFFFF', // body text on dark, card surfaces
-          grey: '#1A1A1A', // card backgrounds, section alternation
+          grey: '#22252D', // card backgrounds, section alternation (clearly lifted)
         },
         // Convenience aliases used across components.
-        ink: '#0A0A0A',
-        surface: '#1A1A1A',
+        ink: '#15171C',
+        surface: '#22252D',
         accent: '#4FE3DE',
       },
       fontFamily: {
