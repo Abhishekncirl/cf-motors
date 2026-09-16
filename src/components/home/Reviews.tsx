@@ -28,30 +28,30 @@ export function Reviews() {
   const avg = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
 
   return (
-    <section className="border-y border-line bg-white py-16">
+    <section className="bg-night py-16 text-white">
       <div className="container-page">
         <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <p className="section-eyebrow mb-2">What our customers say</p>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand-cyan">What our customers say</p>
             <h2 className="font-display text-3xl font-bold sm:text-4xl">Google Reviews</h2>
           </div>
           <div className="flex items-center gap-3">
-            <span className="font-display text-3xl font-bold text-teal">{avg.toFixed(1)}</span>
+            <span className="font-display text-3xl font-bold text-brand-cyan">{avg.toFixed(1)}</span>
             <div>
               <Stars rating={Math.round(avg)} />
-              <p className="text-xs text-ink/50">{reviews.length} reviews</p>
+              <p className="text-xs text-white/50">{reviews.length} reviews</p>
             </div>
           </div>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {reviews.map((r, i) => (
-            <figure key={i} className="card flex flex-col p-6">
+            <figure key={i} className="flex flex-col rounded-xl border border-white/10 bg-nightcard p-6">
               <Stars rating={r.rating} />
-              <blockquote className="mt-3 flex-1 text-sm text-ink/75">“{r.text}”</blockquote>
-              <figcaption className="mt-4 text-sm font-semibold text-ink">
+              <blockquote className="mt-3 flex-1 text-sm text-white/75">“{r.text}”</blockquote>
+              <figcaption className="mt-4 text-sm font-semibold text-white">
                 {r.author}
-                <span className="ml-2 font-normal text-ink/40">
+                <span className="ml-2 font-normal text-white/40">
                   {new Date(r.date).toLocaleDateString('en-IE', { month: 'short', year: 'numeric' })}
                 </span>
               </figcaption>

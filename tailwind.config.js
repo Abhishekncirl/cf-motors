@@ -20,6 +20,9 @@ export default {
         line: '#E2E6EB', // borders on light
         teal: '#0E8C87', // accent text/links/icons (accessible cyan on white)
         accent: '#4FE3DE',
+        // Dark "bands" (header, hero, feature sections, footer) - black/white mix.
+        night: '#101319', // dark section background
+        nightcard: '#1C222C', // card surface on dark bands
       },
       fontFamily: {
         // Condensed geometric sans for headings (echoes the logo wordmark).

@@ -42,8 +42,8 @@ export function Header() {
     <header
       className={`sticky top-0 z-50 border-b transition-colors ${
         scrolled
-          ? 'border-line bg-white/90 shadow-card backdrop-blur'
-          : 'border-line bg-white'
+          ? 'border-white/10 bg-night/95 backdrop-blur'
+          : 'border-white/10 bg-night'
       }`}
     >
       <a
@@ -63,8 +63,8 @@ export function Header() {
               className={({ isActive }) =>
                 `rounded-md px-3 py-2 text-sm font-semibold uppercase tracking-wide transition-colors ${
                   isActive
-                    ? 'text-teal'
-                    : 'text-ink/80 hover:text-teal'
+                    ? 'text-brand-cyan'
+                    : 'text-white/80 hover:text-brand-cyan'
                 }`
               }
             >
@@ -74,7 +74,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link to="/admin" className="btn-outline hidden lg:inline-flex">
+          <Link to="/admin" className="btn-outline-dark hidden lg:inline-flex">
             <Lock size={15} aria-hidden />
             <span>Admin</span>
           </Link>
@@ -84,7 +84,7 @@ export function Header() {
           </a>
           <button
             type="button"
-            className="btn-outline px-2.5 py-2 lg:hidden"
+            className="btn-outline-dark px-2.5 py-2 lg:hidden"
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -99,7 +99,7 @@ export function Header() {
         <div className="lg:hidden">
           <nav
             aria-label="Mobile"
-            className="container-page flex flex-col gap-1 border-t border-line py-4"
+            className="container-page flex flex-col gap-1 border-t border-white/10 py-4"
           >
             {NAV.map((item) => (
               <NavLink
@@ -107,7 +107,7 @@ export function Header() {
                 to={item.to}
                 className={({ isActive }) =>
                   `rounded-md px-3 py-3 text-base font-semibold uppercase tracking-wide ${
-                    isActive ? 'bg-white text-teal' : 'text-ink'
+                    isActive ? 'bg-white/10 text-brand-cyan' : 'text-white'
                   }`
                 }
               >
@@ -117,10 +117,10 @@ export function Header() {
             <Link to="/stock" className="btn-primary mt-3">
               Browse Stock
             </Link>
-            <a href={telLink()} className="btn-outline mt-2">
+            <a href={telLink()} className="btn-outline-dark mt-2">
               <Phone size={16} aria-hidden /> Call {settings.phoneDisplay}
             </a>
-            <Link to="/admin" className="btn-outline mt-2">
+            <Link to="/admin" className="btn-outline-dark mt-2">
               <Lock size={16} aria-hidden /> Admin
             </Link>
           </nav>
