@@ -104,7 +104,7 @@ export function StockPage() {
             </div>
           )}
 
-          {loading ? (
+          {loading && !result ? (
             <Spinner label="Loading stock" />
           ) : error ? (
             <div className="card p-8 text-center text-brand-white/70">

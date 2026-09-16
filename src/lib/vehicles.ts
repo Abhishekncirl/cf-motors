@@ -102,41 +102,115 @@ export interface VehicleQueryResult {
 }
 
 /**
- * Design note on filtering strategy
- * ----------------------------------
- * Firestore forbids range filters (<, >) on more than one field per query, and
- * combining many equality filters with an orderBy needs a composite index per
- * combination. The stock filter UI exposes several ranges at once (year, price,
- * mileage), so a single all-server-side query is impossible.
- *
- * A single dealership's live stock is small (tens of vehicles, never the
- * thousands where this matters), so we push the status filter + primary sort to
- * Firestore (indexed) and evaluate the remaining equality/range filters over the
- * returned `status = available` set. We never load sold/reserved rows to the
- * browser, and pagination is computed after filtering. For a much larger
- * inventory you would move filtering to a dedicated search index (e.g. Algolia
- * / Typesense) fed by Firestore triggers - the call sites here would not change.
+ * Availability cache (performance)
+ * --------------------------------
+ * A single dealership's live stock is small, so instead of hitting Firestore on
+ * every page / filter / sort change we fetch all `status = available` vehicles
+ * ONCE and serve filtering, sorting and pagination from memory. This cache is
+ * shared across the home, stock and detail pages, so navigating between them is
+ * instant. A short TTL keeps it fresh, admin writes invalidate it immediately,
+ * and a sessionStorage copy gives instant first paint on repeat visits within a
+ * session (stale-while-revalidate). Filtering server-side isn't possible anyway:
+ * Firestore forbids range filters on multiple fields, and the UI exposes several
+ * ranges (year, price, mileage) at once. For a much larger inventory you'd feed
+ * a dedicated search index - these call sites wouldn't change.
  */
+const CACHE_TTL = 60_000; // 1 minute
+const SESSION_KEY = 'cf-available-vehicles';
+let availCache: { at: number; items: Vehicle[] } | null = null;
+let inflight: Promise<Vehicle[]> | null = null;
+
+async function fetchAvailable(): Promise<Vehicle[]> {
+  const db = requireDb();
+  const snap = await getDocs(
+    query(collection(db, VEHICLES), where('status', '==', 'available'), orderBy('createdAt', 'desc'))
+  );
+  const items = snap.docs.map((d) => toVehicle(d.id, d.data()));
+  availCache = { at: Date.now(), items };
+  try {
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify(availCache));
+  } catch {
+    /* storage unavailable - fine, memory cache still works */
+  }
+  return items;
+}
+
+function readSession(): { at: number; items: Vehicle[] } | null {
+  try {
+    const raw = sessionStorage.getItem(SESSION_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return parsed && Array.isArray(parsed.items) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Available vehicles, served from cache where possible (see note above). */
+async function getAvailable(): Promise<Vehicle[]> {
+  const now = Date.now();
+  if (availCache && now - availCache.at < CACHE_TTL) return availCache.items;
+
+  // First call this page-load: paint instantly from sessionStorage, refresh in bg.
+  if (!availCache) {
+    const sess = readSession();
+    if (sess) {
+      availCache = sess;
+      if (now - sess.at >= CACHE_TTL && !inflight) {
+        inflight = fetchAvailable().finally(() => (inflight = null));
+      }
+      return sess.items;
+    }
+  }
+
+  if (!inflight) inflight = fetchAvailable().finally(() => (inflight = null));
+  return inflight;
+}
+
+/** Drop the cache so the next read re-fetches (called after admin writes). */
+export function invalidateVehicleCache(): void {
+  availCache = null;
+  inflight = null;
+  try {
+    sessionStorage.removeItem(SESSION_KEY);
+  } catch {
+    /* ignore */
+  }
+}
+
+function sortVehicles(items: Vehicle[], sort: VehicleSort): Vehicle[] {
+  const { field, dir } = SORT_FIELD[sort];
+  const mul = dir === 'asc' ? 1 : -1;
+  return [...items].sort((a, b) => {
+    const av = a[field as keyof Vehicle] as number;
+    const bv = b[field as keyof Vehicle] as number;
+    return (av < bv ? -1 : av > bv ? 1 : 0) * mul;
+  });
+}
+
 export async function queryVehicles(
   filters: VehicleFilters = {},
   sort: VehicleSort = 'newest',
   page = 1,
   pageSize = 12
 ): Promise<VehicleQueryResult> {
-  const db = requireDb();
-  const constraints: QueryConstraint[] = [];
-
   const status = filters.status ?? 'available';
-  if (status !== 'all') constraints.push(where('status', '==', status));
-  if (filters.featured) constraints.push(where('featured', '==', true));
 
-  const s = SORT_FIELD[sort];
-  constraints.push(orderBy(s.field, s.dir));
+  let base: Vehicle[];
+  if (status === 'available') {
+    base = await getAvailable(); // cached
+  } else {
+    // Non-public status (rare) - query directly, uncached.
+    const db = requireDb();
+    const constraints: QueryConstraint[] = [];
+    if (status !== 'all') constraints.push(where('status', '==', status));
+    constraints.push(orderBy('createdAt', 'desc'));
+    const snap = await getDocs(query(collection(db, VEHICLES), ...constraints));
+    base = snap.docs.map((d) => toVehicle(d.id, d.data()));
+  }
 
-  const snap = await getDocs(query(collection(db, VEHICLES), ...constraints));
-  let items = snap.docs.map((docSnap) => toVehicle(docSnap.id, docSnap.data()));
-
-  // In-memory refinement (see design note).
+  let items = sortVehicles(base, sort);
+  if (filters.featured) items = items.filter((v) => v.featured);
   items = items.filter((v) => matchesFilters(v, filters));
 
   const total = items.length;
@@ -168,20 +242,18 @@ function matchesFilters(v: Vehicle, f: VehicleFilters): boolean {
 }
 
 export async function getFeaturedVehicles(max = 6): Promise<Vehicle[]> {
-  const db = requireDb();
-  const snap = await getDocs(
-    query(
-      collection(db, VEHICLES),
-      where('status', '==', 'available'),
-      where('featured', '==', true),
-      orderBy('createdAt', 'desc'),
-      fbLimit(max)
-    )
-  );
-  return snap.docs.map((d) => toVehicle(d.id, d.data()));
+  const items = await getAvailable(); // cached, already newest-first
+  return items.filter((v) => v.featured).slice(0, max);
 }
 
 export async function getVehicleBySlug(slug: string): Promise<Vehicle | null> {
+  // Serve from the shared cache when we can (instant on detail pages).
+  const cached = availCache?.items.find((v) => v.slug === slug);
+  if (cached) return cached;
+  const items = await getAvailable();
+  const found = items.find((v) => v.slug === slug);
+  if (found) return found;
+  // Fallback: direct lookup (e.g. cache empty or a non-available slug).
   const db = requireDb();
   const snap = await getDocs(
     query(collection(db, VEHICLES), where('slug', '==', slug), fbLimit(1))
@@ -199,16 +271,7 @@ export async function getVehicleById(id: string): Promise<Vehicle | null> {
 
 /** Similar = same body type or make, available, excluding the current vehicle. */
 export async function getSimilarVehicles(v: Vehicle, max = 4): Promise<Vehicle[]> {
-  const db = requireDb();
-  const snap = await getDocs(
-    query(
-      collection(db, VEHICLES),
-      where('status', '==', 'available'),
-      orderBy('createdAt', 'desc'),
-      fbLimit(24)
-    )
-  );
-  const all = snap.docs.map((d) => toVehicle(d.id, d.data())).filter((x) => x.id !== v.id);
+  const all = (await getAvailable()).filter((x) => x.id !== v.id);
   const scored = all
     .map((x) => ({
       x,
@@ -238,6 +301,7 @@ export async function createVehicle(input: VehicleInput): Promise<string> {
     updatedAt: Date.now(),
     _serverUpdatedAt: serverTimestamp(),
   });
+  invalidateVehicleCache();
   return ref.id;
 }
 
@@ -254,6 +318,7 @@ export async function createVehicleWithId(id: string, input: VehicleInput): Prom
     updatedAt: Date.now(),
     _serverUpdatedAt: serverTimestamp(),
   });
+  invalidateVehicleCache();
 }
 
 export async function updateVehicle(id: string, patch: Partial<VehicleInput>): Promise<void> {
@@ -263,6 +328,7 @@ export async function updateVehicle(id: string, patch: Partial<VehicleInput>): P
     updatedAt: Date.now(),
     _serverUpdatedAt: serverTimestamp(),
   });
+  invalidateVehicleCache();
 }
 
 /** Soft-archive: mark sold so it drops off the public site but stays on record. */
@@ -280,4 +346,5 @@ export async function hardDeleteVehicle(vehicle: Vehicle): Promise<void> {
     vehicle.images.map((img) => (img.storagePath ? deleteVehicleImage(img.storagePath) : Promise.resolve()))
   );
   await deleteDoc(doc(db, VEHICLES, vehicle.id));
+  invalidateVehicleCache();
 }
