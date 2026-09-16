@@ -22,7 +22,7 @@ export function FeaturedStock() {
   if (vehicles && vehicles.length === 0) return null;
 
   return (
-    <section className="bg-brand-black py-16">
+    <section className="bg-page py-16">
       <div className="container-page">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>

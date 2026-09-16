@@ -75,12 +75,12 @@ export function VehicleDetailPage() {
             <h1 className="mt-3 font-display text-3xl font-bold sm:text-4xl">{title}</h1>
 
             <div className="mt-4">
-              <p className="font-display text-4xl font-bold text-brand-cyan">
+              <p className="font-display text-4xl font-bold text-teal">
                 {formatPrice(vehicle.price)}
               </p>
               {/* Weekly line only renders when a figure exists on the record. */}
               {vehicle.weeklyPrice != null && (
-                <p className="mt-1 text-sm text-brand-white/60">or from {formatWeekly(vehicle.weeklyPrice)}</p>
+                <p className="mt-1 text-sm text-ink/60">or from {formatWeekly(vehicle.weeklyPrice)}</p>
               )}
             </div>
 
@@ -99,8 +99,8 @@ export function VehicleDetailPage() {
               <a href="#enquire" className="btn-outline col-span-2">Enquire about this car</a>
             </div>
 
-            <div className="mt-6 card p-5 text-sm text-brand-white/70">
-              <p className="font-semibold text-brand-white">Import &amp; paperwork included</p>
+            <div className="mt-6 card p-5 text-sm text-ink/70">
+              <p className="font-semibold text-ink">Import &amp; paperwork included</p>
               <p className="mt-1">
                 VRT and NCT are handled before you collect. Ask us about part-exchange
                 and delivery anywhere in Ireland.
@@ -112,7 +112,7 @@ export function VehicleDetailPage() {
         {vehicle.description && (
           <section className="mt-10">
             <h2 className="mb-3 font-display text-2xl font-bold">Description</h2>
-            <p className="max-w-3xl whitespace-pre-line text-brand-white/75">{vehicle.description}</p>
+            <p className="max-w-3xl whitespace-pre-line text-ink/75">{vehicle.description}</p>
           </section>
         )}
 
@@ -143,7 +143,7 @@ export function VehicleDetailPage() {
       </div>
 
       {/* Sticky mobile action bar */}
-      <div className="sticky bottom-0 z-40 border-t border-white/10 bg-brand-black/95 backdrop-blur lg:hidden">
+      <div className="sticky bottom-0 z-40 border-t border-line bg-white/95 backdrop-blur lg:hidden">
         <div className="container-page grid grid-cols-3 gap-2 py-3">
           <a href={telLink()} className="btn-outline justify-center py-2 text-xs">
             <Phone size={16} aria-hidden /> Call

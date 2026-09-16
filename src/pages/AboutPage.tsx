@@ -25,8 +25,8 @@ export function AboutPage() {
 
       <section className="container-page py-12">
         <div className="grid gap-10 lg:grid-cols-2">
-          <div className="space-y-4 text-brand-white/75">
-            <h2 className="font-display text-2xl font-bold text-brand-white">Our story</h2>
+          <div className="space-y-4 text-ink/75">
+            <h2 className="font-display text-2xl font-bold text-ink">Our story</h2>
             <p>
               [CONFIRM company story] We started CF Motor Sales because we saw how
               many great cars in the UK and Japan never made it to Irish forecourts -
@@ -48,7 +48,7 @@ export function AboutPage() {
             {[1, 2, 3, 4].map((n) => (
               <div
                 key={n}
-                className="flex aspect-[4/3] items-center justify-center rounded-xl border border-white/10 bg-brand-grey text-xs text-brand-white/40"
+                className="flex aspect-[4/3] items-center justify-center rounded-xl border border-line bg-white text-xs text-ink/40"
               >
                 Forecourt photo {n}
               </div>
@@ -59,11 +59,11 @@ export function AboutPage() {
         <div className="mt-14 grid gap-6 sm:grid-cols-3">
           {VALUES.map(({ icon: Icon, title, body }) => (
             <div key={title} className="card p-6">
-              <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-brand-cyan/10 text-brand-cyan">
+              <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-brand-cyan/10 text-teal">
                 <Icon size={22} aria-hidden />
               </span>
               <h3 className="mt-4 font-display text-lg font-bold">{title}</h3>
-              <p className="mt-2 text-sm text-brand-white/65">{body}</p>
+              <p className="mt-2 text-sm text-ink/65">{body}</p>
             </div>
           ))}
         </div>

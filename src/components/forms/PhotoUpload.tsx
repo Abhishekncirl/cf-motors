@@ -26,13 +26,13 @@ export function PhotoUpload({
       <span className="field-label">Photos (up to {max})</span>
       <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
         {files.map((f, i) => (
-          <div key={i} className="relative aspect-square overflow-hidden rounded-md border border-white/15">
+          <div key={i} className="relative aspect-square overflow-hidden rounded-md border border-line">
             <img src={URL.createObjectURL(f)} alt={`Upload ${i + 1}`} className="h-full w-full object-cover" />
             <button
               type="button"
               onClick={() => remove(i)}
               aria-label={`Remove photo ${i + 1}`}
-              className="absolute right-1 top-1 rounded-full bg-brand-black/80 p-1 text-white hover:text-brand-cyan"
+              className="absolute right-1 top-1 rounded-full bg-black/80 p-1 text-white hover:text-teal"
             >
               <X size={14} aria-hidden />
             </button>
@@ -42,7 +42,7 @@ export function PhotoUpload({
           <button
             type="button"
             onClick={() => inputRef.current?.click()}
-            className="flex aspect-square flex-col items-center justify-center gap-1 rounded-md border border-dashed border-white/25 text-brand-white/50 hover:border-brand-cyan hover:text-brand-cyan"
+            className="flex aspect-square flex-col items-center justify-center gap-1 rounded-md border border-dashed border-line text-ink/50 hover:border-brand-cyan hover:text-teal"
           >
             <ImagePlus size={22} aria-hidden />
             <span className="text-[0.65rem]">Add photo</span>
@@ -57,7 +57,7 @@ export function PhotoUpload({
         className="sr-only"
         onChange={(e) => add(e.target.files)}
       />
-      <p className="mt-2 text-xs text-brand-white/45">
+      <p className="mt-2 text-xs text-ink/45">
         Photos are optional but help us value your car faster. Large images are compressed automatically.
       </p>
     </div>

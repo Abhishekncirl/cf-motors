@@ -30,7 +30,7 @@ export function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-brand-black p-4">
+    <div className="flex min-h-screen items-center justify-center bg-page p-4">
       <div className="w-full max-w-sm">
         <div className="mb-8 flex justify-center">
           <Logo />
@@ -38,7 +38,7 @@ export function LoginPage() {
         <form onSubmit={onSubmit} className="card space-y-4 p-6">
           <div>
             <h1 className="font-display text-xl font-bold">Admin sign in</h1>
-            <p className="mt-1 text-sm text-brand-white/55">Staff access only.</p>
+            <p className="mt-1 text-sm text-ink/55">Staff access only.</p>
           </div>
 
           {!isFirebaseConfigured && (

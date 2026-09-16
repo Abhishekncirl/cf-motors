@@ -73,13 +73,13 @@ export function ImportServicePage() {
           {STEPS.map(({ icon: Icon, title, body }, i) => (
             <div key={title} className="card p-6">
               <div className="flex items-center gap-3">
-                <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-cyan/10 text-brand-cyan">
+                <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-cyan/10 text-teal">
                   <Icon size={22} aria-hidden />
                 </span>
-                <span className="text-xs font-semibold text-brand-white/40">Step {i + 1}</span>
+                <span className="text-xs font-semibold text-ink/40">Step {i + 1}</span>
               </div>
               <h2 className="mt-4 font-display text-xl font-bold">{title}</h2>
-              <p className="mt-2 text-sm text-brand-white/65">{body}</p>
+              <p className="mt-2 text-sm text-ink/65">{body}</p>
             </div>
           ))}
         </div>
@@ -87,7 +87,7 @@ export function ImportServicePage() {
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
           <div className="card p-6">
             <h2 className="font-display text-xl font-bold">Indicative timelines</h2>
-            <ul className="mt-3 space-y-2 text-sm text-brand-white/70">
+            <ul className="mt-3 space-y-2 text-sm text-ink/70">
               <li>· UK imports: typically 1–3 weeks from purchase to Irish plates.</li>
               <li>· Japanese imports: typically 6–10 weeks including shipping.</li>
               <li>· Exact timing depends on availability, shipping schedules and VRT appointments - we’ll give you a realistic estimate up front.</li>
@@ -95,7 +95,7 @@ export function ImportServicePage() {
           </div>
           <div className="card p-6">
             <h2 className="font-display text-xl font-bold">What VRT means for you</h2>
-            <p className="mt-3 text-sm text-brand-white/70">
+            <p className="mt-3 text-sm text-ink/70">
               Vehicle Registration Tax is a once-off tax due when a car is registered
               in Ireland, based on the vehicle’s value and emissions. We calculate it
               in advance so your quoted price is the drive-away price - no surprises
@@ -105,17 +105,17 @@ export function ImportServicePage() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 bg-brand-grey py-12">
+      <section className="border-t border-line bg-white py-12">
         <div className="container-page max-w-2xl">
           <h2 className="mb-2 font-display text-2xl font-bold">Tell us what you’re looking for</h2>
-          <p className="mb-6 text-brand-white/60">The more detail you give, the closer we can match it.</p>
+          <p className="mb-6 text-ink/60">The more detail you give, the closer we can match it.</p>
 
           {status === 'sent' ? (
             <div className="card flex items-start gap-3 p-8">
-              <CheckCircle2 className="mt-0.5 h-7 w-7 shrink-0 text-brand-cyan" aria-hidden />
+              <CheckCircle2 className="mt-0.5 h-7 w-7 shrink-0 text-teal" aria-hidden />
               <div>
                 <h3 className="font-display text-xl font-bold">Request received</h3>
-                <p className="mt-2 text-brand-white/70">
+                <p className="mt-2 text-ink/70">
                   Thanks {form.name.split(' ')[0]} - we’ll start looking and come back to you with options and pricing.
                 </p>
               </div>
@@ -130,7 +130,7 @@ export function ImportServicePage() {
               </div>
               <TextAreaField label="Must-have spec" name="spec" value={form.spec} onChange={set('spec')} placeholder="Colour, trim, transmission, options you need…" />
               <TextField label="Timeframe" name="timeframe" value={form.timeframe} onChange={set('timeframe')} placeholder="e.g. within 2 months" />
-              <hr className="border-white/10" />
+              <hr className="border-line" />
               <div className="grid gap-4 sm:grid-cols-2">
                 <TextField label="Your name" name="name" required value={form.name} onChange={set('name')} error={errors.name} autoComplete="name" />
                 <TextField label="Phone" name="phone" required type="tel" inputMode="tel" value={form.phone} onChange={set('phone')} error={errors.phone} autoComplete="tel" />

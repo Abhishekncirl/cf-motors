@@ -26,12 +26,12 @@ const POINTS = [
 
 export function WhyImports() {
   return (
-    <section className="border-y border-white/10 bg-brand-grey py-16">
+    <section className="border-y border-line bg-white py-16">
       <div className="container-page">
         <div className="max-w-2xl">
           <p className="section-eyebrow mb-2">Our difference</p>
           <h2 className="font-display text-3xl font-bold sm:text-4xl">Why Japanese &amp; UK imports?</h2>
-          <p className="mt-4 text-brand-white/70">
+          <p className="mt-4 text-ink/70">
             It’s what sets us apart from a standard Irish forecourt. Here’s why buyers
             choose an import from CF Motor Sales.
           </p>
@@ -40,11 +40,11 @@ export function WhyImports() {
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {POINTS.map(({ icon: Icon, title, body }) => (
             <div key={title} className="card p-6">
-              <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-brand-cyan/10 text-brand-cyan">
+              <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-brand-cyan/10 text-teal">
                 <Icon size={22} aria-hidden />
               </span>
               <h3 className="mt-4 font-display text-lg font-bold">{title}</h3>
-              <p className="mt-2 text-sm text-brand-white/65">{body}</p>
+              <p className="mt-2 text-sm text-ink/65">{body}</p>
             </div>
           ))}
         </div>

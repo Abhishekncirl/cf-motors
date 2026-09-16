@@ -41,20 +41,20 @@ export function FinancePage() {
       />
 
       <div className="container-page grid gap-8 py-12 lg:grid-cols-[1fr_1.1fr]">
-        <div className="space-y-4 text-brand-white/75">
-          <h2 className="font-display text-2xl font-bold text-brand-white">How it works</h2>
+        <div className="space-y-4 text-ink/75">
+          <h2 className="font-display text-2xl font-bold text-ink">How it works</h2>
           <p>
             Tell us the car you’re interested in and roughly what you’re looking to
             put down. We’ll come back to you with the finance options available
             through our partners.
           </p>
           <div className="card p-5 text-sm">
-            <p className="font-semibold text-brand-white">Important</p>
-            <p className="mt-2 text-brand-white/65">
+            <p className="font-semibold text-ink">Important</p>
+            <p className="mt-2 text-ink/65">
               Finance is subject to status, approval and terms. Figures are not shown
               online - any quote is provided to you directly and, where applicable,
               through a regulated finance provider. Lending criteria apply.
-              <span className="mt-1 block text-brand-white/40">
+              <span className="mt-1 block text-ink/40">
                 [CLIENT TO REVIEW WITH SOLICITOR / confirm credit intermediary status.]
               </span>
             </p>

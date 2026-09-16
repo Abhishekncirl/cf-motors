@@ -178,7 +178,7 @@ export function FilterSidebar({ filters, onChange, onReset }: Props) {
                 className={`rounded-full border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition-colors ${
                   active
                     ? 'border-brand-cyan bg-brand-cyan text-brand-black'
-                    : 'border-white/15 text-brand-white/80 hover:border-brand-cyan'
+                    : 'border-line text-ink/80 hover:border-brand-cyan'
                 }`}
               >
                 {o}

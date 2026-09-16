@@ -17,7 +17,7 @@ export function SortControl({
 }) {
   return (
     <div className="flex items-center gap-2">
-      <label htmlFor="sort" className="text-xs font-semibold uppercase tracking-wide text-brand-white/50">
+      <label htmlFor="sort" className="text-xs font-semibold uppercase tracking-wide text-ink/50">
         Sort
       </label>
       <select

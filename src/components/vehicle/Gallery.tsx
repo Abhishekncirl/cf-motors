@@ -40,7 +40,7 @@ export function Gallery({ images, alt }: { images: VehicleImage[]; alt: string }
   return (
     <div>
       <div
-        className="relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 bg-brand-black"
+        className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line bg-page"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
@@ -55,7 +55,7 @@ export function Gallery({ images, alt }: { images: VehicleImage[]; alt: string }
         <button
           type="button"
           onClick={() => setLightbox(true)}
-          className="absolute right-3 top-3 rounded-md bg-brand-black/70 p-2 text-brand-white hover:text-brand-cyan"
+          className="absolute right-3 top-3 rounded-md bg-black/70 p-2 text-ink hover:text-teal"
           aria-label="Open full-screen gallery"
         >
           <Expand size={18} aria-hidden />
@@ -64,7 +64,7 @@ export function Gallery({ images, alt }: { images: VehicleImage[]; alt: string }
           <>
             <GalleryArrow dir="left" onClick={() => go(-1)} />
             <GalleryArrow dir="right" onClick={() => go(1)} />
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-black/70 px-3 py-1 text-xs text-brand-white">
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/70 px-3 py-1 text-xs text-ink">
               {index + 1} / {ordered.length}
             </div>
           </>
@@ -101,7 +101,7 @@ export function Gallery({ images, alt }: { images: VehicleImage[]; alt: string }
           <button
             type="button"
             onClick={() => setLightbox(false)}
-            className="absolute right-4 top-4 rounded-md p-2 text-white hover:text-brand-cyan"
+            className="absolute right-4 top-4 rounded-md p-2 text-white hover:text-teal"
             aria-label="Close gallery"
           >
             <X size={28} aria-hidden />
@@ -138,7 +138,7 @@ function GalleryArrow({
       type="button"
       onClick={onClick}
       aria-label={dir === 'left' ? 'Previous image' : 'Next image'}
-      className={`absolute top-1/2 -translate-y-1/2 ${dir === 'left' ? 'left-3' : 'right-3'} rounded-full bg-brand-black/70 p-2 text-brand-white hover:text-brand-cyan`}
+      className={`absolute top-1/2 -translate-y-1/2 ${dir === 'left' ? 'left-3' : 'right-3'} rounded-full bg-black/70 p-2 text-ink hover:text-teal`}
     >
       <Icon size={large ? 32 : 22} aria-hidden />
     </button>

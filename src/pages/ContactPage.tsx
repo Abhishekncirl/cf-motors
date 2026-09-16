@@ -24,41 +24,41 @@ export function ContactPage() {
 
       <div className="container-page grid gap-8 py-12 lg:grid-cols-2">
         <div className="space-y-6">
-          <div className="card divide-y divide-white/10">
-            <a href={telLink()} className="flex items-center gap-4 p-5 hover:bg-white/5">
-              <Phone className="text-brand-cyan" aria-hidden />
+          <div className="card divide-y divide-line">
+            <a href={telLink()} className="flex items-center gap-4 p-5 hover:bg-black/5">
+              <Phone className="text-teal" aria-hidden />
               <span>
-                <span className="block text-xs uppercase tracking-wide text-brand-white/50">Call</span>
+                <span className="block text-xs uppercase tracking-wide text-ink/50">Call</span>
                 <span className="font-semibold">{s.phoneDisplay}</span>
               </span>
             </a>
-            <a href={whatsappLink('Hi CF Motor Sales, I have a question.')} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-5 hover:bg-white/5">
-              <WhatsAppIcon className="h-6 w-6 text-brand-cyan" />
+            <a href={whatsappLink('Hi CF Motor Sales, I have a question.')} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-5 hover:bg-black/5">
+              <WhatsAppIcon className="h-6 w-6 text-teal" />
               <span>
-                <span className="block text-xs uppercase tracking-wide text-brand-white/50">WhatsApp</span>
+                <span className="block text-xs uppercase tracking-wide text-ink/50">WhatsApp</span>
                 <span className="font-semibold">Message us</span>
               </span>
             </a>
-            <a href={`mailto:${s.email}`} className="flex items-center gap-4 p-5 hover:bg-white/5">
-              <Mail className="text-brand-cyan" aria-hidden />
+            <a href={`mailto:${s.email}`} className="flex items-center gap-4 p-5 hover:bg-black/5">
+              <Mail className="text-teal" aria-hidden />
               <span>
-                <span className="block text-xs uppercase tracking-wide text-brand-white/50">Email</span>
+                <span className="block text-xs uppercase tracking-wide text-ink/50">Email</span>
                 <span className="font-semibold">{s.email}</span>
               </span>
             </a>
             <div className="flex items-start gap-4 p-5">
-              <MapPin className="mt-0.5 text-brand-cyan" aria-hidden />
+              <MapPin className="mt-0.5 text-teal" aria-hidden />
               <span>
-                <span className="block text-xs uppercase tracking-wide text-brand-white/50">Address</span>
+                <span className="block text-xs uppercase tracking-wide text-ink/50">Address</span>
                 <span className="font-semibold">{s.addressLine1}, {s.addressLine2}</span>
-                <span className="block text-brand-white/60">{s.eircode}</span>
+                <span className="block text-ink/60">{s.eircode}</span>
               </span>
             </div>
             <div className="flex items-start gap-4 p-5">
-              <Clock className="mt-0.5 text-brand-cyan" aria-hidden />
+              <Clock className="mt-0.5 text-teal" aria-hidden />
               <div className="w-full">
-                <span className="block text-xs uppercase tracking-wide text-brand-white/50">Opening hours</span>
-                <ul className="mt-1 space-y-1 text-sm text-brand-white/75">
+                <span className="block text-xs uppercase tracking-wide text-ink/50">Opening hours</span>
+                <ul className="mt-1 space-y-1 text-sm text-ink/75">
                   {s.openingHours.map((o) => (
                     <li key={o.day} className="flex justify-between gap-4">
                       <span>{o.day}</span>
@@ -71,15 +71,15 @@ export function ContactPage() {
           </div>
 
           <div className="flex gap-3">
-            <a href={s.facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="rounded-md border border-white/15 p-3 hover:border-brand-cyan hover:text-brand-cyan">
+            <a href={s.facebookUrl} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="rounded-md border border-line p-3 hover:border-brand-cyan hover:text-teal">
               <Facebook aria-hidden />
             </a>
-            <a href={s.tiktokUrl} target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="rounded-md border border-white/15 p-3 hover:border-brand-cyan hover:text-brand-cyan">
+            <a href={s.tiktokUrl} target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="rounded-md border border-line p-3 hover:border-brand-cyan hover:text-teal">
               <TikTokIcon className="h-6 w-6" />
             </a>
           </div>
 
-          <div className="overflow-hidden rounded-xl border border-white/10">
+          <div className="overflow-hidden rounded-xl border border-line">
             <iframe
               title="Map to CF Motor Sales"
               src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}

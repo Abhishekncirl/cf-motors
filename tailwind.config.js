@@ -4,17 +4,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Brand tokens - "softer dark": charcoal base + lighter cards for a
-        // premium-but-lighter feel (still white + cyan on dark, per the logo).
+        // Brand tokens - LIGHT theme in the logo's colours (dark ink + cyan on
+        // light surfaces). `black` is kept as the dark INK (dark text on cyan
+        // buttons/CTA); `grey` is a light inset fill.
         brand: {
-          black: '#15171C', // primary background, header, footer (was near-black)
-          cyan: '#4FE3DE', // accent, CTAs, active states, highlight bars
-          white: '#FFFFFF', // body text on dark, card surfaces
-          grey: '#22252D', // card backgrounds, section alternation (clearly lifted)
+          black: '#14181F', // dark ink text (e.g. on cyan buttons)
+          cyan: '#4FE3DE', // accent, CTAs, active states, highlight bars, price
+          white: '#FFFFFF', // card surfaces
+          grey: '#EEF1F4', // light inset fill (stat tiles, chips)
         },
-        // Convenience aliases used across components.
-        ink: '#15171C',
-        surface: '#22252D',
+        // Light theme semantic tokens.
+        page: '#F5F7F9', // page background
+        ink: '#14181F', // primary text
+        muted: '#59636F', // secondary text
+        line: '#E2E6EB', // borders on light
+        teal: '#0E8C87', // accent text/links/icons (accessible cyan on white)
         accent: '#4FE3DE',
       },
       fontFamily: {
@@ -24,8 +28,8 @@ export default {
         sans: ['"Inter Variable"', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        card: '0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35)',
-        'card-hover': '0 2px 6px rgba(0,0,0,0.5), 0 16px 40px rgba(0,0,0,0.45)',
+        card: '0 1px 2px rgba(16,24,40,0.06), 0 4px 16px rgba(16,24,40,0.06)',
+        'card-hover': '0 2px 6px rgba(16,24,40,0.08), 0 12px 30px rgba(16,24,40,0.12)',
         glow: '0 0 0 1px rgba(79,227,222,0.4), 0 8px 30px rgba(79,227,222,0.15)',
       },
       keyframes: {

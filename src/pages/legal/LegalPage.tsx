@@ -21,7 +21,7 @@ export function LegalPage({
           <span className="font-semibold"> [CLIENT TO REVIEW WITH SOLICITOR]</span> must be
           reviewed and finalised with a qualified solicitor before publishing.
         </div>
-        <article className="prose-legal max-w-3xl space-y-6 text-brand-white/75">
+        <article className="prose-legal max-w-3xl space-y-6 text-ink/75">
           {children}
         </article>
       </div>
@@ -32,7 +32,7 @@ export function LegalPage({
 export function LegalSection({ heading, children }: { heading: string; children: ReactNode }) {
   return (
     <section>
-      <h2 className="font-display text-xl font-bold text-brand-white">{heading}</h2>
+      <h2 className="font-display text-xl font-bold text-ink">{heading}</h2>
       <div className="mt-2 space-y-3 text-sm leading-relaxed">{children}</div>
     </section>
   );

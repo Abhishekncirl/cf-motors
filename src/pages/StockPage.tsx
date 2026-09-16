@@ -56,12 +56,12 @@ export function StockPage() {
         path="/stock"
       />
 
-      <div className="border-b border-white/10 bg-brand-grey">
+      <div className="border-b border-line bg-white">
         <div className="container-page py-8">
           <h1 className="font-display text-3xl font-bold sm:text-4xl">Our Stock</h1>
-          <p className="mt-2 text-brand-white/60">
+          <p className="mt-2 text-ink/60">
             Every car is hand-picked and import-handled by us. Can’t see it?{' '}
-            <Link to="/import-service" className="text-brand-cyan underline">We’ll source it.</Link>
+            <Link to="/import-service" className="text-teal underline">We’ll source it.</Link>
           </p>
         </div>
       </div>
@@ -90,7 +90,7 @@ export function StockPage() {
                   </span>
                 )}
               </button>
-              <p className="text-sm text-brand-white/60" aria-live="polite">
+              <p className="text-sm text-ink/60" aria-live="polite">
                 {loading ? 'Searching…' : `${result?.total ?? 0} ${result?.total === 1 ? 'car' : 'cars'} found`}
               </p>
             </div>
@@ -107,7 +107,7 @@ export function StockPage() {
           {loading && !result ? (
             <Spinner label="Loading stock" />
           ) : error ? (
-            <div className="card p-8 text-center text-brand-white/70">
+            <div className="card p-8 text-center text-ink/70">
               Something went wrong loading stock. Please refresh or try again shortly.
             </div>
           ) : result && result.items.length > 0 ? (
@@ -139,7 +139,7 @@ export function StockPage() {
             onClick={() => setMobileFiltersOpen(false)}
             aria-hidden
           />
-          <div className="absolute inset-y-0 left-0 w-[88%] max-w-sm overflow-y-auto bg-brand-grey p-5 shadow-card-hover">
+          <div className="absolute inset-y-0 left-0 w-[88%] max-w-sm overflow-y-auto bg-white p-5 shadow-card-hover">
             <div className="mb-4 flex items-center justify-between">
               <span className="font-display text-lg font-bold">Filters</span>
               <button
@@ -193,7 +193,7 @@ function Pagination({
           onClick={() => onPage(p)}
           aria-current={p === page ? 'page' : undefined}
           className={`h-10 w-10 rounded-md text-sm font-semibold ${
-            p === page ? 'bg-brand-cyan text-brand-black' : 'border border-white/15 text-brand-white/80 hover:border-brand-cyan'
+            p === page ? 'bg-brand-cyan text-brand-black' : 'border border-line text-ink/80 hover:border-brand-cyan'
           }`}
         >
           {p}
@@ -214,11 +214,11 @@ function Pagination({
 function EmptyState() {
   return (
     <div className="card flex flex-col items-center gap-4 p-10 text-center">
-      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-cyan/10 text-brand-cyan">
+      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-cyan/10 text-teal">
         <Car size={26} aria-hidden />
       </span>
       <h2 className="font-display text-2xl font-bold">Can’t find it? We source to order</h2>
-      <p className="max-w-md text-brand-white/65">
+      <p className="max-w-md text-ink/65">
         No cars match your search right now. Tell us the make, model and spec you’re
         after and we’ll find it in the UK or Japan for you.
       </p>

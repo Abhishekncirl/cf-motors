@@ -84,10 +84,10 @@ export function SellYourCarPage() {
       <div className="container-page py-12">
         {status === 'sent' ? (
           <div className="card mx-auto max-w-2xl flex items-start gap-3 p-8">
-            <CheckCircle2 className="mt-0.5 h-7 w-7 shrink-0 text-brand-cyan" aria-hidden />
+            <CheckCircle2 className="mt-0.5 h-7 w-7 shrink-0 text-teal" aria-hidden />
             <div>
               <h2 className="font-display text-2xl font-bold">Valuation request received</h2>
-              <p className="mt-2 text-brand-white/70">
+              <p className="mt-2 text-ink/70">
                 Thanks {form.name.split(' ')[0]} - we’ll review your details and photos and come
                 back to you with a valuation, usually the same day.
               </p>
@@ -107,7 +107,7 @@ export function SellYourCarPage() {
 
             <PhotoUpload files={photos} onChange={setPhotos} max={6} />
 
-            <hr className="border-white/10" />
+            <hr className="border-line" />
 
             <div className="grid gap-4 sm:grid-cols-2">
               <TextField label="Your name" name="name" required value={form.name} onChange={set('name')} error={errors.name} autoComplete="name" />

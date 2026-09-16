@@ -10,7 +10,7 @@ const STEPS = [
 
 export function ImportProcess() {
   return (
-    <section className="bg-brand-black py-16">
+    <section className="bg-page py-16">
       <div className="container-page">
         <div className="mb-10 text-center">
           <p className="section-eyebrow mb-2">Import process</p>
@@ -19,12 +19,12 @@ export function ImportProcess() {
         <ol className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {STEPS.map(({ icon: Icon, title, line }, i) => (
             <li key={title} className="card flex flex-col items-center p-5 text-center">
-              <span className="mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-brand-cyan/40 bg-brand-cyan/10 text-brand-cyan">
+              <span className="mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-brand-cyan/40 bg-brand-cyan/10 text-teal">
                 <Icon size={22} aria-hidden />
               </span>
-              <span className="text-xs font-semibold text-brand-white/40">Step {i + 1}</span>
+              <span className="text-xs font-semibold text-ink/40">Step {i + 1}</span>
               <h3 className="mt-1 font-display text-lg font-bold">{title}</h3>
-              <p className="mt-1 text-xs text-brand-white/60">{line}</p>
+              <p className="mt-1 text-xs text-ink/60">{line}</p>
             </li>
           ))}
         </ol>

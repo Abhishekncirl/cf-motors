@@ -66,13 +66,13 @@ export function EnquiriesPage() {
             onClick={() => setFilter(t)}
             aria-pressed={filter === t}
             className={`rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wide ${
-              filter === t ? 'bg-brand-cyan text-brand-black' : 'border border-white/15 text-brand-white/70 hover:border-brand-cyan'
+              filter === t ? 'bg-brand-cyan text-brand-black' : 'border border-line text-ink/70 hover:border-brand-cyan'
             }`}
           >
             {t}
           </button>
         ))}
-        <label className="ml-auto flex items-center gap-2 text-sm text-brand-white/70">
+        <label className="ml-auto flex items-center gap-2 text-sm text-ink/70">
           <input type="checkbox" checked={unreadOnly} onChange={(e) => setUnreadOnly(e.target.checked)} className="accent-brand-cyan" />
           Unread only
         </label>
@@ -93,41 +93,41 @@ export function EnquiriesPage() {
               >
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    {!e.isRead && <Dot className="text-brand-cyan" aria-label="Unread" />}
+                    {!e.isRead && <Dot className="text-teal" aria-label="Unread" />}
                     <span className="font-semibold">{e.name}</span>
-                    <span className="rounded bg-white/10 px-2 py-0.5 text-[0.65rem] uppercase text-brand-white/60">{e.type}</span>
+                    <span className="rounded bg-black/5 px-2 py-0.5 text-[0.65rem] uppercase text-ink/60">{e.type}</span>
                     {photos.length > 0 && (
-                      <span className="rounded bg-white/10 px-2 py-0.5 text-[0.65rem] uppercase text-brand-white/60">
+                      <span className="rounded bg-black/5 px-2 py-0.5 text-[0.65rem] uppercase text-ink/60">
                         {photos.length} photo{photos.length > 1 ? 's' : ''}
                       </span>
                     )}
                     {e.isActioned && <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-[0.65rem] uppercase text-emerald-300">Actioned</span>}
                   </div>
-                  <p className="mt-1 truncate text-sm text-brand-white/55">{e.message}</p>
+                  <p className="mt-1 truncate text-sm text-ink/55">{e.message}</p>
                 </div>
-                <span className="shrink-0 text-xs text-brand-white/40">
+                <span className="shrink-0 text-xs text-ink/40">
                   {new Date(e.createdAt).toLocaleDateString('en-IE', { day: 'numeric', month: 'short' })}
                 </span>
               </button>
 
               {selected === e.id && (
-                <div className="border-t border-white/10 bg-brand-black/40 p-4">
+                <div className="border-t border-line bg-black/[0.02] p-4">
                   <div className="grid gap-3 sm:grid-cols-2">
-                    <a href={`mailto:${e.email}`} className="flex items-center gap-2 text-sm hover:text-brand-cyan">
+                    <a href={`mailto:${e.email}`} className="flex items-center gap-2 text-sm hover:text-teal">
                       <Mail size={15} aria-hidden /> {e.email}
                     </a>
-                    <a href={`tel:${e.phone}`} className="flex items-center gap-2 text-sm hover:text-brand-cyan">
+                    <a href={`tel:${e.phone}`} className="flex items-center gap-2 text-sm hover:text-teal">
                       <Phone size={15} aria-hidden /> {e.phone}
                     </a>
                   </div>
-                  <p className="mt-3 whitespace-pre-line text-sm text-brand-white/75">{e.message}</p>
+                  <p className="mt-3 whitespace-pre-line text-sm text-ink/75">{e.message}</p>
 
                   {textFields.length > 0 && (
-                    <dl className="mt-3 grid gap-x-6 gap-y-1 rounded-lg bg-brand-grey p-3 text-xs sm:grid-cols-2">
+                    <dl className="mt-3 grid gap-x-6 gap-y-1 rounded-lg bg-white p-3 text-xs sm:grid-cols-2">
                       {textFields.map(([k, v]) => (
                         <div key={k} className="flex justify-between gap-3">
-                          <dt className="text-brand-white/45">{k}</dt>
-                          <dd className="text-right font-medium text-brand-white/80">{String(v)}</dd>
+                          <dt className="text-ink/45">{k}</dt>
+                          <dd className="text-right font-medium text-ink/80">{String(v)}</dd>
                         </div>
                       ))}
                     </dl>
@@ -135,7 +135,7 @@ export function EnquiriesPage() {
 
                   {photos.length > 0 && (
                     <div className="mt-3">
-                      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-brand-white/45">
+                      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink/45">
                         Customer photos
                       </p>
                       <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
@@ -145,7 +145,7 @@ export function EnquiriesPage() {
                             href={url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block aspect-square overflow-hidden rounded-md border border-white/15 hover:border-brand-cyan"
+                            className="block aspect-square overflow-hidden rounded-md border border-line hover:border-brand-cyan"
                             title="Open full size"
                           >
                             <img
@@ -179,7 +179,7 @@ export function EnquiriesPage() {
             </div>
           );
         })}
-        {filtered.length === 0 && <p className="py-8 text-center text-sm text-brand-white/50">No enquiries match this filter.</p>}
+        {filtered.length === 0 && <p className="py-8 text-center text-sm text-ink/50">No enquiries match this filter.</p>}
       </div>
 
       <ConfirmDialog

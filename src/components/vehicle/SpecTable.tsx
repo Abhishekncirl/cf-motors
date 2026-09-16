@@ -24,11 +24,11 @@ export function SpecTable({ vehicle: v }: { vehicle: Vehicle }) {
   ];
 
   return (
-    <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-2">
+    <dl className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-line bg-black/5 sm:grid-cols-2">
       {rows.map(([label, value]) => (
-        <div key={label} className="flex items-center justify-between gap-4 bg-brand-grey px-4 py-3">
-          <dt className="text-sm text-brand-white/55">{label}</dt>
-          <dd className="text-sm font-semibold text-brand-white">{value}</dd>
+        <div key={label} className="flex items-center justify-between gap-4 bg-white px-4 py-3">
+          <dt className="text-sm text-ink/55">{label}</dt>
+          <dd className="text-sm font-semibold text-ink">{value}</dd>
         </div>
       ))}
     </dl>

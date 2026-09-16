@@ -29,7 +29,7 @@ export function DashboardPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-display text-3xl font-bold">Dashboard</h1>
-          <p className="text-brand-white/55">Overview of your stock and enquiries.</p>
+          <p className="text-ink/55">Overview of your stock and enquiries.</p>
         </div>
         <Link to="/admin/vehicles/new" className="btn-primary">
           <Plus size={16} aria-hidden /> Add vehicle
@@ -41,7 +41,7 @@ export function DashboardPage() {
         <Stat icon={Inbox} label="New enquiries (7d)" value={newEnquiries.length} sub={`${enquiries.filter((e) => !e.isRead).length} unread`} />
         <Stat icon={Flag} label="Featured" value={vehicles.filter((v) => v.featured).length} sub="on homepage" />
         <div className="card p-5">
-          <p className="text-xs font-semibold uppercase tracking-wide text-brand-white/50">By origin</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-ink/50">By origin</p>
           <div className="mt-2 space-y-1 text-sm">
             <Row label="UK" value={byOrigin('UK')} />
             <Row label="Japan" value={byOrigin('Japan')} />
@@ -54,40 +54,40 @@ export function DashboardPage() {
         <div className="card p-5">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="font-display text-lg font-bold">Recently added</h2>
-            <Link to="/admin/vehicles" className="text-xs text-brand-cyan hover:underline">View all</Link>
+            <Link to="/admin/vehicles" className="text-xs text-teal hover:underline">View all</Link>
           </div>
-          <ul className="divide-y divide-white/10">
+          <ul className="divide-y divide-line">
             {vehicles.slice(0, 5).map((v) => (
               <li key={v.id} className="flex items-center justify-between gap-3 py-2.5">
-                <Link to={`/admin/vehicles/${v.id}`} className="text-sm font-semibold hover:text-brand-cyan">
+                <Link to={`/admin/vehicles/${v.id}`} className="text-sm font-semibold hover:text-teal">
                   {vehicleTitle(v)}
                 </Link>
                 <span className="flex items-center gap-2">
                   <StatusBadge status={v.status} />
-                  <span className="text-sm text-brand-white/60">{formatPrice(v.price)}</span>
+                  <span className="text-sm text-ink/60">{formatPrice(v.price)}</span>
                 </span>
               </li>
             ))}
-            {vehicles.length === 0 && <li className="py-3 text-sm text-brand-white/50">No vehicles yet.</li>}
+            {vehicles.length === 0 && <li className="py-3 text-sm text-ink/50">No vehicles yet.</li>}
           </ul>
         </div>
 
         <div className="card p-5">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="font-display text-lg font-bold">Latest enquiries</h2>
-            <Link to="/admin/enquiries" className="text-xs text-brand-cyan hover:underline">View all</Link>
+            <Link to="/admin/enquiries" className="text-xs text-teal hover:underline">View all</Link>
           </div>
-          <ul className="divide-y divide-white/10">
+          <ul className="divide-y divide-line">
             {enquiries.slice(0, 5).map((e) => (
               <li key={e.id} className="py-2.5">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-sm font-semibold">{e.name}</span>
-                  <span className="rounded bg-white/10 px-2 py-0.5 text-[0.65rem] uppercase text-brand-white/60">{e.type}</span>
+                  <span className="rounded bg-black/5 px-2 py-0.5 text-[0.65rem] uppercase text-ink/60">{e.type}</span>
                 </div>
-                <p className="truncate text-xs text-brand-white/50">{e.message}</p>
+                <p className="truncate text-xs text-ink/50">{e.message}</p>
               </li>
             ))}
-            {enquiries.length === 0 && <li className="py-3 text-sm text-brand-white/50">No enquiries yet.</li>}
+            {enquiries.length === 0 && <li className="py-3 text-sm text-ink/50">No enquiries yet.</li>}
           </ul>
         </div>
       </div>
@@ -99,11 +99,11 @@ function Stat({ icon: Icon, label, value, sub }: { icon: typeof Car; label: stri
   return (
     <div className="card p-5">
       <div className="flex items-center justify-between">
-        <p className="text-xs font-semibold uppercase tracking-wide text-brand-white/50">{label}</p>
-        <Icon size={18} className="text-brand-cyan" aria-hidden />
+        <p className="text-xs font-semibold uppercase tracking-wide text-ink/50">{label}</p>
+        <Icon size={18} className="text-teal" aria-hidden />
       </div>
       <p className="mt-2 font-display text-3xl font-bold">{value}</p>
-      <p className="text-xs text-brand-white/45">{sub}</p>
+      <p className="text-xs text-ink/45">{sub}</p>
     </div>
   );
 }
@@ -111,7 +111,7 @@ function Stat({ icon: Icon, label, value, sub }: { icon: typeof Car; label: stri
 function Row({ label, value }: { label: string; value: number }) {
   return (
     <div className="flex justify-between">
-      <span className="text-brand-white/60">{label}</span>
+      <span className="text-ink/60">{label}</span>
       <span className="font-semibold">{value}</span>
     </div>
   );

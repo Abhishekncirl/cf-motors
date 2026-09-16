@@ -16,14 +16,14 @@ export function ContactCTA() {
           question about imports, VRT or a specific car.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
-          <a href={telLink()} className="btn bg-brand-black text-brand-white hover:bg-brand-black/85">
+          <a href={telLink()} className="btn bg-brand-black text-white hover:bg-brand-black/85">
             <Phone size={16} aria-hidden /> {settings.phoneDisplay}
           </a>
           <a
             href={whatsappLink('Hi CF Motor Sales, I have a question.')}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn border border-brand-black/30 bg-white text-brand-black hover:bg-white/85"
+            className="btn bg-white text-brand-black hover:bg-white/85"
           >
             <WhatsAppIcon className="h-4 w-4" /> WhatsApp us
           </a>

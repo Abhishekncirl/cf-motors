@@ -7,7 +7,7 @@ import { whatsappLink } from '../../config/business';
 import { WhatsAppIcon } from '../brand/WhatsAppIcon';
 
 const PLACEHOLDER =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%231A1A1A'/%3E%3Ctext x='50%25' y='50%25' fill='%234FE3DE' font-family='sans-serif' font-size='18' text-anchor='middle' dominant-baseline='middle'%3ECF Motor Sales%3C/text%3E%3C/svg%3E";
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23EEF1F4'/%3E%3Ctext x='50%25' y='50%25' fill='%230E8C87' font-family='sans-serif' font-size='18' text-anchor='middle' dominant-baseline='middle'%3ECF Motor Sales%3C/text%3E%3C/svg%3E";
 
 export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
   const primary = vehicle.images.find((i) => i.isPrimary) ?? vehicle.images[0];
@@ -17,7 +17,7 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
 
   return (
     <article className="card group flex flex-col overflow-hidden transition-shadow hover:shadow-card-hover">
-      <Link to={detailUrl} className="relative block aspect-[4/3] overflow-hidden bg-brand-black">
+      <Link to={detailUrl} className="relative block aspect-[4/3] overflow-hidden bg-page">
         <img
           src={primary?.url || PLACEHOLDER}
           alt={vehicleAlt(vehicle)}
@@ -31,7 +31,7 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
           <ImportOriginBadge origin={vehicle.importOrigin} />
         </div>
         {vehicle.status !== 'available' && (
-          <div className="absolute inset-0 flex items-center justify-center bg-brand-black/60">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/60">
             <span className="rounded bg-brand-cyan px-3 py-1 text-sm font-bold uppercase tracking-wide text-brand-black">
               {vehicle.status}
             </span>
@@ -43,29 +43,29 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
         <div className="flex items-start justify-between gap-3">
           <div>
             <h3 className="font-display text-lg font-bold leading-tight">
-              <Link to={detailUrl} className="hover:text-brand-cyan">
+              <Link to={detailUrl} className="hover:text-teal">
                 {title}
               </Link>
             </h3>
             {vehicle.variant && (
-              <p className="text-sm text-brand-white/60">{vehicle.variant}</p>
+              <p className="text-sm text-ink/60">{vehicle.variant}</p>
             )}
           </div>
         </div>
 
-        <dl className="mt-3 grid grid-cols-3 gap-2 text-xs text-brand-white/70">
-          <div className="flex flex-col items-center gap-1 rounded bg-brand-black/60 py-2">
-            <Gauge size={16} className="text-brand-cyan" aria-hidden />
+        <dl className="mt-3 grid grid-cols-3 gap-2 text-xs text-ink/70">
+          <div className="flex flex-col items-center gap-1 rounded bg-brand-grey py-2">
+            <Gauge size={16} className="text-teal" aria-hidden />
             <dt className="sr-only">Mileage</dt>
             <dd>{formatMileage(vehicle.mileageKm)}</dd>
           </div>
-          <div className="flex flex-col items-center gap-1 rounded bg-brand-black/60 py-2">
-            <Fuel size={16} className="text-brand-cyan" aria-hidden />
+          <div className="flex flex-col items-center gap-1 rounded bg-brand-grey py-2">
+            <Fuel size={16} className="text-teal" aria-hidden />
             <dt className="sr-only">Fuel</dt>
             <dd>{vehicle.fuelType}</dd>
           </div>
-          <div className="flex flex-col items-center gap-1 rounded bg-brand-black/60 py-2">
-            <Cog size={16} className="text-brand-cyan" aria-hidden />
+          <div className="flex flex-col items-center gap-1 rounded bg-brand-grey py-2">
+            <Cog size={16} className="text-teal" aria-hidden />
             <dt className="sr-only">Transmission</dt>
             <dd>{vehicle.transmission}</dd>
           </div>
@@ -73,11 +73,11 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
 
         <div className="mt-4 flex items-end justify-between">
           <div>
-            <p className="font-display text-2xl font-bold text-brand-cyan">
+            <p className="font-display text-2xl font-bold text-teal">
               {formatPrice(vehicle.price)}
             </p>
             {vehicle.weeklyPrice && (
-              <p className="text-xs text-brand-white/50">or {formatWeekly(vehicle.weeklyPrice)}</p>
+              <p className="text-xs text-ink/50">or {formatWeekly(vehicle.weeklyPrice)}</p>
             )}
           </div>
         </div>

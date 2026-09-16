@@ -24,7 +24,7 @@ export function ConfirmDialog({
   return (
     <div className="fixed inset-0 z-[90] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label={title}>
       <div className="absolute inset-0 bg-black/70" onClick={onCancel} aria-hidden />
-      <div className="relative w-full max-w-md rounded-xl border border-white/10 bg-brand-grey p-6 shadow-card-hover">
+      <div className="relative w-full max-w-md rounded-xl border border-line bg-white p-6 shadow-card-hover">
         <div className="flex items-start gap-3">
           {destructive && (
             <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-red-500/15 text-red-400">
@@ -33,7 +33,7 @@ export function ConfirmDialog({
           )}
           <div>
             <h2 className="font-display text-lg font-bold">{title}</h2>
-            <p className="mt-1 text-sm text-brand-white/70">{message}</p>
+            <p className="mt-1 text-sm text-ink/70">{message}</p>
           </div>
         </div>
         <div className="mt-6 flex justify-end gap-3">

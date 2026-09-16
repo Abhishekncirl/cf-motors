@@ -48,10 +48,10 @@ export function EnquiryForm({ type, vehicleId, defaultMessage, title, compact }:
   if (status === 'sent') {
     return (
       <div className="card flex items-start gap-3 p-6">
-        <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-brand-cyan" aria-hidden />
+        <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-teal" aria-hidden />
         <div>
           <h3 className="font-display text-lg font-bold">Thanks, {name.split(' ')[0]}!</h3>
-          <p className="mt-1 text-sm text-brand-white/70">
+          <p className="mt-1 text-sm text-ink/70">
             Your enquiry is in. We’ll be in touch shortly - usually the same day.
             For anything urgent, message us on WhatsApp.
           </p>
@@ -83,7 +83,7 @@ export function EnquiryForm({ type, vehicleId, defaultMessage, title, compact }:
       <button type="submit" className="btn-primary mt-5 w-full sm:w-auto" disabled={status === 'sending'}>
         {status === 'sending' ? 'Sending…' : 'Send enquiry'}
       </button>
-      <p className="mt-3 text-xs text-brand-white/45">
+      <p className="mt-3 text-xs text-ink/45">
         By submitting you agree to our privacy policy. We only use your details to respond to your enquiry.
       </p>
     </form>

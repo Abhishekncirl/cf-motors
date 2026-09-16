@@ -14,7 +14,7 @@ export function Logo({ className = '' }: { className?: string }) {
       className={`group inline-flex items-center gap-2 ${className}`}
       aria-label={`${BUSINESS.name} home`}
     >
-      <span className="font-display text-2xl font-bold leading-none tracking-tight text-brand-white sm:text-3xl">
+      <span className="font-display text-2xl font-bold leading-none tracking-tight text-ink sm:text-3xl">
         CF
       </span>
       <span
@@ -22,10 +22,10 @@ export function Logo({ className = '' }: { className?: string }) {
         className="h-6 w-1.5 -skew-x-12 bg-brand-cyan transition-all group-hover:h-7"
       />
       <span className="flex flex-col leading-none">
-        <span className="font-display text-lg font-bold uppercase tracking-tight text-brand-white sm:text-xl">
+        <span className="font-display text-lg font-bold uppercase tracking-tight text-ink sm:text-xl">
           Motor Sales
         </span>
-        <span className="text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-brand-cyan">
+        <span className="text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-teal">
           UK &amp; Japanese Imports
         </span>
       </span>

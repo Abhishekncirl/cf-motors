@@ -24,7 +24,7 @@ export function StockSearchBar() {
   return (
     <form
       onSubmit={onSubmit}
-      className="grid gap-3 rounded-xl border border-white/10 bg-brand-black/85 p-4 backdrop-blur sm:grid-cols-2 lg:grid-cols-5"
+      className="grid gap-3 rounded-xl border border-line bg-white p-4 shadow-card sm:grid-cols-2 lg:grid-cols-5"
       aria-label="Search stock"
     >
       <div>

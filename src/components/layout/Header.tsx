@@ -42,8 +42,8 @@ export function Header() {
     <header
       className={`sticky top-0 z-50 border-b transition-colors ${
         scrolled
-          ? 'border-white/10 bg-brand-black/95 backdrop-blur'
-          : 'border-transparent bg-brand-black'
+          ? 'border-line bg-white/90 shadow-card backdrop-blur'
+          : 'border-line bg-white'
       }`}
     >
       <a
@@ -63,8 +63,8 @@ export function Header() {
               className={({ isActive }) =>
                 `rounded-md px-3 py-2 text-sm font-semibold uppercase tracking-wide transition-colors ${
                   isActive
-                    ? 'text-brand-cyan'
-                    : 'text-brand-white/80 hover:text-brand-cyan'
+                    ? 'text-teal'
+                    : 'text-ink/80 hover:text-teal'
                 }`
               }
             >
@@ -99,7 +99,7 @@ export function Header() {
         <div className="lg:hidden">
           <nav
             aria-label="Mobile"
-            className="container-page flex flex-col gap-1 border-t border-white/10 py-4"
+            className="container-page flex flex-col gap-1 border-t border-line py-4"
           >
             {NAV.map((item) => (
               <NavLink
@@ -107,7 +107,7 @@ export function Header() {
                 to={item.to}
                 className={({ isActive }) =>
                   `rounded-md px-3 py-3 text-base font-semibold uppercase tracking-wide ${
-                    isActive ? 'bg-brand-grey text-brand-cyan' : 'text-brand-white'
+                    isActive ? 'bg-white text-teal' : 'text-ink'
                   }`
                 }
               >

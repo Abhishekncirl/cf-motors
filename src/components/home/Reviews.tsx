@@ -17,7 +17,7 @@ function Stars({ rating }: { rating: number }) {
           key={i}
           size={16}
           aria-hidden
-          className={i < rating ? 'fill-brand-cyan text-brand-cyan' : 'text-white/20'}
+          className={i < rating ? 'fill-brand-cyan text-teal' : 'text-white/20'}
         />
       ))}
     </div>
@@ -28,7 +28,7 @@ export function Reviews() {
   const avg = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
 
   return (
-    <section className="border-y border-white/10 bg-brand-grey py-16">
+    <section className="border-y border-line bg-white py-16">
       <div className="container-page">
         <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
@@ -36,10 +36,10 @@ export function Reviews() {
             <h2 className="font-display text-3xl font-bold sm:text-4xl">Google Reviews</h2>
           </div>
           <div className="flex items-center gap-3">
-            <span className="font-display text-3xl font-bold text-brand-cyan">{avg.toFixed(1)}</span>
+            <span className="font-display text-3xl font-bold text-teal">{avg.toFixed(1)}</span>
             <div>
               <Stars rating={Math.round(avg)} />
-              <p className="text-xs text-brand-white/50">{reviews.length} reviews</p>
+              <p className="text-xs text-ink/50">{reviews.length} reviews</p>
             </div>
           </div>
         </div>
@@ -48,10 +48,10 @@ export function Reviews() {
           {reviews.map((r, i) => (
             <figure key={i} className="card flex flex-col p-6">
               <Stars rating={r.rating} />
-              <blockquote className="mt-3 flex-1 text-sm text-brand-white/75">“{r.text}”</blockquote>
-              <figcaption className="mt-4 text-sm font-semibold text-brand-white">
+              <blockquote className="mt-3 flex-1 text-sm text-ink/75">“{r.text}”</blockquote>
+              <figcaption className="mt-4 text-sm font-semibold text-ink">
                 {r.author}
-                <span className="ml-2 font-normal text-brand-white/40">
+                <span className="ml-2 font-normal text-ink/40">
                   {new Date(r.date).toLocaleDateString('en-IE', { month: 'short', year: 'numeric' })}
                 </span>
               </figcaption>

@@ -32,7 +32,7 @@ export function TextField({
   return (
     <div>
       <label htmlFor={id} className="field-label">
-        {label} {required && <span className="text-brand-cyan">*</span>}
+        {label} {required && <span className="text-teal">*</span>}
       </label>
       <input
         id={id}
@@ -48,7 +48,7 @@ export function TextField({
         className="field-input"
       />
       {hint && !error && (
-        <p id={`${id}-hint`} className="mt-1 text-xs text-brand-white/45">
+        <p id={`${id}-hint`} className="mt-1 text-xs text-ink/45">
           {hint}
         </p>
       )}
@@ -81,7 +81,7 @@ export function TextAreaField({
   return (
     <div>
       <label htmlFor={id} className="field-label">
-        {label} {required && <span className="text-brand-cyan">*</span>}
+        {label} {required && <span className="text-teal">*</span>}
       </label>
       <textarea
         id={id}
@@ -94,7 +94,7 @@ export function TextAreaField({
         onChange={(e) => onChange(e.target.value)}
         className="field-input resize-y"
       />
-      {hint && !error && <p className="mt-1 text-xs text-brand-white/45">{hint}</p>}
+      {hint && !error && <p className="mt-1 text-xs text-ink/45">{hint}</p>}
       {error && (
         <p id={`${id}-err`} className="field-error" role="alert">
           {error}
@@ -121,7 +121,7 @@ export function SelectField({
   return (
     <div>
       <label htmlFor={id} className="field-label">
-        {label} {required && <span className="text-brand-cyan">*</span>}
+        {label} {required && <span className="text-teal">*</span>}
       </label>
       <select
         id={id}

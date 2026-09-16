@@ -36,7 +36,7 @@ export function SettingsPage() {
   return (
     <form onSubmit={onSubmit} className="mx-auto max-w-3xl space-y-8">
       <h1 className="font-display text-3xl font-bold">Site settings</h1>
-      <p className="-mt-4 text-brand-white/55">
+      <p className="-mt-4 text-ink/55">
         These update the live site instantly - no developer or redeploy needed.
       </p>
 
@@ -73,7 +73,7 @@ export function SettingsPage() {
         <div className="space-y-3">
           {settings.openingHours.map((o, i) => (
             <div key={o.day} className="grid grid-cols-[110px_1fr] items-center gap-3">
-              <span className="text-sm font-semibold text-brand-white/70">{o.day}</span>
+              <span className="text-sm font-semibold text-ink/70">{o.day}</span>
               <input value={o.hours} onChange={(e) => setHour(i, e.target.value)} className="field-input" aria-label={`Hours for ${o.day}`} />
             </div>
           ))}
@@ -85,7 +85,7 @@ export function SettingsPage() {
           <Save size={16} aria-hidden /> {saving ? 'Saving…' : 'Save settings'}
         </button>
         {saved && (
-          <span className="flex items-center gap-1.5 text-sm text-brand-cyan">
+          <span className="flex items-center gap-1.5 text-sm text-teal">
             <CheckCircle2 size={16} aria-hidden /> Saved
           </span>
         )}

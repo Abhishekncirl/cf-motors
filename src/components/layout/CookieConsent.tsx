@@ -46,13 +46,13 @@ export function CookieConsent() {
     <div
       role="dialog"
       aria-label="Cookie consent"
-      className="fixed inset-x-0 bottom-0 z-[60] border-t border-white/10 bg-brand-grey/98 backdrop-blur"
+      className="fixed inset-x-0 bottom-0 z-[60] border-t border-line bg-black/5 backdrop-blur"
     >
       <div className="container-page flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-brand-white/80">
+        <p className="text-sm text-ink/80">
           We use essential cookies to run this site and, with your consent,
           analytics to improve it. See our{' '}
-          <Link to="/privacy" className="text-brand-cyan underline">
+          <Link to="/privacy" className="text-teal underline">
             Privacy Policy
           </Link>
           .

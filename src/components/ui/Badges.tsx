@@ -18,9 +18,9 @@ export function ImportOriginBadge({ origin }: { origin: ImportOrigin }) {
 }
 
 const STATUS_STYLE: Record<VehicleStatus, string> = {
-  available: 'bg-brand-cyan/15 text-brand-cyan border-brand-cyan/30',
+  available: 'bg-brand-cyan/15 text-teal border-brand-cyan/30',
   reserved: 'bg-amber-500/15 text-amber-300 border-amber-400/30',
-  sold: 'bg-white/10 text-white/60 border-white/20',
+  sold: 'bg-black/5 text-white/60 border-line',
 };
 
 export function StatusBadge({ status }: { status: VehicleStatus }) {

@@ -73,7 +73,7 @@ export function ImageManager({
     <div>
       <div className="mb-2 flex items-center justify-between">
         <span className="field-label mb-0">Photos</span>
-        <span className="text-xs text-brand-white/40">Drag to reorder · click the star to set the main photo</span>
+        <span className="text-xs text-ink/40">Drag to reorder · click the star to set the main photo</span>
       </div>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
@@ -85,11 +85,11 @@ export function ImageManager({
             onDragOver={(e) => e.preventDefault()}
             onDrop={() => onDrop(index)}
             className={`group relative aspect-[4/3] overflow-hidden rounded-lg border ${
-              img.isPrimary ? 'border-brand-cyan' : 'border-white/15'
+              img.isPrimary ? 'border-brand-cyan' : 'border-line'
             }`}
           >
             <img src={img.url} alt={`Vehicle photo ${index + 1}`} className="h-full w-full object-cover" />
-            <span className="absolute left-1 top-1 rounded bg-brand-black/70 p-1 text-white/70">
+            <span className="absolute left-1 top-1 rounded bg-black/70 p-1 text-white/70">
               <GripVertical size={14} aria-hidden />
             </span>
             {img.isPrimary && (
@@ -102,15 +102,15 @@ export function ImageManager({
                 type="button"
                 onClick={() => setPrimary(index)}
                 aria-label="Set as main photo"
-                className="rounded bg-brand-black/70 p-1 text-white hover:text-brand-cyan"
+                className="rounded bg-black/70 p-1 text-white hover:text-teal"
               >
-                <Star size={14} className={img.isPrimary ? 'fill-brand-cyan text-brand-cyan' : ''} aria-hidden />
+                <Star size={14} className={img.isPrimary ? 'fill-brand-cyan text-teal' : ''} aria-hidden />
               </button>
               <button
                 type="button"
                 onClick={() => remove(index)}
                 aria-label="Remove photo"
-                className="rounded bg-brand-black/70 p-1 text-white hover:text-red-400"
+                className="rounded bg-black/70 p-1 text-white hover:text-red-400"
               >
                 <Trash2 size={14} aria-hidden />
               </button>
@@ -122,7 +122,7 @@ export function ImageManager({
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
-          className="flex aspect-[4/3] flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-white/25 text-brand-white/50 hover:border-brand-cyan hover:text-brand-cyan"
+          className="flex aspect-[4/3] flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-line text-ink/50 hover:border-brand-cyan hover:text-teal"
         >
           {uploading ? <Loader2 className="animate-spin" size={22} aria-hidden /> : <ImagePlus size={22} aria-hidden />}
           <span className="text-xs">{uploading ? 'Uploading…' : 'Add photos'}</span>

@@ -84,7 +84,7 @@ export function VehicleListPage() {
       </div>
 
       <div className="relative max-w-sm">
-        <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-white/40" aria-hidden />
+        <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-ink/40" aria-hidden />
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -97,7 +97,7 @@ export function VehicleListPage() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[720px] border-collapse text-sm">
           <thead>
-            <tr className="border-b border-white/10 text-left text-xs uppercase tracking-wide text-brand-white/50">
+            <tr className="border-b border-line text-left text-xs uppercase tracking-wide text-ink/50">
               <th className="py-3 pr-4">Vehicle</th>
               <th className="py-3 pr-4">Price</th>
               <th className="py-3 pr-4">Mileage</th>
@@ -108,12 +108,12 @@ export function VehicleListPage() {
           </thead>
           <tbody>
             {filtered.map((v) => (
-              <tr key={v.id} className="border-b border-white/5 hover:bg-white/[0.02]">
+              <tr key={v.id} className="border-b border-line hover:bg-black/[0.03]">
                 <td className="py-3 pr-4">
-                  <Link to={`/admin/vehicles/${v.id}`} className="font-semibold hover:text-brand-cyan">
+                  <Link to={`/admin/vehicles/${v.id}`} className="font-semibold hover:text-teal">
                     {vehicleTitle(v, true)}
                   </Link>
-                  <div className="text-xs text-brand-white/40">{v.stockRef || '—'}</div>
+                  <div className="text-xs text-ink/40">{v.stockRef || '—'}</div>
                 </td>
                 <td className="py-3 pr-4">{formatPrice(v.price)}</td>
                 <td className="py-3 pr-4">{formatMileage(v.mileageKm)}</td>
@@ -136,7 +136,7 @@ export function VehicleListPage() {
                     disabled={busyId === v.id}
                     aria-pressed={v.featured}
                     aria-label={v.featured ? 'Unfeature' : 'Feature'}
-                    className={v.featured ? 'text-brand-cyan' : 'text-brand-white/30 hover:text-brand-white/60'}
+                    className={v.featured ? 'text-teal' : 'text-ink/30 hover:text-ink/60'}
                   >
                     <Star size={18} className={v.featured ? 'fill-brand-cyan' : ''} aria-hidden />
                   </button>
@@ -162,11 +162,11 @@ export function VehicleListPage() {
           </tbody>
         </table>
         {filtered.length === 0 && (
-          <p className="py-8 text-center text-sm text-brand-white/50">No vehicles found.</p>
+          <p className="py-8 text-center text-sm text-ink/50">No vehicles found.</p>
         )}
         <div className="mt-2 flex items-center gap-2">
           <StatusBadge status="available" />
-          <span className="text-xs text-brand-white/40">Sold/reserved cars stay in the database but drop off the public site. Delete removes a car and its photos for good.</span>
+          <span className="text-xs text-ink/40">Sold/reserved cars stay in the database but drop off the public site. Delete removes a car and its photos for good.</span>
         </div>
       </div>
 
