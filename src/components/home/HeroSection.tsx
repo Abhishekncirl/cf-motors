@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { StockSearchBar } from './StockSearchBar';
+import HeroCarIllustration from './HeroCarIllustration';
 import { useSiteSettings } from '../../hooks/useSiteSettings';
 
 /**
@@ -27,6 +28,12 @@ export function HeroSection() {
         aria-hidden
         className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-brand-cyan/20 blur-3xl"
       />
+      {/* Hand-drawn brand car illustration on the right (when no hero photo set). */}
+      {!heroUrl && (
+        <HeroCarIllustration
+          className="pointer-events-none absolute -right-6 top-6 hidden w-[52%] max-w-[640px] xl:w-[46%] lg:block"
+        />
+      )}
       {heroUrl && (
         <>
           <img
