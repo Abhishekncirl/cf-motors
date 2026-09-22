@@ -27,15 +27,6 @@ export function HeroSection() {
         aria-hidden
         className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-brand-cyan/20 blur-3xl"
       />
-      {/* Brand logo/car as a subtle backdrop on the right (when no hero photo set). */}
-      {!heroUrl && (
-        <img
-          src={`${import.meta.env.BASE_URL}cf-logo-mark.png`}
-          alt=""
-          aria-hidden
-          className="pointer-events-none absolute right-0 top-1/2 hidden h-[70%] max-w-[55%] -translate-y-1/2 object-contain opacity-25 lg:block"
-        />
-      )}
       {heroUrl && (
         <>
           <img
