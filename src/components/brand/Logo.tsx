@@ -1,34 +1,27 @@
 import { Link } from 'react-router-dom';
 import { BUSINESS } from '../../config/business';
 
+// Public asset, base-path aware (works at '/' locally and '/cf-motors/' on Pages).
+const LOGO_MARK = `${import.meta.env.BASE_URL}cf-logo-mark.png`;
+
 /**
- * Text-based wordmark that echoes the logo: white "CF" + cyan wedge + "MOTOR
- * SALES". Using type (not a raster logo) keeps it crisp and theme-consistent.
- * Swap for the supplied logo asset by dropping it in /public and rendering an
- * <img> here if preferred.
+ * Brand logo. Renders the real CF Motor Sales mark (transparent PNG) so it sits
+ * cleanly on the dark header/footer. Replace /public/cf-logo-mark.png to update.
  */
 export function Logo({ className = '' }: { className?: string }) {
   return (
     <Link
       to="/"
-      className={`group inline-flex items-center gap-2 ${className}`}
+      className={`inline-flex items-center ${className}`}
       aria-label={`${BUSINESS.name} home`}
     >
-      <span className="font-display text-2xl font-bold leading-none tracking-tight text-white sm:text-3xl">
-        CF
-      </span>
-      <span
-        aria-hidden
-        className="h-6 w-1.5 -skew-x-12 bg-brand-cyan transition-all group-hover:h-7"
+      <img
+        src={LOGO_MARK}
+        alt={`${BUSINESS.name} - ${BUSINESS.tagline}`}
+        width={536}
+        height={142}
+        className="h-9 w-auto sm:h-10"
       />
-      <span className="flex flex-col leading-none">
-        <span className="font-display text-lg font-bold uppercase tracking-tight text-white sm:text-xl">
-          Motor Sales
-        </span>
-        <span className="text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-brand-cyan">
-          UK &amp; Japanese Imports
-        </span>
-      </span>
     </Link>
   );
 }
