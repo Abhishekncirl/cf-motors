@@ -21,6 +21,18 @@ export const BODY_TYPES: BodyType[] = [
   'Van',
 ];
 export const IMPORT_ORIGINS: ImportOrigin[] = ['UK', 'Japan', 'Irish'];
+
+/** Display labels for import origins (stored values stay 'UK'/'Japan'/'Irish'). */
+export const IMPORT_ORIGIN_LABELS: Record<ImportOrigin, string> = {
+  UK: 'United Kingdom',
+  Japan: 'Japan',
+  Irish: 'Republic of Ireland',
+};
+
+export function importOriginLabel(origin: ImportOrigin): string {
+  return IMPORT_ORIGIN_LABELS[origin] ?? origin;
+}
+
 export const VEHICLE_STATUSES: VehicleStatus[] = ['available', 'reserved', 'sold'];
 
 /** Common makes for the search dropdowns (free text is still allowed). */

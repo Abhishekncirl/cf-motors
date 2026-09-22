@@ -55,7 +55,7 @@ export function SettingsPage() {
         <div className="grid gap-4 sm:grid-cols-2">
           <TextField label="Address line 1" name="addressLine1" value={settings.addressLine1} onChange={(v) => patch({ addressLine1: v })} />
           <TextField label="Town / County" name="addressLine2" value={settings.addressLine2} onChange={(v) => patch({ addressLine2: v })} />
-          <TextField label="Eircode" name="eircode" value={settings.eircode} onChange={(v) => patch({ eircode: v })} />
+          <TextField label="Postcode / Eircode" name="eircode" value={settings.eircode} onChange={(v) => patch({ eircode: v })} />
         </div>
       </section>
 
@@ -64,6 +64,7 @@ export function SettingsPage() {
         <div className="grid gap-4 sm:grid-cols-2">
           <TextField label="Facebook URL" name="facebookUrl" value={settings.facebookUrl} onChange={(v) => patch({ facebookUrl: v })} />
           <TextField label="TikTok URL" name="tiktokUrl" value={settings.tiktokUrl} onChange={(v) => patch({ tiktokUrl: v })} />
+          <TextField label="Instagram URL" name="instagramUrl" value={settings.instagramUrl} onChange={(v) => patch({ instagramUrl: v })} />
         </div>
         <TextField label="Homepage hero image URL" name="heroImageUrl" value={settings.heroImageUrl} onChange={(v) => patch({ heroImageUrl: v })} hint="Paste a public image URL (e.g. from a vehicle photo) to use as the homepage banner." />
       </section>

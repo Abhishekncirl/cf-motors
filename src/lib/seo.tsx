@@ -100,8 +100,8 @@ export function autoDealerJsonLd() {
       addressLocality: BUSINESS.locality.town,
       addressRegion: BUSINESS.locality.county,
       postalCode: BUSINESS.address.eircode,
-      addressCountry: 'IE',
+      addressCountry: 'GB',
     },
-    sameAs: [BUSINESS.social.facebook, BUSINESS.social.tiktok],
+    sameAs: [BUSINESS.social.facebook, BUSINESS.social.tiktok, BUSINESS.social.instagram].filter(Boolean),
   };
 }

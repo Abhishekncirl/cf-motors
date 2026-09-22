@@ -4,6 +4,7 @@ import { Logo } from '../brand/Logo';
 import { useSiteSettings } from '../../hooks/useSiteSettings';
 import { BUSINESS, telLink, whatsappLink } from '../../config/business';
 import { TikTokIcon } from '../brand/TikTokIcon';
+import { InstagramIcon } from '../brand/InstagramIcon';
 
 export function Footer() {
   const settings = useSiteSettings();
@@ -92,6 +93,15 @@ export function Footer() {
               className="rounded-md border border-white/10 p-2.5 text-white/80 hover:border-brand-cyan hover:text-brand-cyan"
             >
               <TikTokIcon className="h-5 w-5" />
+            </a>
+            <a
+              href={settings.instagramUrl || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="CF Motor Sales on Instagram"
+              className="rounded-md border border-white/10 p-2.5 text-white/80 hover:border-brand-cyan hover:text-brand-cyan"
+            >
+              <InstagramIcon className="h-5 w-5" />
             </a>
           </div>
           <div className="mt-6 flex flex-col gap-2">

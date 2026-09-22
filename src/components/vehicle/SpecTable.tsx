@@ -1,5 +1,6 @@
 import type { Vehicle } from '../../lib/types';
 import { formatMileage, formatDate } from '../../lib/format';
+import { importOriginLabel } from '../../config/options';
 
 /** Full specification table for the vehicle detail page. */
 export function SpecTable({ vehicle: v }: { vehicle: Vehicle }) {
@@ -19,7 +20,7 @@ export function SpecTable({ vehicle: v }: { vehicle: Vehicle }) {
     ['Previous owners', v.previousOwners],
     ['NCT expiry', formatDate(v.nctExpiry)],
     ['Tax band', v.taxBand || '—'],
-    ['Import origin', v.importOrigin],
+    ['Import origin', importOriginLabel(v.importOrigin)],
     ['Stock reference', v.stockRef || '—'],
   ];
 

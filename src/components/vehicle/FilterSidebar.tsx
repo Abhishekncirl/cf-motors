@@ -6,6 +6,7 @@ import {
   TRANSMISSIONS,
   BODY_TYPES,
   IMPORT_ORIGINS,
+  importOriginLabel,
   YEAR_OPTIONS,
 } from '../../config/options';
 
@@ -181,7 +182,7 @@ export function FilterSidebar({ filters, onChange, onReset }: Props) {
                     : 'border-line text-ink/80 hover:border-brand-cyan'
                 }`}
               >
-                {o}
+                {importOriginLabel(o)}
               </button>
             );
           })}

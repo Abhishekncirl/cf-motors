@@ -6,6 +6,7 @@ import { useSiteSettings } from '../hooks/useSiteSettings';
 import { telLink, whatsappLink } from '../config/business';
 import { WhatsAppIcon } from '../components/brand/WhatsAppIcon';
 import { TikTokIcon } from '../components/brand/TikTokIcon';
+import { InstagramIcon } from '../components/brand/InstagramIcon';
 
 export function ContactPage() {
   const s = useSiteSettings();
@@ -76,6 +77,9 @@ export function ContactPage() {
             </a>
             <a href={s.tiktokUrl} target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="rounded-md border border-line p-3 hover:border-brand-cyan hover:text-teal">
               <TikTokIcon className="h-6 w-6" />
+            </a>
+            <a href={s.instagramUrl || '#'} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="rounded-md border border-line p-3 hover:border-brand-cyan hover:text-teal">
+              <InstagramIcon className="h-6 w-6" />
             </a>
           </div>
 

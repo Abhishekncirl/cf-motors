@@ -69,6 +69,7 @@ export interface SiteSettings {
   email: string;
   facebookUrl: string;
   tiktokUrl: string;
+  instagramUrl: string;
   addressLine1: string;
   addressLine2: string;
   eircode: string;

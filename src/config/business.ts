@@ -11,36 +11,36 @@
 export const BUSINESS = {
   name: 'CF Motor Sales Ltd',
   tagline: 'UK & Japanese Imports',
-  // Phone shown to users, and the machine form used for tel: links.
-  phoneDisplay: '087 410 6028',
+  // Phone shown to users (with +353 country code), and the tel: link form.
+  phoneDisplay: '+353 87 410 6028',
   phoneTel: '+353874106028',
   // WhatsApp deep-link number in wa.me format (no plus, no spaces).
   whatsapp: '353874106028',
-  // NOTE: dummy placeholder values for review - replace with confirmed details.
-  email: 'sales@cfmotorsales.ie', // [CONFIRM] (dummy)
+  email: 'cfmotorsales123@gmail.com',
   address: {
-    line1: 'Unit 4, Boghall Road Business Park', // [CONFIRM] (dummy)
-    line2: 'Bray, Co. Wicklow', // [CONFIRM] (dummy)
-    eircode: 'A98 X283', // [CONFIRM] (dummy)
-    country: 'Ireland',
+    line1: '111 Concession Rd, Cullaville',
+    line2: 'Crossmaglen, Newry',
+    eircode: 'BT35 9JE', // UK postcode
+    country: 'United Kingdom',
   },
-  // Local SEO targeting - fill the town/county once the address is confirmed.
+  // Local SEO targeting.
   locality: {
-    town: 'Bray', // [CONFIRM] (dummy)
-    county: 'Wicklow', // [CONFIRM] (dummy)
+    town: 'Crossmaglen',
+    county: 'Newry',
   },
   social: {
-    facebook: 'https://www.facebook.com/cfmotorsales', // [CONFIRM URL] (dummy)
-    tiktok: 'https://www.tiktok.com/@cfmotorsales', // [CONFIRM URL] (dummy)
+    facebook: 'https://www.facebook.com/cfmotorsales', // [CONFIRM URL]
+    tiktok: 'https://www.tiktok.com/@cfmotorsales', // [CONFIRM URL]
+    instagram: '', // [client to add link later]
   },
   // Opening hours - overridden by site_settings when the owner edits them.
   openingHours: [
-    { day: 'Monday', hours: '09:00 - 18:00' },
-    { day: 'Tuesday', hours: '09:00 - 18:00' },
-    { day: 'Wednesday', hours: '09:00 - 18:00' },
-    { day: 'Thursday', hours: '09:00 - 18:00' },
-    { day: 'Friday', hours: '09:00 - 18:00' },
-    { day: 'Saturday', hours: '10:00 - 16:00' },
+    { day: 'Monday', hours: '08:00 - 17:00' },
+    { day: 'Tuesday', hours: '08:00 - 17:00' },
+    { day: 'Wednesday', hours: '08:00 - 17:00' },
+    { day: 'Thursday', hours: '08:00 - 17:00' },
+    { day: 'Friday', hours: '08:00 - 17:00' },
+    { day: 'Saturday', hours: 'By appointment' },
     { day: 'Sunday', hours: 'By appointment' },
   ],
   // Does the client offer finance? [CONFIRM] - controls the /finance page copy.

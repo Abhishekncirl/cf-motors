@@ -14,6 +14,7 @@ export function defaultSettings(): SiteSettings {
     email: BUSINESS.email,
     facebookUrl: BUSINESS.social.facebook,
     tiktokUrl: BUSINESS.social.tiktok,
+    instagramUrl: BUSINESS.social.instagram,
     addressLine1: BUSINESS.address.line1,
     addressLine2: BUSINESS.address.line2,
     eircode: BUSINESS.address.eircode,

@@ -8,7 +8,7 @@ import { ImageManager } from './ImageManager';
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
 import { Spinner } from '../../components/ui/Spinner';
 import {
-  FUEL_TYPES, TRANSMISSIONS, BODY_TYPES, IMPORT_ORIGINS, VEHICLE_STATUSES,
+  FUEL_TYPES, TRANSMISSIONS, BODY_TYPES, IMPORT_ORIGINS, importOriginLabel, VEHICLE_STATUSES,
 } from '../../config/options';
 import { vehicleSlug } from '../../lib/slug';
 import { isClean, requiredText } from '../../lib/validate';
@@ -161,7 +161,7 @@ export function VehicleEditPage({ mode }: { mode: 'create' | 'edit' }) {
           <TextField label="Weekly price (€)" name="weeklyPrice" type="number" inputMode="numeric" value={form.weeklyPrice} onChange={set('weeklyPrice')} hint="Optional - shown as 'from €X per week'" />
           <TextField label="Mileage (km)" name="mileageKm" required type="number" inputMode="numeric" value={form.mileageKm} onChange={set('mileageKm')} error={errors.mileageKm} />
           <SelectField label="Import origin" name="importOrigin" value={form.importOrigin} onChange={set('importOrigin')}>
-            {IMPORT_ORIGINS.map((o) => <option key={o} value={o}>{o}</option>)}
+            {IMPORT_ORIGINS.map((o) => <option key={o} value={o}>{importOriginLabel(o)}</option>)}
           </SelectField>
           <TextField label="Stock reference" name="stockRef" value={form.stockRef} onChange={set('stockRef')} />
         </div>
