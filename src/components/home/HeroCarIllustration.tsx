@@ -1,151 +1,168 @@
 /**
- * Custom SVG hero illustration for CF Motor Sales - a sleek coupe drawn in the
- * brand's dark + cyan palette. Hand-built (no external image) so it always
- * renders and stays perfectly on-brand against the dark hero band.
- *
- * Sits as a decorative element on the right of the hero; purely presentational.
+ * Custom SVG hero illustration for CF Motor Sales - a low, aggressive sports
+ * car drawn in the brand's dark + cyan palette to appeal to a younger audience.
+ * Hand-built (no external image) so it always renders and stays on-brand
+ * against the dark hero band. Purely presentational.
  */
 export default function HeroCarIllustration({ className = '' }: { className?: string }) {
+  const wheels = [180, 520]; // rear, front centre-x
+  const wy = 244; // wheel centre-y
+  const tire = 48;
+  const rim = 27;
+
   return (
     <svg
-      viewBox="0 0 660 340"
+      viewBox="0 0 700 330"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       role="img"
-      aria-label="Illustration of an imported sports car"
+      aria-label="Illustration of a sports car"
     >
       <defs>
-        <radialGradient id="cf-glow" cx="50%" cy="55%" r="60%">
-          <stop offset="0%" stopColor="#4FE3DE" stopOpacity="0.30" />
+        <radialGradient id="cf-glow" cx="50%" cy="55%" r="62%">
+          <stop offset="0%" stopColor="#4FE3DE" stopOpacity="0.32" />
           <stop offset="70%" stopColor="#4FE3DE" stopOpacity="0" />
         </radialGradient>
         <linearGradient id="cf-body" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#39424F" />
-          <stop offset="55%" stopColor="#20262F" />
-          <stop offset="100%" stopColor="#12161D" />
+          <stop offset="0%" stopColor="#414B59" />
+          <stop offset="45%" stopColor="#232B35" />
+          <stop offset="100%" stopColor="#10141B" />
         </linearGradient>
-        <linearGradient id="cf-lower" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1A2029" />
-          <stop offset="100%" stopColor="#0C0F14" />
+        <linearGradient id="cf-body-hi" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#5A6675" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#5A6675" stopOpacity="0" />
         </linearGradient>
         <linearGradient id="cf-glass" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#2C3A44" />
-          <stop offset="100%" stopColor="#131A21" />
+          <stop offset="0%" stopColor="#31414C" />
+          <stop offset="100%" stopColor="#121922" />
         </linearGradient>
         <linearGradient id="cf-rim" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#586372" />
-          <stop offset="100%" stopColor="#242B34" />
+          <stop offset="0%" stopColor="#66717F" />
+          <stop offset="100%" stopColor="#20272F" />
         </linearGradient>
-        <filter id="cf-soft" x="-30%" y="-30%" width="160%" height="160%">
+        <filter id="cf-soft" x="-40%" y="-40%" width="180%" height="180%">
           <feGaussianBlur in="SourceGraphic" stdDeviation="7" />
         </filter>
       </defs>
 
-      {/* Ambient cyan glow behind the car */}
-      <ellipse cx="330" cy="200" rx="320" ry="150" fill="url(#cf-glow)" />
+      {/* Ambient cyan glow */}
+      <ellipse cx="350" cy="195" rx="330" ry="150" fill="url(#cf-glow)" />
 
-      {/* Motion streaks trailing off the back (left) */}
-      <g stroke="#4FE3DE" strokeLinecap="round" opacity="0.55">
-        <line x1="18" y1="150" x2="120" y2="150" strokeWidth="3" opacity="0.5" />
-        <line x1="4" y1="178" x2="135" y2="178" strokeWidth="4" opacity="0.7" />
-        <line x1="30" y1="206" x2="115" y2="206" strokeWidth="3" opacity="0.4" />
+      {/* Motion streaks trailing off the back */}
+      <g stroke="#4FE3DE" strokeLinecap="round">
+        <line x1="12" y1="150" x2="118" y2="150" strokeWidth="3" opacity="0.45" />
+        <line x1="0" y1="176" x2="140" y2="176" strokeWidth="4" opacity="0.7" />
+        <line x1="24" y1="202" x2="120" y2="202" strokeWidth="3" opacity="0.4" />
       </g>
 
       {/* Ground shadow + cyan under-glow */}
-      <ellipse cx="345" cy="286" rx="250" ry="20" fill="#000000" opacity="0.55" />
-      <ellipse cx="345" cy="280" rx="210" ry="12" fill="#4FE3DE" opacity="0.25" filter="url(#cf-soft)" />
+      <ellipse cx="360" cy="292" rx="255" ry="18" fill="#000000" opacity="0.55" />
+      <ellipse cx="360" cy="286" rx="215" ry="11" fill="#4FE3DE" opacity="0.28" filter="url(#cf-soft)" />
 
-      {/* ---- Car body ---- */}
-      {/* Lower body / rocker */}
-      <path
-        d="M96 250
-           C 96 232, 118 224, 150 224
-           L 520 224
-           C 560 224, 588 232, 596 250
-           L 592 262
-           C 520 268, 180 268, 104 262 Z"
-        fill="url(#cf-lower)"
-      />
+      {/* Rear wing (behind the body) */}
+      <g fill="#161C24" stroke="#4FE3DE" strokeOpacity="0.35" strokeWidth="1.5">
+        <path d="M96 150 L 214 138 L 214 150 L 96 162 Z" />
+        <rect x="120" y="150" width="9" height="34" rx="2" />
+        <rect x="188" y="148" width="9" height="34" rx="2" />
+      </g>
 
-      {/* Main body silhouette */}
+      {/* ---- Main body (low, wedge sports-car silhouette) ---- */}
       <path
-        d="M104 250
-           C 96 214, 108 196, 150 190
-           C 190 150, 250 132, 318 130
-           C 392 128, 452 150, 496 188
-           C 556 194, 600 206, 606 236
-           C 608 248, 600 254, 588 254
-           L 560 254
-           C 556 226, 528 214, 500 214
-           C 472 214, 446 226, 442 254
-           L 214 254
-           C 210 226, 184 214, 156 214
-           C 128 214, 104 226, 100 254 Z"
+        d="M108 214
+           C 110 194, 126 184, 156 182
+           C 196 178, 238 176, 268 168
+           C 288 154, 320 144, 360 143
+           C 396 142, 424 150, 442 168
+           C 452 178, 460 184, 480 187
+           C 534 190, 596 198, 636 214
+           C 660 224, 672 234, 668 246
+           C 666 252, 656 254, 646 254
+           L 132 254
+           C 116 254, 106 246, 106 234 Z"
         fill="url(#cf-body)"
       />
-
-      {/* Greenhouse / glass */}
+      {/* Top highlight sweep */}
       <path
-        d="M214 150
-           C 250 134, 300 128, 340 130
-           C 388 132, 428 146, 452 172
-           L 320 176
-           L 236 176
-           C 224 168, 218 158, 214 150 Z"
+        d="M156 182 C 210 176, 270 168, 300 152 C 340 144, 400 146, 440 168 L 430 176 C 392 158, 336 156, 300 168 C 258 182, 206 188, 168 190 Z"
+        fill="url(#cf-body-hi)"
+        opacity="0.5"
+      />
+
+      {/* Wheel wells (dark arches) */}
+      {wheels.map((cx) => (
+        <circle key={`w${cx}`} cx={cx} cy={wy} r={tire + 7} fill="#0B0E12" />
+      ))}
+
+      {/* Side skirt accent between the wheels */}
+      <rect x="238" y="244" width="226" height="6" rx="3" fill="#4FE3DE" opacity="0.4" />
+
+      {/* Cabin / fastback glass */}
+      <path
+        d="M282 168
+           C 300 154, 336 146, 372 148
+           C 400 149, 420 158, 434 176
+           L 300 180
+           C 288 178, 282 174, 282 168 Z"
         fill="url(#cf-glass)"
         stroke="#4FE3DE"
-        strokeOpacity="0.35"
+        strokeOpacity="0.4"
         strokeWidth="1.5"
       />
-      {/* B-pillar split */}
-      <line x1="322" y1="130" x2="320" y2="176" stroke="#0C0F14" strokeWidth="4" opacity="0.7" />
+      {/* A-pillar / mirror hint */}
+      <line x1="360" y1="147" x2="356" y2="180" stroke="#0B0E12" strokeWidth="3" opacity="0.6" />
 
-      {/* Cyan character line down the flank */}
+      {/* Sharp cyan character line down the flank */}
       <path
-        d="M150 208 C 260 196, 430 196, 560 210"
+        d="M150 206 C 280 194, 470 194, 610 214"
         fill="none"
         stroke="#4FE3DE"
-        strokeOpacity="0.55"
+        strokeOpacity="0.6"
         strokeWidth="2.5"
         strokeLinecap="round"
       />
-      {/* Door seam */}
-      <path d="M330 178 C 332 196, 332 210, 332 236" fill="none" stroke="#0C0F14" strokeOpacity="0.6" strokeWidth="2" />
-      {/* Door handle */}
-      <rect x="360" y="196" width="26" height="5" rx="2.5" fill="#4FE3DE" opacity="0.7" />
 
-      {/* Headlight (front, right) */}
-      <path d="M592 210 q 16 4 12 22 l -22 -2 q -2 -14 10 -20 z" fill="#4FE3DE" />
-      <ellipse cx="600" cy="222" rx="10" ry="6" fill="#EAFFFE" opacity="0.9" filter="url(#cf-soft)" />
-      {/* Taillight (rear, left) */}
-      <rect x="100" y="204" width="10" height="16" rx="3" fill="#4FE3DE" opacity="0.85" />
+      {/* Door seam + handle */}
+      <path d="M330 182 C 334 200, 334 214, 334 238" fill="none" stroke="#0B0E12" strokeOpacity="0.6" strokeWidth="2" />
+      <rect x="356" y="200" width="26" height="5" rx="2.5" fill="#4FE3DE" opacity="0.75" />
 
-      {/* Front splitter accent */}
-      <rect x="470" y="250" width="120" height="8" rx="4" fill="#4FE3DE" opacity="0.35" />
+      {/* Side air intake behind the front wheel */}
+      <g stroke="#4FE3DE" strokeOpacity="0.75" strokeWidth="3" strokeLinecap="round">
+        <line x1="470" y1="205" x2="488" y2="218" />
+        <line x1="463" y1="212" x2="481" y2="225" />
+      </g>
+
+      {/* Angular headlight (front) */}
+      <path d="M636 210 L 664 222 L 660 232 L 632 226 Z" fill="#4FE3DE" />
+      <ellipse cx="656" cy="226" rx="10" ry="5" fill="#EAFFFE" opacity="0.9" filter="url(#cf-soft)" />
+      {/* Front splitter lip */}
+      <rect x="560" y="252" width="112" height="7" rx="3.5" fill="#4FE3DE" opacity="0.45" />
+
+      {/* Slim LED taillight (rear) */}
+      <path d="M108 198 L 132 202 L 132 210 L 108 208 Z" fill="#4FE3DE" opacity="0.9" />
 
       {/* ---- Wheels ---- */}
-      {[156, 500].map((cx) => (
+      {wheels.map((cx) => (
         <g key={cx}>
-          <circle cx={cx} cy="254" r="42" fill="#0B0E12" />
-          <circle cx={cx} cy="254" r="41" fill="none" stroke="#1E2530" strokeWidth="2" />
-          <circle cx={cx} cy="254" r="24" fill="url(#cf-rim)" />
-          <circle cx={cx} cy="254" r="24" fill="none" stroke="#4FE3DE" strokeOpacity="0.4" strokeWidth="1.5" />
-          {/* Spokes */}
-          <g stroke="#8A94A2" strokeWidth="3" strokeLinecap="round">
-            {[0, 60, 120, 180, 240, 300].map((a) => {
-              const r = (a * Math.PI) / 180;
+          <circle cx={cx} cy={wy} r={tire} fill="#0A0D11" />
+          <circle cx={cx} cy={wy} r={tire - 1} fill="none" stroke="#20272F" strokeWidth="2" />
+          <circle cx={cx} cy={wy} r={rim} fill="url(#cf-rim)" />
+          <circle cx={cx} cy={wy} r={rim} fill="none" stroke="#4FE3DE" strokeOpacity="0.45" strokeWidth="1.5" />
+          {/* 5-spoke sports alloy */}
+          <g stroke="#9AA4B2" strokeWidth="3.5" strokeLinecap="round">
+            {[0, 72, 144, 216, 288].map((a) => {
+              const r = ((a - 90) * Math.PI) / 180;
               return (
                 <line
                   key={a}
                   x1={cx + Math.cos(r) * 6}
-                  y1={254 + Math.sin(r) * 6}
-                  x2={cx + Math.cos(r) * 21}
-                  y2={254 + Math.sin(r) * 21}
+                  y1={wy + Math.sin(r) * 6}
+                  x2={cx + Math.cos(r) * (rim - 3)}
+                  y2={wy + Math.sin(r) * (rim - 3)}
                 />
               );
             })}
           </g>
-          <circle cx={cx} cy="254" r="6" fill="#4FE3DE" />
+          <circle cx={cx} cy={wy} r="6" fill="#4FE3DE" />
         </g>
       ))}
     </svg>
