@@ -54,9 +54,6 @@ export function FinancePage() {
               Finance is subject to status, approval and terms. Figures are not shown
               online - any quote is provided to you directly and, where applicable,
               through a regulated finance provider. Lending criteria apply.
-              <span className="mt-1 block text-ink/40">
-                [CLIENT TO REVIEW WITH SOLICITOR / confirm credit intermediary status.]
-              </span>
             </p>
           </div>
         </div>

@@ -28,7 +28,7 @@ export function AboutPage() {
           <div className="space-y-4 text-ink/75">
             <h2 className="font-display text-2xl font-bold text-ink">Our story</h2>
             <p>
-              [CONFIRM company story] We started CF Motor Sales because we saw how
+              We started CF Motor Sales because we saw how
               many great cars in the UK and Japan never made it to Irish forecourts -
               cleaner, lower-mileage and higher-spec than a lot of what’s available here.
             </p>
