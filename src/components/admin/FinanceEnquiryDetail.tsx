@@ -1,8 +1,9 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { Car } from 'lucide-react';
+import { Car, FileText, FileDown } from 'lucide-react';
 import type { Enquiry, Vehicle } from '../../lib/types';
 import { getVehicleById } from '../../lib/vehicles';
 import { formatPrice, formatNumber } from '../../lib/format';
+import { downloadFinanceWord, printFinancePdf } from '../../lib/financeDoc';
 
 /**
  * Structured, line-by-line view of a finance application in admin: the vehicle
@@ -41,6 +42,25 @@ export function FinanceEnquiryDetail({ enquiry }: { enquiry: Enquiry }) {
 
   return (
     <div className="space-y-4">
+      {/* Export actions - send to the finance team as Word or PDF */}
+      <div className="flex flex-wrap items-center gap-2 rounded-lg border border-line bg-white p-3">
+        <span className="mr-auto text-xs text-ink/50">Send to finance team:</span>
+        <button
+          type="button"
+          onClick={() => downloadFinanceWord(enquiry, vehicle)}
+          className="btn btn-outline px-3 py-1.5 text-xs"
+        >
+          <FileText size={14} aria-hidden /> Download Word
+        </button>
+        <button
+          type="button"
+          onClick={() => printFinancePdf(enquiry, vehicle)}
+          className="btn btn-primary px-3 py-1.5 text-xs"
+        >
+          <FileDown size={14} aria-hidden /> Download PDF
+        </button>
+      </div>
+
       {/* Selected vehicle */}
       <Section title="Vehicle selected for finance">
         <div className="grid gap-3 rounded-lg border border-line bg-white p-3 sm:grid-cols-[140px_1fr]">
