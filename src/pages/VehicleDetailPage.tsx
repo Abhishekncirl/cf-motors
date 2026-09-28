@@ -62,12 +62,12 @@ export function VehicleDetailPage() {
           <ChevronLeft size={16} aria-hidden /> Back to stock
         </Link>
 
-        <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
-          <div>
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.4fr_1fr]">
+          <div className="min-w-0">
             <Gallery images={vehicle.images} alt={vehicleAlt(vehicle)} />
           </div>
 
-          <div>
+          <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <ImportOriginBadge origin={vehicle.importOrigin} />
               <StatusBadge status={vehicle.status} />

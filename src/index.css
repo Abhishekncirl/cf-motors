@@ -19,6 +19,9 @@
     @apply bg-page text-ink font-sans antialiased;
     margin: 0;
     min-height: 100vh;
+    /* Safety net: never let a stray wide element cause a horizontal scroll on
+       mobile. `clip` (unlike `hidden`) does not break position: sticky. */
+    overflow-x: clip;
   }
 
   h1,

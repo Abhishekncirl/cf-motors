@@ -38,7 +38,7 @@ export function Gallery({ images, alt }: { images: VehicleImage[]; alt: string }
   };
 
   return (
-    <div>
+    <div className="min-w-0">
       <div
         className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line bg-ink/[0.04]"
         onTouchStart={onTouchStart}
@@ -72,7 +72,7 @@ export function Gallery({ images, alt }: { images: VehicleImage[]; alt: string }
       </div>
 
       {ordered.length > 1 && (
-        <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+        <div className="mt-3 flex min-w-0 gap-2 overflow-x-auto pb-1">
           {ordered.map((img, i) => (
             <button
               key={i}
