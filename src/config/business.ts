@@ -17,6 +17,8 @@ export const BUSINESS = {
   // WhatsApp deep-link number in wa.me format (no plus, no spaces).
   whatsapp: '353874106028',
   email: 'cfmotorsales123@gmail.com',
+  // Where admin "Email to finance team" pre-fills to. [CONFIRM finance team address]
+  financeTeamEmail: 'cfmotorsales123@gmail.com',
   address: {
     line1: '111 Concession Rd, Cullaville',
     line2: 'Crossmaglen, Newry',

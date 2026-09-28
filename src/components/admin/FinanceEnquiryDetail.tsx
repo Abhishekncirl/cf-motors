@@ -1,9 +1,9 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { Car, FileText, FileDown } from 'lucide-react';
+import { Car, FileText, FileDown, Mail } from 'lucide-react';
 import type { Enquiry, Vehicle } from '../../lib/types';
 import { getVehicleById } from '../../lib/vehicles';
 import { formatPrice, formatNumber } from '../../lib/format';
-import { downloadFinanceWord, printFinancePdf } from '../../lib/financeDoc';
+import { downloadFinanceWord, printFinancePdf, financeEmailHref } from '../../lib/financeDoc';
 
 /**
  * Structured, line-by-line view of a finance application in admin: the vehicle
@@ -42,24 +42,30 @@ export function FinanceEnquiryDetail({ enquiry }: { enquiry: Enquiry }) {
 
   return (
     <div className="space-y-4">
-      {/* Export actions - send to the finance team as Word or PDF */}
+      {/* Export actions - send to the finance team as Word or PDF, or email */}
       <div className="flex flex-wrap items-center gap-2 rounded-lg border border-line bg-white p-3">
         <span className="mr-auto text-xs text-ink/50">Send to finance team:</span>
+        <a href={financeEmailHref(enquiry, vehicle)} className="btn btn-outline px-3 py-1.5 text-xs">
+          <Mail size={14} aria-hidden /> Email
+        </a>
         <button
           type="button"
-          onClick={() => downloadFinanceWord(enquiry, vehicle)}
+          onClick={() => void downloadFinanceWord(enquiry, vehicle)}
           className="btn btn-outline px-3 py-1.5 text-xs"
         >
           <FileText size={14} aria-hidden /> Download Word
         </button>
         <button
           type="button"
-          onClick={() => printFinancePdf(enquiry, vehicle)}
+          onClick={() => void printFinancePdf(enquiry, vehicle)}
           className="btn btn-primary px-3 py-1.5 text-xs"
         >
           <FileDown size={14} aria-hidden /> Download PDF
         </button>
       </div>
+      <p className="-mt-2 text-[0.7rem] text-ink/40">
+        Email opens your mail app pre-filled to the finance team - attach the downloaded Word/PDF before sending.
+      </p>
 
       {/* Selected vehicle */}
       <Section title="Vehicle selected for finance">
