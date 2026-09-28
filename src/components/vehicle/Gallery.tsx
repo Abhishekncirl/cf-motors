@@ -55,7 +55,7 @@ export function Gallery({ images, alt }: { images: VehicleImage[]; alt: string }
         <button
           type="button"
           onClick={() => setLightbox(true)}
-          className="absolute right-3 top-3 rounded-md bg-black/70 p-2 text-ink hover:text-teal"
+          className="absolute right-3 top-3 rounded-md bg-white/90 p-2 text-ink shadow-sm ring-1 ring-black/5 backdrop-blur hover:text-teal"
           aria-label="Open full-screen gallery"
         >
           <Expand size={18} aria-hidden />
@@ -64,7 +64,7 @@ export function Gallery({ images, alt }: { images: VehicleImage[]; alt: string }
           <>
             <GalleryArrow dir="left" onClick={() => go(-1)} />
             <GalleryArrow dir="right" onClick={() => go(1)} />
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/70 px-3 py-1 text-xs text-ink">
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-3 py-1 text-xs text-ink shadow-sm ring-1 ring-black/5 backdrop-blur">
               {index + 1} / {ordered.length}
             </div>
           </>
@@ -138,7 +138,7 @@ function GalleryArrow({
       type="button"
       onClick={onClick}
       aria-label={dir === 'left' ? 'Previous image' : 'Next image'}
-      className={`absolute top-1/2 -translate-y-1/2 ${dir === 'left' ? 'left-3' : 'right-3'} rounded-full bg-black/70 p-2 text-ink hover:text-teal`}
+      className={`absolute top-1/2 -translate-y-1/2 ${dir === 'left' ? 'left-3' : 'right-3'} rounded-full bg-white/90 p-2 text-ink shadow-sm ring-1 ring-black/5 backdrop-blur hover:text-teal`}
     >
       <Icon size={large ? 32 : 22} aria-hidden />
     </button>
