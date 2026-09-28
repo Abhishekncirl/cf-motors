@@ -40,7 +40,7 @@ export function Gallery({ images, alt }: { images: VehicleImage[]; alt: string }
   return (
     <div>
       <div
-        className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line bg-page"
+        className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line bg-ink/[0.04]"
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
@@ -49,7 +49,7 @@ export function Gallery({ images, alt }: { images: VehicleImage[]; alt: string }
           alt={`${alt} - image ${index + 1} of ${ordered.length}`}
           width={800}
           height={600}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain"
           decoding="async"
         />
         <button
