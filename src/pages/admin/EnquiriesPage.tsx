@@ -4,6 +4,7 @@ import { listEnquiries, setEnquiryFlags, deleteEnquiry } from '../../lib/enquiri
 import type { Enquiry, EnquiryType } from '../../lib/types';
 import { Spinner } from '../../components/ui/Spinner';
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog';
+import { FinanceEnquiryDetail } from '../../components/admin/FinanceEnquiryDetail';
 
 const TYPES: (EnquiryType | 'all')[] = ['all', 'general', 'vehicle', 'valuation', 'sourcing', 'finance'];
 
@@ -118,17 +119,25 @@ export function EnquiriesPage() {
                       <Phone size={15} aria-hidden /> {e.phone}
                     </a>
                   </div>
-                  <p className="mt-3 whitespace-pre-line text-sm text-ink/75">{e.message}</p>
+                  {e.type === 'finance' ? (
+                    <div className="mt-3">
+                      <FinanceEnquiryDetail enquiry={e} />
+                    </div>
+                  ) : (
+                    <>
+                      <p className="mt-3 whitespace-pre-line text-sm text-ink/75">{e.message}</p>
 
-                  {textFields.length > 0 && (
-                    <dl className="mt-3 grid gap-x-6 gap-y-1 rounded-lg bg-white p-3 text-xs sm:grid-cols-2">
-                      {textFields.map(({ label, value }, i) => (
-                        <div key={`${label}-${i}`} className="flex justify-between gap-3">
-                          <dt className="text-ink/45">{label}</dt>
-                          <dd className="text-right font-medium text-ink/80">{value}</dd>
-                        </div>
-                      ))}
-                    </dl>
+                      {textFields.length > 0 && (
+                        <dl className="mt-3 grid gap-x-6 gap-y-1 rounded-lg bg-white p-3 text-xs sm:grid-cols-2">
+                          {textFields.map(({ label, value }, i) => (
+                            <div key={`${label}-${i}`} className="flex justify-between gap-3">
+                              <dt className="text-ink/45">{label}</dt>
+                              <dd className="text-right font-medium text-ink/80">{value}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                      )}
+                    </>
                   )}
 
                   {photos.length > 0 && (
