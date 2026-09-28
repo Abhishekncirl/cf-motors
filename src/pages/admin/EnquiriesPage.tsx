@@ -81,9 +81,7 @@ export function EnquiriesPage() {
       <div className="space-y-3">
         {filtered.map((e) => {
           const photos = collectPhotos(e.payload);
-          const textFields = Object.entries(e.payload).filter(
-            ([k, v]) => !PHOTO_KEYS.includes(k) && v !== '' && !(Array.isArray(v) && v.length === 0)
-          );
+          const textFields = flattenPayload(e.payload);
           return (
             <div key={e.id} className={`card overflow-hidden ${!e.isRead ? 'border-brand-cyan/40' : ''}`}>
               <button
@@ -124,10 +122,10 @@ export function EnquiriesPage() {
 
                   {textFields.length > 0 && (
                     <dl className="mt-3 grid gap-x-6 gap-y-1 rounded-lg bg-white p-3 text-xs sm:grid-cols-2">
-                      {textFields.map(([k, v]) => (
-                        <div key={k} className="flex justify-between gap-3">
-                          <dt className="text-ink/45">{k}</dt>
-                          <dd className="text-right font-medium text-ink/80">{String(v)}</dd>
+                      {textFields.map(({ label, value }, i) => (
+                        <div key={`${label}-${i}`} className="flex justify-between gap-3">
+                          <dt className="text-ink/45">{label}</dt>
+                          <dd className="text-right font-medium text-ink/80">{value}</dd>
                         </div>
                       ))}
                     </dl>
@@ -194,6 +192,47 @@ export function EnquiriesPage() {
       />
     </div>
   );
+}
+
+/** camelCase / snake_case key -> human "Title Case" label. */
+function humanize(key: string): string {
+  return key
+    .replace(/[_-]+/g, ' ')
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+/**
+ * Flatten an enquiry payload into readable label/value rows so EVERYTHING the
+ * customer submitted is visible in admin. Nested objects (e.g. the finance
+ * `quote`) are expanded with a prefixed label; booleans render as Yes/No;
+ * numbers are localised. Photo arrays are handled separately.
+ */
+function flattenPayload(
+  payload: Record<string, unknown>,
+  prefix = ''
+): { label: string; value: string }[] {
+  const out: { label: string; value: string }[] = [];
+  for (const [key, val] of Object.entries(payload)) {
+    if (PHOTO_KEYS.includes(key)) continue;
+    if (val === '' || val === null || val === undefined) continue;
+    const label = prefix ? `${prefix} · ${humanize(key)}` : humanize(key);
+    if (Array.isArray(val)) {
+      if (val.length === 0) continue;
+      out.push({ label, value: val.map((x) => String(x)).join(', ') });
+    } else if (typeof val === 'object') {
+      out.push(...flattenPayload(val as Record<string, unknown>, humanize(key)));
+    } else if (typeof val === 'boolean') {
+      out.push({ label, value: val ? 'Yes' : 'No' });
+    } else if (typeof val === 'number') {
+      out.push({ label, value: val.toLocaleString('en-IE') });
+    } else {
+      out.push({ label, value: String(val) });
+    }
+  }
+  return out;
 }
 
 /** Pull image URLs out of the payload (valuation/sourcing photo uploads). */
