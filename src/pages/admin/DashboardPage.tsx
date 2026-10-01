@@ -26,12 +26,12 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="min-w-0">
           <h1 className="font-display text-3xl font-bold">Dashboard</h1>
           <p className="text-ink/55">Overview of your stock and enquiries.</p>
         </div>
-        <Link to="/admin/vehicles/new" className="btn-primary">
+        <Link to="/admin/vehicles/new" className="btn-primary shrink-0 self-start sm:self-auto">
           <Plus size={16} aria-hidden /> Add vehicle
         </Link>
       </div>
@@ -51,7 +51,7 @@ export function DashboardPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <div className="card p-5">
+        <div className="card min-w-0 p-5">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="font-display text-lg font-bold">Recently added</h2>
             <Link to="/admin/vehicles" className="text-xs text-teal hover:underline">View all</Link>
@@ -59,10 +59,10 @@ export function DashboardPage() {
           <ul className="divide-y divide-line">
             {vehicles.slice(0, 5).map((v) => (
               <li key={v.id} className="flex items-center justify-between gap-3 py-2.5">
-                <Link to={`/admin/vehicles/${v.id}`} className="text-sm font-semibold hover:text-teal">
+                <Link to={`/admin/vehicles/${v.id}`} className="min-w-0 truncate text-sm font-semibold hover:text-teal">
                   {vehicleTitle(v)}
                 </Link>
-                <span className="flex items-center gap-2">
+                <span className="flex shrink-0 items-center gap-2">
                   <StatusBadge status={v.status} />
                   <span className="text-sm text-ink/60">{formatPrice(v.price)}</span>
                 </span>
@@ -72,7 +72,7 @@ export function DashboardPage() {
           </ul>
         </div>
 
-        <div className="card p-5">
+        <div className="card min-w-0 p-5">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="font-display text-lg font-bold">Latest enquiries</h2>
             <Link to="/admin/enquiries" className="text-xs text-teal hover:underline">View all</Link>

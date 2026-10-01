@@ -65,14 +65,14 @@ export function AdminLayout() {
       {open && <div className="fixed inset-0 z-40 bg-black/60 lg:hidden" onClick={() => setOpen(false)} aria-hidden />}
 
       {/* Main */}
-      <div className="flex min-h-screen flex-col">
-        <header className="flex h-16 items-center justify-between border-b border-line px-4 lg:px-8">
+      <div className="flex min-h-screen min-w-0 flex-col">
+        <header className="flex h-16 items-center gap-3 border-b border-line px-4 lg:px-8">
           <button className="lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu">
             <Menu aria-hidden />
           </button>
-          <div className="ml-auto text-sm text-ink/60">{user?.email}</div>
+          <div className="ml-auto truncate text-sm text-ink/60">{user?.email}</div>
         </header>
-        <main className="flex-1 p-4 lg:p-8">
+        <main className="min-w-0 flex-1 p-4 lg:p-8">
           <Outlet />
         </main>
       </div>
