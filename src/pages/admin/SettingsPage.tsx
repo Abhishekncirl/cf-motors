@@ -120,7 +120,7 @@ export function SettingsPage() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h2 className="font-display text-lg font-bold">Forecourt photos</h2>
-            <p className="text-sm text-ink/55">Shown on the About page. Each photo is compressed to under 300&nbsp;KB.</p>
+            <p className="text-sm text-ink/55">Shown on the About page. Uploaded at full quality (up to 8&nbsp;MB each).</p>
           </div>
           <button
             type="button"

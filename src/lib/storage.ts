@@ -127,16 +127,39 @@ export async function uploadEnquiryPhoto(file: File, folder: string): Promise<st
   return getDownloadURL(objectRef);
 }
 
-/** Upload a compressed forecourt/premises photo (About page). */
+/** Storage rule cap for forecourt photos. */
+const FORECOURT_MAX_BYTES = 8 * 1024 * 1024;
+
+function extForFile(file: File): string {
+  const fromName = file.name.split('.').pop()?.toLowerCase();
+  if (fromName && /^(jpe?g|png|webp|gif|avif)$/.test(fromName)) return fromName === 'jpeg' ? 'jpg' : fromName;
+  return file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg';
+}
+
+/**
+ * Upload a forecourt/premises photo (About page) at full quality. We DON'T
+ * compress to the 300 KB cap used elsewhere - these are a handful of hero-style
+ * images. We only down-scale if the original is larger than the Storage limit
+ * (8 MB), so the upload is always accepted.
+ */
 export async function uploadForecourtPhoto(
   file: File
 ): Promise<{ url: string; storagePath: string }> {
   const storage = requireStorage();
-  const blob = await compressImage(file);
-  const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${extFor(blob)}`;
+  let blob: Blob = file;
+  let ext = extForFile(file);
+  if (file.size > FORECOURT_MAX_BYTES * 0.95) {
+    blob = await compressImage(file, {
+      maxDimension: 2600,
+      quality: 0.92,
+      maxBytes: Math.floor(FORECOURT_MAX_BYTES * 0.9),
+    });
+    ext = extFor(blob);
+  }
+  const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
   const storagePath = `forecourt/${filename}`;
   const objectRef = ref(storage, storagePath);
-  await uploadBytes(objectRef, blob, { contentType: blob.type || 'image/webp' });
+  await uploadBytes(objectRef, blob, { contentType: blob.type || file.type || 'image/jpeg' });
   const url = await getDownloadURL(objectRef);
   return { url, storagePath };
 }
