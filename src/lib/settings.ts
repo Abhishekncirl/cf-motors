@@ -20,6 +20,7 @@ export function defaultSettings(): SiteSettings {
     eircode: BUSINESS.address.eircode,
     openingHours: [...BUSINESS.openingHours],
     heroImageUrl: '',
+    forecourtPhotos: [],
     updatedAt: 0,
   };
 }

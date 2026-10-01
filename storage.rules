@@ -19,6 +19,13 @@ service firebase.storage {
       allow write: if isAdmin() && isImageUnder(8 * 1024 * 1024);
     }
 
+    // Forecourt / About-page photos: world-readable, admin-writable (and
+    // admin-deletable, so removing a photo frees the storage).
+    match /forecourt/{fileName} {
+      allow read: if true;
+      allow write: if isAdmin() && isImageUnder(8 * 1024 * 1024);
+    }
+
     // Customer-supplied photos on valuation/sourcing enquiries. The (anonymous)
     // customer must be able to read back the download URL it just uploaded to
     // store it on the enquiry, so read is open - but access still requires the

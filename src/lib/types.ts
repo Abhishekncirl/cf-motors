@@ -75,7 +75,14 @@ export interface SiteSettings {
   eircode: string;
   openingHours: { day: string; hours: string }[];
   heroImageUrl: string;
+  /** Forecourt / premises photos shown on the About page, managed in admin. */
+  forecourtPhotos: ForecourtPhoto[];
   updatedAt: number;
+}
+
+export interface ForecourtPhoto {
+  url: string;
+  storagePath: string;
 }
 
 export interface Review {

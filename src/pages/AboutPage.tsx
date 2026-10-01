@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ShieldCheck, HeartHandshake, Globe2 } from 'lucide-react';
 import { Seo } from '../lib/seo';
 import { PageHeader } from '../components/ui/PageHeader';
+import { useSiteSettings } from '../hooks/useSiteSettings';
 
 const VALUES = [
   { icon: ShieldCheck, title: 'Honesty first', body: 'Straight answers, fair prices and no pressure. We’d rather build a reputation than make a quick sale.' },
@@ -10,6 +11,7 @@ const VALUES = [
 ];
 
 export function AboutPage() {
+  const { forecourtPhotos } = useSiteSettings();
   return (
     <>
       <Seo
@@ -43,17 +45,27 @@ export function AboutPage() {
             </div>
           </div>
 
-          {/* Forecourt photos - replace the placeholders with real images. */}
-          <div className="grid grid-cols-2 gap-4">
-            {[1, 2, 3, 4].map((n) => (
-              <div
-                key={n}
-                className="flex aspect-[4/3] items-center justify-center rounded-xl border border-line bg-white text-xs text-ink/40"
-              >
-                Forecourt photo {n}
-              </div>
-            ))}
-          </div>
+          {/* Forecourt photos - managed in admin (Settings -> Forecourt photos). */}
+          {forecourtPhotos.length > 0 ? (
+            <div className="grid grid-cols-2 gap-4">
+              {forecourtPhotos.map((photo) => (
+                <div key={photo.storagePath} className="aspect-[4/3] overflow-hidden rounded-xl border border-line bg-white">
+                  <img src={photo.url} alt="CF Motor Sales forecourt" className="h-full w-full object-cover" loading="lazy" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-4">
+              {[1, 2, 3, 4].map((n) => (
+                <div
+                  key={n}
+                  className="flex aspect-[4/3] items-center justify-center rounded-xl border border-line bg-white text-xs text-ink/40"
+                >
+                  Forecourt photo {n}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-3">

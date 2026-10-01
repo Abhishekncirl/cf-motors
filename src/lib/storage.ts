@@ -127,6 +127,31 @@ export async function uploadEnquiryPhoto(file: File, folder: string): Promise<st
   return getDownloadURL(objectRef);
 }
 
+/** Upload a compressed forecourt/premises photo (About page). */
+export async function uploadForecourtPhoto(
+  file: File
+): Promise<{ url: string; storagePath: string }> {
+  const storage = requireStorage();
+  const blob = await compressImage(file);
+  const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${extFor(blob)}`;
+  const storagePath = `forecourt/${filename}`;
+  const objectRef = ref(storage, storagePath);
+  await uploadBytes(objectRef, blob, { contentType: blob.type || 'image/webp' });
+  const url = await getDownloadURL(objectRef);
+  return { url, storagePath };
+}
+
+/** Delete any stored object by its storage path (frees the space). */
+export async function deleteStorageObject(storagePath: string): Promise<void> {
+  if (!storagePath) return;
+  const storage = requireStorage();
+  try {
+    await deleteObject(ref(storage, storagePath));
+  } catch {
+    // Ignore missing / already-deleted objects.
+  }
+}
+
 export async function deleteVehicleImage(storagePath: string): Promise<void> {
   const storage = requireStorage();
   try {
