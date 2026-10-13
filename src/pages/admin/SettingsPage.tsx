@@ -13,12 +13,26 @@ export function SettingsPage() {
   const [photoBusy, setPhotoBusy] = useState(false);
   const [photoError, setPhotoError] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
+  // Finance numbers are held as free text while editing so decimals like "8.5"
+  // can be typed (parsed to numbers on save).
+  const [fin, setFin] = useState<{ rate: string; minDep: string; doc: string; comp: string } | null>(null);
 
   useEffect(() => {
-    getSiteSettings().then(setSettings);
+    getSiteSettings().then((s) => {
+      setSettings(s);
+      setFin({
+        rate: String(s.financeInterestRate),
+        minDep: String(s.financeMinDepositPct),
+        doc: String(s.financeDocumentFee),
+        comp: String(s.financeCompletionFee),
+      });
+    });
   }, []);
 
-  if (!settings) return <Spinner label="Loading settings" />;
+  if (!settings || !fin) return <Spinner label="Loading settings" />;
+
+  // Allow digits and a single decimal point (comma is treated as a point).
+  const numText = (v: string) => v.replace(/,/g, '.').replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
 
   const patch = (p: Partial<SiteSettings>) => setSettings((s) => (s ? { ...s, ...p } : s));
 
@@ -69,8 +83,20 @@ export function SettingsPage() {
     e.preventDefault();
     setSaving(true);
     setSaved(false);
+    const toNum = (s: string) => {
+      const n = parseFloat(s);
+      return Number.isFinite(n) && n >= 0 ? n : 0;
+    };
+    const merged: SiteSettings = {
+      ...settings,
+      financeInterestRate: toNum(fin.rate),
+      financeMinDepositPct: toNum(fin.minDep),
+      financeDocumentFee: toNum(fin.doc),
+      financeCompletionFee: toNum(fin.comp),
+    };
     try {
-      await saveSiteSettings(settings);
+      await saveSiteSettings(merged);
+      setSettings(merged);
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } finally {
@@ -180,31 +206,31 @@ export function SettingsPage() {
             label="Interest rate (%)"
             name="financeInterestRate"
             inputMode="decimal"
-            value={String(settings.financeInterestRate)}
-            onChange={(v) => patch({ financeInterestRate: v === '' ? 0 : Number(v) || 0 })}
-            hint="Nominal annual rate, e.g. 8.9"
+            value={fin.rate}
+            onChange={(v) => setFin({ ...fin, rate: numText(v) })}
+            hint="Nominal annual rate, e.g. 8.5"
           />
           <TextField
             label="Minimum deposit (%)"
             name="financeMinDepositPct"
             inputMode="decimal"
-            value={String(settings.financeMinDepositPct)}
-            onChange={(v) => patch({ financeMinDepositPct: v === '' ? 0 : Number(v) || 0 })}
+            value={fin.minDep}
+            onChange={(v) => setFin({ ...fin, minDep: numText(v) })}
             hint="e.g. 10"
           />
           <TextField
             label="Document fee (€)"
             name="financeDocumentFee"
             inputMode="decimal"
-            value={String(settings.financeDocumentFee)}
-            onChange={(v) => patch({ financeDocumentFee: v === '' ? 0 : Number(v) || 0 })}
+            value={fin.doc}
+            onChange={(v) => setFin({ ...fin, doc: numText(v) })}
           />
           <TextField
             label="Completion fee (€)"
             name="financeCompletionFee"
             inputMode="decimal"
-            value={String(settings.financeCompletionFee)}
-            onChange={(v) => patch({ financeCompletionFee: v === '' ? 0 : Number(v) || 0 })}
+            value={fin.comp}
+            onChange={(v) => setFin({ ...fin, comp: numText(v) })}
           />
         </div>
         <p className="rounded-md bg-amber-50 px-3 py-2 text-xs text-amber-800">
