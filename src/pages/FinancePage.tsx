@@ -3,7 +3,8 @@ import { Seo } from '../lib/seo';
 import { PageHeader } from '../components/ui/PageHeader';
 import { EnquiryForm } from '../components/forms/EnquiryForm';
 import { FinanceWizard } from '../components/finance/FinanceWizard';
-import { FINANCE } from '../lib/finance';
+import { FINANCE, financeConfigFromSettings } from '../lib/finance';
+import { useSiteSettings } from '../hooks/useSiteSettings';
 import { BUSINESS } from '../config/business';
 
 /*
@@ -20,6 +21,7 @@ import { BUSINESS } from '../config/business';
 export function FinancePage() {
   const [params] = useSearchParams();
   const vehicleId = params.get('vehicle') || undefined;
+  const cfg = financeConfigFromSettings(useSiteSettings());
 
   if (!BUSINESS.offersFinance) {
     return (
@@ -61,8 +63,8 @@ export function FinancePage() {
             <p className="font-semibold text-ink/80">Representative example</p>
             <p className="mt-1">
               Figures shown are a representative example under a {FINANCE.type} agreement at{' '}
-              {(FINANCE.annualInterestRate * 100).toFixed(2)}% interest rate, with a minimum{' '}
-              {Math.round(FINANCE.minDepositPct * 100)}% deposit and €{FINANCE.documentFee}/€{FINANCE.completionFee}
+              {(cfg.annualInterestRate * 100).toFixed(2)}% interest rate, with a minimum{' '}
+              {Math.round(cfg.minDepositPct * 100)}% deposit and €{cfg.documentFee}/€{cfg.completionFee}
               {' '}document/completion fees. Finance is subject to status, approval and terms. Lending criteria apply.
               CF Motor Sales acts as a credit intermediary; any agreement is with a regulated finance provider.
             </p>

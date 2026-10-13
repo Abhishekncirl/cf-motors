@@ -168,6 +168,53 @@ export function SettingsPage() {
       </section>
 
       <section className="card space-y-4 p-6">
+        <div>
+          <h2 className="font-display text-lg font-bold">Finance options</h2>
+          <p className="text-sm text-ink/55">
+            These figures drive the finance calculator shown to customers on the Apply For Finance page.
+            Changes go live when you click Save settings.
+          </p>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <TextField
+            label="Interest rate (%)"
+            name="financeInterestRate"
+            inputMode="decimal"
+            value={String(settings.financeInterestRate)}
+            onChange={(v) => patch({ financeInterestRate: v === '' ? 0 : Number(v) || 0 })}
+            hint="Nominal annual rate, e.g. 8.9"
+          />
+          <TextField
+            label="Minimum deposit (%)"
+            name="financeMinDepositPct"
+            inputMode="decimal"
+            value={String(settings.financeMinDepositPct)}
+            onChange={(v) => patch({ financeMinDepositPct: v === '' ? 0 : Number(v) || 0 })}
+            hint="e.g. 10"
+          />
+          <TextField
+            label="Document fee (€)"
+            name="financeDocumentFee"
+            inputMode="decimal"
+            value={String(settings.financeDocumentFee)}
+            onChange={(v) => patch({ financeDocumentFee: v === '' ? 0 : Number(v) || 0 })}
+          />
+          <TextField
+            label="Completion fee (€)"
+            name="financeCompletionFee"
+            inputMode="decimal"
+            value={String(settings.financeCompletionFee)}
+            onChange={(v) => patch({ financeCompletionFee: v === '' ? 0 : Number(v) || 0 })}
+          />
+        </div>
+        <p className="rounded-md bg-amber-50 px-3 py-2 text-xs text-amber-800">
+          Advertising regulated credit (APR, monthly repayments) in Ireland requires these figures to be
+          accurate and agreed with your regulated finance provider. The monthly repayment, total payable and
+          representative APR are recalculated automatically from these values.
+        </p>
+      </section>
+
+      <section className="card space-y-4 p-6">
         <h2 className="font-display text-lg font-bold">Opening hours</h2>
         <div className="space-y-3">
           {settings.openingHours.map((o, i) => (

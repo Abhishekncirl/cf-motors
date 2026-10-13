@@ -77,6 +77,11 @@ export interface SiteSettings {
   heroImageUrl: string;
   /** Forecourt / premises photos shown on the About page, managed in admin. */
   forecourtPhotos: ForecourtPhoto[];
+  /** Finance calculator figures (admin-editable). Percent + euro values. */
+  financeInterestRate: number; // e.g. 8.9 (%)
+  financeMinDepositPct: number; // e.g. 10 (%)
+  financeDocumentFee: number; // euros
+  financeCompletionFee: number; // euros
   updatedAt: number;
 }
 

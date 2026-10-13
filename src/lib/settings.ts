@@ -2,6 +2,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore/lite';
 import { db } from './firebase';
 import type { SiteSettings } from './types';
 import { BUSINESS } from '../config/business';
+import { FINANCE } from './finance';
 
 export const SETTINGS_DOC = 'site_settings/main';
 
@@ -21,6 +22,10 @@ export function defaultSettings(): SiteSettings {
     openingHours: [...BUSINESS.openingHours],
     heroImageUrl: '',
     forecourtPhotos: [],
+    financeInterestRate: FINANCE.annualInterestRate * 100, // 8.9
+    financeMinDepositPct: FINANCE.minDepositPct * 100, // 10
+    financeDocumentFee: FINANCE.documentFee, // 75
+    financeCompletionFee: FINANCE.completionFee, // 75
     updatedAt: 0,
   };
 }

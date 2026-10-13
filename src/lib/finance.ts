@@ -35,6 +35,21 @@ export interface FinanceInput {
   termYears: number;
 }
 
+/** The rate/fee figures used by the calculator - editable by the admin. */
+export interface FinanceConfig {
+  annualInterestRate: number; // fraction, e.g. 0.089
+  minDepositPct: number; // fraction, e.g. 0.10
+  documentFee: number; // euros
+  completionFee: number; // euros
+}
+
+export const DEFAULT_FINANCE_CONFIG: FinanceConfig = {
+  annualInterestRate: FINANCE.annualInterestRate,
+  minDepositPct: FINANCE.minDepositPct,
+  documentFee: FINANCE.documentFee,
+  completionFee: FINANCE.completionFee,
+};
+
 export interface FinanceResult {
   price: number;
   minDeposit: number;
@@ -71,13 +86,18 @@ function monthlyPayment(principal: number, annualRate: number, months: number): 
  * document fee is treated as paid up front and the completion fee at the end,
  * which is why the APR sits a little above the nominal interest rate.
  */
-function solveApr(financeAmount: number, monthly: number, months: number): number {
+function solveApr(
+  financeAmount: number,
+  monthly: number,
+  months: number,
+  cfg: FinanceConfig
+): number {
   if (financeAmount <= 0 || monthly <= 0 || months <= 0) return 0;
   const pv = (i: number) => {
     // Present value of what the customer pays, at monthly rate i.
-    let sum = FINANCE.documentFee; // t0
+    let sum = cfg.documentFee; // t0
     for (let k = 1; k <= months; k++) sum += monthly / Math.pow(1 + i, k);
-    sum += FINANCE.completionFee / Math.pow(1 + i, months); // final month
+    sum += cfg.completionFee / Math.pow(1 + i, months); // final month
     return sum;
   };
   let lo = 0;
@@ -92,23 +112,23 @@ function solveApr(financeAmount: number, monthly: number, months: number): numbe
   return Math.pow(1 + monthlyRate, 12) - 1;
 }
 
-export function calcFinance(input: FinanceInput): FinanceResult {
+export function calcFinance(input: FinanceInput, cfg: FinanceConfig = DEFAULT_FINANCE_CONFIG): FinanceResult {
   const price = clampNum(input.price);
   const cashDeposit = clampNum(input.cashDeposit);
   const tradeIn = input.hasTradeIn ? clampNum(input.tradeIn) : 0;
   const outstandingLoan = input.hasTradeIn ? clampNum(input.outstandingLoan) : 0;
   const months = Math.max(1, Math.round(input.termYears * 12));
 
-  const minDeposit = Math.round(price * FINANCE.minDepositPct);
+  const minDeposit = Math.round(price * cfg.minDepositPct);
   const totalDeposit = Math.max(0, cashDeposit + tradeIn - outstandingLoan);
   const financeAmount = Math.max(0, price - totalDeposit);
 
-  const monthly = monthlyPayment(financeAmount, FINANCE.annualInterestRate, months);
+  const monthly = monthlyPayment(financeAmount, cfg.annualInterestRate, months);
   const totalOfPayments = monthly * months;
-  const fees = FINANCE.documentFee + FINANCE.completionFee;
+  const fees = cfg.documentFee + cfg.completionFee;
   const totalPayable = totalOfPayments + fees;
   const totalCostOfCredit = Math.max(0, totalPayable - financeAmount);
-  const apr = solveApr(financeAmount, monthly, months);
+  const apr = solveApr(financeAmount, monthly, months, cfg);
 
   const belowMinDeposit = totalDeposit < minDeposit;
 
@@ -126,6 +146,26 @@ export function calcFinance(input: FinanceInput): FinanceResult {
     apr,
     belowMinDeposit,
     ready: price > 0 && !belowMinDeposit && financeAmount > 0,
+  };
+}
+
+/** Settings fields that drive the finance figures (percent + euro values). */
+export interface FinanceSettingsFields {
+  financeInterestRate?: number; // percent, e.g. 8.9
+  financeMinDepositPct?: number; // percent, e.g. 10
+  financeDocumentFee?: number; // euros
+  financeCompletionFee?: number; // euros
+}
+
+/** Build the calculator config from the live site settings (percent -> fraction). */
+export function financeConfigFromSettings(s: FinanceSettingsFields): FinanceConfig {
+  const num = (v: number | undefined, fallback: number) =>
+    typeof v === 'number' && Number.isFinite(v) && v >= 0 ? v : fallback;
+  return {
+    annualInterestRate: num(s.financeInterestRate, FINANCE.annualInterestRate * 100) / 100,
+    minDepositPct: num(s.financeMinDepositPct, FINANCE.minDepositPct * 100) / 100,
+    documentFee: num(s.financeDocumentFee, FINANCE.documentFee),
+    completionFee: num(s.financeCompletionFee, FINANCE.completionFee),
   };
 }
 

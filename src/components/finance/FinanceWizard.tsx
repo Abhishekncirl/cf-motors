@@ -5,8 +5,9 @@ import { queryVehicles } from '../../lib/vehicles';
 import { submitEnquiry } from '../../lib/enquiries';
 import { formatPrice, formatNumber } from '../../lib/format';
 import { validEmail, validPhone } from '../../lib/validate';
+import { useSiteSettings } from '../../hooks/useSiteSettings';
 import {
-  FINANCE, calcFinance, IRISH_COUNTIES, TITLES, RESIDENTIAL_STATUS,
+  FINANCE, calcFinance, financeConfigFromSettings, IRISH_COUNTIES, TITLES, RESIDENTIAL_STATUS,
   EMPLOYMENT_STATUS, ID_TYPES, YEAR_RANGES,
 } from '../../lib/finance';
 
@@ -27,6 +28,8 @@ const EMPTY = {
 type FormState = typeof EMPTY;
 
 export function FinanceWizard({ initialVehicleId }: { initialVehicleId?: string }) {
+  const settings = useSiteSettings();
+  const cfg = useMemo(() => financeConfigFromSettings(settings), [settings]);
   const [step, setStep] = useState<Step>(1);
   const [form, setForm] = useState<FormState>({ ...EMPTY, vehicleId: initialVehicleId ?? '' });
   const [hasTradeIn, setHasTradeIn] = useState(false);
@@ -61,9 +64,9 @@ export function FinanceWizard({ initialVehicleId }: { initialVehicleId?: string 
       tradeIn: num(form.tradeInValue),
       outstandingLoan: num(form.outstandingLoan),
       termYears: Number(form.termYears) || FINANCE.defaultTermYears,
-    }),
+    }, cfg),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [price, hasTradeIn, form.cashDeposit, form.tradeInValue, form.outstandingLoan, form.termYears]
+    [price, hasTradeIn, form.cashDeposit, form.tradeInValue, form.outstandingLoan, form.termYears, cfg]
   );
 
   // ---- per-step validation ----
@@ -79,7 +82,7 @@ export function FinanceWizard({ initialVehicleId }: { initialVehicleId?: string 
     if (s === 2) {
       if (!vehicle) e.vehicleId = 'Choose a vehicle in step 1';
       else if (result.belowMinDeposit)
-        e.cashDeposit = `Minimum deposit is ${money(result.minDeposit)} (10% of price)`;
+        e.cashDeposit = `Minimum deposit is ${money(result.minDeposit)} (${Math.round(cfg.minDepositPct * 100)}% of price)`;
     }
     if (s === 3) {
       for (const [k, label] of [
@@ -134,12 +137,12 @@ export function FinanceWizard({ initialVehicleId }: { initialVehicleId?: string 
           hasTradeIn, consentApplicant, consentOver18, marketing,
           quote: {
             financeType: FINANCE.type, retailPrice: result.price, totalDeposit: result.totalDeposit,
-            financeAmount: result.financeAmount, interestRate: FINANCE.annualInterestRate,
+            financeAmount: result.financeAmount, interestRate: cfg.annualInterestRate,
             months: result.months, monthly: Math.round(result.monthly * 100) / 100,
             totalCostOfCredit: Math.round(result.totalCostOfCredit),
             totalPayable: Math.round(result.totalPayable),
             apr: Math.round(result.apr * 10000) / 100,
-            documentFee: FINANCE.documentFee, completionFee: FINANCE.completionFee,
+            documentFee: cfg.documentFee, completionFee: cfg.completionFee,
           },
         },
       });
@@ -257,7 +260,7 @@ export function FinanceWizard({ initialVehicleId }: { initialVehicleId?: string 
             {vehicle && (
               <div className="rounded-md bg-teal/10 px-4 py-3 text-sm text-teal">
                 To proceed with your application on this vehicle you will need to enter a minimum of{' '}
-                <strong>{money(result.minDeposit)}</strong> ({Math.round(FINANCE.minDepositPct * 100)}% of vehicle price)
+                <strong>{money(result.minDeposit)}</strong> ({Math.round(cfg.minDepositPct * 100)}% of vehicle price)
               </div>
             )}
 
@@ -314,10 +317,10 @@ export function FinanceWizard({ initialVehicleId }: { initialVehicleId?: string 
                 <SumRow k="Retail Price" v={formatPrice(price)} />
                 <SumRow k="Your Deposit" v={money(result.totalDeposit)} />
                 <SumRow k="Finance Amount" v={money(result.financeAmount)} />
-                <SumRow k="Interest Rate" v={`${(FINANCE.annualInterestRate * 100).toFixed(2)}%`} />
-                <SumRow k="Minimum Deposit Percentage" v={`${Math.round(FINANCE.minDepositPct * 100)}%`} />
-                <SumRow k="Document Fee" v={eur2(FINANCE.documentFee)} />
-                <SumRow k="Completion Fee" v={eur2(FINANCE.completionFee)} />
+                <SumRow k="Interest Rate" v={`${(cfg.annualInterestRate * 100).toFixed(2)}%`} />
+                <SumRow k="Minimum Deposit Percentage" v={`${Math.round(cfg.minDepositPct * 100)}%`} />
+                <SumRow k="Document Fee" v={eur2(cfg.documentFee)} />
+                <SumRow k="Completion Fee" v={eur2(cfg.completionFee)} />
                 <SumRow k="Term" v={`${form.termYears} ${form.termYears === '1' ? 'year' : 'years'}`} />
                 <SumRow k="Total Cost of Credit" v={result.ready ? money(result.totalCostOfCredit) : '€---'} />
                 <SumRow k="Total Amount Payable" v={result.ready ? money(result.totalPayable) : '€---'} />
