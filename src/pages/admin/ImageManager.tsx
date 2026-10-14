@@ -4,24 +4,31 @@ import type { VehicleImage } from '../../lib/types';
 import { uploadGalleryImage, deleteVehicleImage } from '../../lib/storage';
 
 /**
- * Multi-image manager: upload (auto-compressed to WebP), drag-to-reorder, set a
- * primary image, remove. Uploads happen immediately into the entity's storage
- * folder (`<folder>/<entityId>/`) so `entityId` must be stable before uploading.
+ * Multi-image manager: upload (auto-compressed to WebP, ≤300 KB each),
+ * drag-to-reorder, set a primary image, remove. Uploads happen immediately into
+ * the entity's storage folder (`<folder>/<entityId>/`) so `entityId` must be
+ * stable before uploading. Pass `maxImages` to cap how many can be added.
  */
 export function ImageManager({
   vehicleId,
   images,
   onChange,
   folder = 'vehicles',
+  maxImages,
+  label = 'photo',
 }: {
   vehicleId: string;
   images: VehicleImage[];
   onChange: (images: VehicleImage[]) => void;
   folder?: string;
+  maxImages?: number;
+  label?: string;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const dragIndex = useRef<number | null>(null);
+
+  const atLimit = maxImages != null && images.length >= maxImages;
 
   const normalise = (list: VehicleImage[]): VehicleImage[] => {
     const ensured = list.length && !list.some((i) => i.isPrimary)
@@ -32,15 +39,19 @@ export function ImageManager({
 
   const addFiles = async (files: FileList | null) => {
     if (!files || files.length === 0) return;
+    // Respect the cap: only take as many as there are free slots.
+    const remaining = maxImages != null ? Math.max(0, maxImages - images.length) : files.length;
+    const selected = Array.from(files).slice(0, remaining);
+    if (selected.length === 0) return;
     setUploading(true);
     try {
       const start = images.length;
       const uploaded: VehicleImage[] = [];
-      for (let i = 0; i < files.length; i++) {
+      for (let i = 0; i < selected.length; i++) {
         const img = await uploadGalleryImage(
           folder,
           vehicleId,
-          files[i],
+          selected[i],
           start + i,
           start === 0 && i === 0
         );
@@ -76,7 +87,10 @@ export function ImageManager({
     <div>
       <div className="mb-2 flex items-center justify-between">
         <span className="field-label mb-0">Photos</span>
-        <span className="text-xs text-ink/40">Drag to reorder · click the star to set the main photo</span>
+        <span className="text-xs text-ink/40">
+          {maxImages != null ? `Up to ${maxImages} photos (${images.length}/${maxImages}) · ` : ''}
+          Drag to reorder · auto-compressed
+        </span>
       </div>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
@@ -91,7 +105,7 @@ export function ImageManager({
               img.isPrimary ? 'border-brand-cyan' : 'border-line'
             }`}
           >
-            <img src={img.url} alt={`Vehicle photo ${index + 1}`} className="h-full w-full object-cover" />
+            <img src={img.url} alt={`${label} ${index + 1}`} className="h-full w-full object-cover" />
             <span className="absolute left-1 top-1 rounded bg-black/70 p-1 text-white/70">
               <GripVertical size={14} aria-hidden />
             </span>
@@ -121,16 +135,24 @@ export function ImageManager({
           </div>
         ))}
 
-        <button
-          type="button"
-          onClick={() => inputRef.current?.click()}
-          disabled={uploading}
-          className="flex aspect-[4/3] flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-line text-ink/50 hover:border-brand-cyan hover:text-teal"
-        >
-          {uploading ? <Loader2 className="animate-spin" size={22} aria-hidden /> : <ImagePlus size={22} aria-hidden />}
-          <span className="text-xs">{uploading ? 'Uploading…' : 'Add photos'}</span>
-        </button>
+        {!atLimit && (
+          <button
+            type="button"
+            onClick={() => inputRef.current?.click()}
+            disabled={uploading}
+            className="flex aspect-[4/3] flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-line text-ink/50 hover:border-brand-cyan hover:text-teal"
+          >
+            {uploading ? <Loader2 className="animate-spin" size={22} aria-hidden /> : <ImagePlus size={22} aria-hidden />}
+            <span className="text-xs">{uploading ? 'Uploading…' : 'Add photos'}</span>
+          </button>
+        )}
       </div>
+
+      {atLimit && (
+        <p className="mt-2 text-xs text-ink/45">
+          Photo limit reached ({maxImages}). Remove a photo to add a different one.
+        </p>
+      )}
 
       <input ref={inputRef} type="file" accept="image/*" multiple className="sr-only" onChange={(e) => addFiles(e.target.files)} />
     </div>

@@ -124,7 +124,7 @@ export function PartEditPage({ mode }: { mode: 'create' | 'edit' }) {
 
       <section className="card space-y-4 p-6">
         <h2 className="font-display text-lg font-bold">Photos</h2>
-        <ImageManager vehicleId={workingId} images={images} onChange={setImages} folder="parts" />
+        <ImageManager vehicleId={workingId} images={images} onChange={setImages} folder="parts" maxImages={4} label="Part photo" />
       </section>
 
       <section className="card space-y-4 p-6">
