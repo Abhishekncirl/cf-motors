@@ -5,7 +5,7 @@ import { Seo } from '../lib/seo';
 import { getPartBySlug, getRelatedParts } from '../lib/parts';
 import type { Part } from '../lib/types';
 import { formatPrice } from '../lib/format';
-import { whatsappLink, telLink } from '../config/business';
+import { whatsappLink, telLink, BUSINESS } from '../config/business';
 import { Gallery } from '../components/vehicle/Gallery';
 import { PartCard } from '../components/part/PartCard';
 import { WhatsAppIcon } from '../components/brand/WhatsAppIcon';
@@ -36,7 +36,13 @@ export function PartDetailPage() {
   if (state === 'loading') return <Spinner label="Loading part" />;
   if (state === 'missing' || !part) return <NotFoundPage />;
 
-  const wa = `Hi CF Motor Sales, I'm interested in the part: ${part.name}${part.sku ? ` (SKU ${part.sku})` : ''}. Is it available?`;
+  const primaryImg = part.images.find((i) => i.isPrimary)?.url || part.images[0]?.url;
+  const wa = [
+    `Hi CF Motor Sales, I'm interested in the part: ${part.name}${part.sku ? ` (SKU ${part.sku})` : ''}.`,
+    `Price: ${formatPrice(part.price)}. Is it available?`,
+    primaryImg ? `Photo: ${primaryImg}` : '',
+    `Link: ${BUSINESS.siteUrl}/parts/${part.slug}`,
+  ].filter(Boolean).join('\n');
   const specs: [string, string][] = [
     ['Category', part.category],
     ['Brand', part.brand || '—'],

@@ -11,7 +11,11 @@ const PLACEHOLDER =
 export function PartCard({ part }: { part: Part }) {
   const primary = part.images.find((i) => i.isPrimary) ?? part.images[0];
   const detailUrl = `/parts/${part.slug}`;
-  const wa = `Hi CF Motor Sales, I'm interested in the part: ${part.name}${part.sku ? ` (SKU ${part.sku})` : ''}. Is it available?`;
+  const wa = [
+    `Hi CF Motor Sales, I'm interested in the part: ${part.name}${part.sku ? ` (SKU ${part.sku})` : ''}.`,
+    `Price: ${formatPrice(part.price)}. Is it available?`,
+    primary?.url ? `Photo: ${primary.url}` : '',
+  ].filter(Boolean).join('\n');
 
   return (
     <article className="card group flex flex-col overflow-hidden transition-shadow hover:shadow-card-hover">
