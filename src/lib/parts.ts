@@ -11,7 +11,6 @@ import {
   updateDoc,
   deleteDoc,
   serverTimestamp,
-  type QueryConstraint,
   type DocumentData,
 } from 'firebase/firestore/lite';
 import { requireDb } from './firebase';
@@ -74,8 +73,10 @@ let inflight: Promise<Part[]> | null = null;
 
 async function fetchAvailable(): Promise<Part[]> {
   const db = requireDb();
+  // Single equality filter only (no orderBy) so no composite index is needed;
+  // ordering is applied in memory by sortParts.
   const snap = await getDocs(
-    query(collection(db, PARTS), where('status', '==', 'available'), orderBy('createdAt', 'desc'))
+    query(collection(db, PARTS), where('status', '==', 'available'))
   );
   const items = snap.docs.map((d) => toPart(d.id, d.data()));
   availCache = { at: Date.now(), items };
@@ -147,11 +148,11 @@ export async function queryParts(
     base = await getAvailable();
   } else {
     const db = requireDb();
-    const constraints: QueryConstraint[] = [];
-    if (status !== 'all') constraints.push(where('status', '==', status));
-    constraints.push(orderBy('createdAt', 'desc'));
-    const snap = await getDocs(query(collection(db, PARTS), ...constraints));
-    base = snap.docs.map((d) => toPart(d.id, d.data()));
+    // Equality filter only; ordering handled by sortParts (no composite index).
+    const base0 = status === 'all'
+      ? await getDocs(query(collection(db, PARTS)))
+      : await getDocs(query(collection(db, PARTS), where('status', '==', status)));
+    base = base0.docs.map((d) => toPart(d.id, d.data()));
   }
   let items = sortParts(base, sort).filter((p) => matches(p, filters));
   const total = items.length;
