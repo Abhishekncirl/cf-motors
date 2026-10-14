@@ -56,13 +56,13 @@ export function Header() {
       <div className="container-page flex h-16 items-center justify-between gap-4">
         <Logo />
 
-        <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-0.5 xl:flex">
           {NAV.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `rounded-md px-3 py-2 text-sm font-semibold uppercase tracking-wide transition-colors ${
+                `whitespace-nowrap rounded-md px-2.5 py-2 text-sm font-semibold uppercase tracking-wide transition-colors ${
                   isActive
                     ? 'text-brand-cyan'
                     : 'text-white/80 hover:text-brand-cyan'
@@ -75,17 +75,17 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link to="/admin" className="btn-outline-dark hidden lg:inline-flex">
+          <Link to="/admin" className="btn-outline-dark hidden xl:inline-flex">
             <Lock size={15} aria-hidden />
             <span>Admin</span>
           </Link>
-          <a href={telLink()} className="btn-primary hidden sm:inline-flex">
+          <a href={telLink()} className="btn-primary hidden whitespace-nowrap sm:inline-flex">
             <Phone size={16} aria-hidden />
             <span>{settings.phoneDisplay}</span>
           </a>
           <button
             type="button"
-            className="btn-outline-dark px-2.5 py-2 lg:hidden"
+            className="btn-outline-dark px-2.5 py-2 xl:hidden"
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -97,7 +97,7 @@ export function Header() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden">
+        <div className="xl:hidden">
           <nav
             aria-label="Mobile"
             className="container-page flex flex-col gap-1 border-t border-white/10 py-4"
