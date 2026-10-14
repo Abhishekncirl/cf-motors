@@ -1,4 +1,5 @@
 import { Tag, Package } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import type { Part } from '../../lib/types';
 import { formatPrice } from '../../lib/format';
 import { whatsappLink, telLink } from '../../config/business';
@@ -9,11 +10,12 @@ const PLACEHOLDER =
 
 export function PartCard({ part }: { part: Part }) {
   const primary = part.images.find((i) => i.isPrimary) ?? part.images[0];
+  const detailUrl = `/parts/${part.slug}`;
   const wa = `Hi CF Motor Sales, I'm interested in the part: ${part.name}${part.sku ? ` (SKU ${part.sku})` : ''}. Is it available?`;
 
   return (
     <article className="card group flex flex-col overflow-hidden transition-shadow hover:shadow-card-hover">
-      <div className="relative block aspect-[4/3] overflow-hidden bg-page">
+      <Link to={detailUrl} className="relative block aspect-[4/3] overflow-hidden bg-page">
         <img
           src={primary?.url || PLACEHOLDER}
           alt={part.name}
@@ -35,10 +37,12 @@ export function PartCard({ part }: { part: Part }) {
             </span>
           </div>
         )}
-      </div>
+      </Link>
 
       <div className="flex flex-1 flex-col p-4">
-        <h3 className="font-display text-lg font-bold leading-tight">{part.name}</h3>
+        <h3 className="font-display text-lg font-bold leading-tight">
+          <Link to={detailUrl} className="hover:text-teal">{part.name}</Link>
+        </h3>
         <p className="mt-0.5 text-sm text-ink/60">
           {[part.brand, part.condition].filter(Boolean).join(' · ') || 'Car part'}
         </p>
@@ -55,11 +59,12 @@ export function PartCard({ part }: { part: Part }) {
         <div className="mt-auto pt-4">
           <p className="font-display text-2xl font-bold text-teal">{formatPrice(part.price)}</p>
           <div className="mt-3 grid grid-cols-2 gap-2">
+            <Link to={detailUrl} className="btn-primary col-span-2 justify-center py-2 text-xs">View details</Link>
             <a
               href={whatsappLink(wa)}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary justify-center py-2 text-xs"
+              className="btn-outline justify-center py-2 text-xs"
             >
               <WhatsAppIcon className="h-4 w-4" /> Enquire
             </a>

@@ -6,6 +6,7 @@ import {
   query,
   where,
   orderBy,
+  limit as fbLimit,
   addDoc,
   setDoc,
   updateDoc,
@@ -166,6 +167,28 @@ export async function getPartById(id: string): Promise<Part | null> {
   const db = requireDb();
   const snap = await getDoc(doc(db, PARTS, id));
   return snap.exists() ? toPart(snap.id, snap.data()) : null;
+}
+
+/** Look up an available part by its slug (served from cache where possible). */
+export async function getPartBySlug(slug: string): Promise<Part | null> {
+  const cached = availCache?.items.find((p) => p.slug === slug);
+  if (cached) return cached;
+  const items = await getAvailable();
+  const found = items.find((p) => p.slug === slug);
+  if (found) return found;
+  // Fallback: direct query (e.g. cache empty).
+  const db = requireDb();
+  const snap = await getDocs(query(collection(db, PARTS), where('slug', '==', slug), fbLimit(1)));
+  if (snap.empty) return null;
+  return toPart(snap.docs[0].id, snap.docs[0].data());
+}
+
+/** Related = same category, available, excluding the current part. */
+export async function getRelatedParts(part: Part, max = 4): Promise<Part[]> {
+  const all = (await getAvailable()).filter((p) => p.id !== part.id);
+  const sameCat = all.filter((p) => p.category === part.category);
+  const rest = all.filter((p) => p.category !== part.category);
+  return [...sameCat, ...rest].slice(0, max);
 }
 
 /** Admin: list every part regardless of status. */

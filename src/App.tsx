@@ -15,6 +15,7 @@ import { FinancePage } from './pages/FinancePage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { CarPartsPage } from './pages/CarPartsPage';
+import { PartDetailPage } from './pages/PartDetailPage';
 import { TermsPage } from './pages/legal/TermsPage';
 import { PrivacyPage } from './pages/legal/PrivacyPage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="import-service" element={<ImportServicePage />} />
             <Route path="finance" element={<FinancePage />} />
             <Route path="parts" element={<CarPartsPage />} />
+            <Route path="parts/:slug" element={<PartDetailPage />} />
             <Route path="about" element={<AboutPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="terms" element={<TermsPage />} />
