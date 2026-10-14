@@ -2,7 +2,7 @@ import { Tag, Package } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Part } from '../../lib/types';
 import { formatPrice } from '../../lib/format';
-import { whatsappLink, telLink } from '../../config/business';
+import { whatsappLink, telLink, BUSINESS } from '../../config/business';
 import { WhatsAppIcon } from '../brand/WhatsAppIcon';
 
 const PLACEHOLDER =
@@ -14,8 +14,8 @@ export function PartCard({ part }: { part: Part }) {
   const wa = [
     `Hi CF Motor Sales, I'm interested in the part: ${part.name}${part.sku ? ` (SKU ${part.sku})` : ''}.`,
     `Price: ${formatPrice(part.price)}. Is it available?`,
-    primary?.url ? `Photo: ${primary.url}` : '',
-  ].filter(Boolean).join('\n');
+    `Link: ${BUSINESS.siteUrl}/parts/${part.slug}`,
+  ].join('\n');
 
   return (
     <article className="card group flex flex-col overflow-hidden transition-shadow hover:shadow-card-hover">

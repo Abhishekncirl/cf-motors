@@ -36,13 +36,11 @@ export function PartDetailPage() {
   if (state === 'loading') return <Spinner label="Loading part" />;
   if (state === 'missing' || !part) return <NotFoundPage />;
 
-  const primaryImg = part.images.find((i) => i.isPrimary)?.url || part.images[0]?.url;
   const wa = [
     `Hi CF Motor Sales, I'm interested in the part: ${part.name}${part.sku ? ` (SKU ${part.sku})` : ''}.`,
     `Price: ${formatPrice(part.price)}. Is it available?`,
-    primaryImg ? `Photo: ${primaryImg}` : '',
     `Link: ${BUSINESS.siteUrl}/parts/${part.slug}`,
-  ].filter(Boolean).join('\n');
+  ].join('\n');
   const specs: [string, string][] = [
     ['Category', part.category],
     ['Brand', part.brand || '—'],
