@@ -15,6 +15,28 @@ export interface VehicleImage {
   isPrimary: boolean;
 }
 
+// ---- Car parts (separate shop section) ----
+export type PartStatus = 'available' | 'sold' | 'hidden';
+export type PartCondition = 'New' | 'Used';
+
+export interface Part {
+  id: string;
+  slug: string;
+  name: string;
+  category: string;
+  brand: string;
+  price: number; // EUR
+  sku: string;
+  condition: PartCondition;
+  stockQty: number;
+  description: string;
+  status: PartStatus;
+  featured: boolean;
+  images: VehicleImage[];
+  createdAt: number;
+  updatedAt: number;
+}
+
 export interface Vehicle {
   id: string;
   slug: string;

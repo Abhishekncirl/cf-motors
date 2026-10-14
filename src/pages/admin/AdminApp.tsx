@@ -7,6 +7,8 @@ import { LoginPage } from './LoginPage';
 import { DashboardPage } from './DashboardPage';
 import { VehicleListPage } from './VehicleListPage';
 import { VehicleEditPage } from './VehicleEditPage';
+import { PartListPage } from './PartListPage';
+import { PartEditPage } from './PartEditPage';
 import { EnquiriesPage } from './EnquiriesPage';
 import { SettingsPage } from './SettingsPage';
 
@@ -28,6 +30,9 @@ export default function AdminApp() {
           <Route path="vehicles" element={<VehicleListPage />} />
           <Route path="vehicles/new" element={<VehicleEditPage mode="create" />} />
           <Route path="vehicles/:id" element={<VehicleEditPage mode="edit" />} />
+          <Route path="parts" element={<PartListPage />} />
+          <Route path="parts/new" element={<PartEditPage mode="create" />} />
+          <Route path="parts/:id" element={<PartEditPage mode="edit" />} />
           <Route path="enquiries" element={<EnquiriesPage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>

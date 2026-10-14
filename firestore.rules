@@ -19,6 +19,13 @@ service cloud.firestore {
       allow create, update, delete: if isAdmin();
     }
 
+    // ---- Car parts ----
+    match /parts/{partId} {
+      // Public may read only parts that are currently available. Admins read all.
+      allow read: if isAdmin() || resource.data.status == 'available';
+      allow create, update, delete: if isAdmin();
+    }
+
     // ---- Enquiries ----
     match /enquiries/{enquiryId} {
       // Anyone can submit an enquiry, but only with a sane, size-limited shape.

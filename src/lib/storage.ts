@@ -100,9 +100,10 @@ async function loadBitmap(file: File): Promise<ImageBitmap | HTMLImageElement> {
   });
 }
 
-/** Upload a compressed image for a vehicle and return its storage path + URL. */
-export async function uploadVehicleImage(
-  vehicleId: string,
+/** Upload a compressed image into `<folder>/<entityId>/` and return path + URL. */
+export async function uploadGalleryImage(
+  folder: string,
+  entityId: string,
   file: File,
   sortOrder: number,
   isPrimary: boolean
@@ -110,11 +111,21 @@ export async function uploadVehicleImage(
   const storage = requireStorage();
   const blob = await compressImage(file);
   const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${extFor(blob)}`;
-  const storagePath = `vehicles/${vehicleId}/${filename}`;
+  const storagePath = `${folder}/${entityId}/${filename}`;
   const objectRef = ref(storage, storagePath);
   await uploadBytes(objectRef, blob, { contentType: blob.type || 'image/webp' });
   const url = await getDownloadURL(objectRef);
   return { storagePath, url, sortOrder, isPrimary };
+}
+
+/** Upload a compressed image for a vehicle and return its storage path + URL. */
+export async function uploadVehicleImage(
+  vehicleId: string,
+  file: File,
+  sortOrder: number,
+  isPrimary: boolean
+): Promise<VehicleImage> {
+  return uploadGalleryImage('vehicles', vehicleId, file, sortOrder, isPrimary);
 }
 
 /** Upload a customer-supplied photo attached to a valuation/sourcing enquiry. */

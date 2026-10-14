@@ -1,21 +1,23 @@
 import { useRef, useState } from 'react';
 import { ImagePlus, Star, Trash2, GripVertical, Loader2 } from 'lucide-react';
 import type { VehicleImage } from '../../lib/types';
-import { uploadVehicleImage, deleteVehicleImage } from '../../lib/storage';
+import { uploadGalleryImage, deleteVehicleImage } from '../../lib/storage';
 
 /**
  * Multi-image manager: upload (auto-compressed to WebP), drag-to-reorder, set a
- * primary image, remove. Uploads happen immediately into the vehicle's storage
- * folder so `vehicleId` must be stable before the first upload.
+ * primary image, remove. Uploads happen immediately into the entity's storage
+ * folder (`<folder>/<entityId>/`) so `entityId` must be stable before uploading.
  */
 export function ImageManager({
   vehicleId,
   images,
   onChange,
+  folder = 'vehicles',
 }: {
   vehicleId: string;
   images: VehicleImage[];
   onChange: (images: VehicleImage[]) => void;
+  folder?: string;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
@@ -35,7 +37,8 @@ export function ImageManager({
       const start = images.length;
       const uploaded: VehicleImage[] = [];
       for (let i = 0; i < files.length; i++) {
-        const img = await uploadVehicleImage(
+        const img = await uploadGalleryImage(
+          folder,
           vehicleId,
           files[i],
           start + i,

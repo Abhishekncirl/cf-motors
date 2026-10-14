@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { NavLink, Outlet, Link, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Car, Inbox, Settings, LogOut, Menu, X, ExternalLink } from 'lucide-react';
+import { LayoutDashboard, Car, Wrench, Inbox, Settings, LogOut, Menu, X, ExternalLink } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { Logo } from '../../components/brand/Logo';
 
 const NAV = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/admin/vehicles', label: 'Vehicles', icon: Car, end: false },
+  { to: '/admin/parts', label: 'Car parts', icon: Wrench, end: false },
   { to: '/admin/enquiries', label: 'Enquiries', icon: Inbox, end: false },
   { to: '/admin/settings', label: 'Settings', icon: Settings, end: false },
 ];

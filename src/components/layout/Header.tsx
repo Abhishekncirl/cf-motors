@@ -7,6 +7,7 @@ import { telLink } from '../../config/business';
 
 const NAV = [
   { to: '/stock', label: 'Stock' },
+  { to: '/parts', label: 'Car Parts' },
   { to: '/import-service', label: 'Import a Car' },
   { to: '/sell-your-car', label: 'Sell / Trade In' },
   { to: '/finance', label: 'Finance' },

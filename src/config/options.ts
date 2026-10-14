@@ -4,6 +4,8 @@ import type {
   BodyType,
   ImportOrigin,
   VehicleStatus,
+  PartStatus,
+  PartCondition,
 } from '../lib/types';
 
 /** Canonical option lists reused by forms, filters and the admin editor. */
@@ -34,6 +36,25 @@ export function importOriginLabel(origin: ImportOrigin): string {
 }
 
 export const VEHICLE_STATUSES: VehicleStatus[] = ['available', 'reserved', 'sold'];
+
+// ---- Car parts shop ----
+export const PART_CATEGORIES = [
+  'Engine Oil & Fluids',
+  'Filters',
+  'Brakes',
+  'Suspension & Steering',
+  'Transmission & Clutch',
+  'Electrical & Lights',
+  'Dashboard & Interior',
+  'Exhaust & Emissions',
+  'Batteries',
+  'Tyres & Wheels',
+  'Body & Exterior',
+  'Accessories',
+  'Other',
+];
+export const PART_CONDITIONS: PartCondition[] = ['New', 'Used'];
+export const PART_STATUSES: PartStatus[] = ['available', 'sold', 'hidden'];
 
 /** Common makes for the search dropdowns (free text is still allowed). */
 export const COMMON_MAKES = [
