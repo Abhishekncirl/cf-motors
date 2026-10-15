@@ -44,10 +44,9 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # Base path for a project Pages site served under /cf-motors/.
-          # (For a custom domain at the root, set this to '/'.)
-          VITE_BASE_PATH: ${{ steps.pages.outputs.base_path && format('{0}/', steps.pages.outputs.base_path) || '/cf-motors/' }}
-          VITE_SITE_URL: ${{ steps.pages.outputs.base_url || 'https://abhishekncirl.github.io/cf-motors' }}
+          # Custom domain served at the root (www.cfmotorsales.com).
+          VITE_BASE_PATH: '/'
+          VITE_SITE_URL: 'https://www.cfmotorsales.com'
           # Firebase config (optional - leave unset for a UI-only preview).
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
           VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}

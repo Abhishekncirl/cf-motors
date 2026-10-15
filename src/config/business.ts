@@ -50,7 +50,7 @@ export const BUSINESS = {
   // Canonical site URL for SEO/JSON-LD (override via VITE_SITE_URL).
   siteUrl:
     (import.meta.env.VITE_SITE_URL as string | undefined)?.replace(/\/$/, '') ||
-    'https://www.cfmotorsales.ie',
+    'https://www.cfmotorsales.com',
 } as const;
 
 /** Build a WhatsApp deep link with a prefilled message. */
