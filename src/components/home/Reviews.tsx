@@ -1,13 +1,23 @@
-import { Star } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Star, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import reviewsData from '../../data/reviews.json';
 import type { Review } from '../../lib/types';
+import { listApprovedFeedback } from '../../lib/feedback';
 
 /**
- * Reads from a local JSON file for now. The `Review` shape mirrors what the
- * Google Places API returns (author, rating, text, time), so swapping to live
- * Google Reviews later is a data-source change only - this component is unchanged.
+ * Shows live customer reviews (approved in admin). Until any reviews are
+ * approved it falls back to the seed testimonials in reviews.json, so the
+ * section is never empty. The card layout is shared between both sources.
  */
-const reviews = reviewsData as Review[];
+const seed = reviewsData as Review[];
+
+interface DisplayReview {
+  author: string;
+  rating: number;
+  text: string;
+  date: string;
+}
 
 function Stars({ rating }: { rating: number }) {
   return (
@@ -25,7 +35,33 @@ function Stars({ rating }: { rating: number }) {
 }
 
 export function Reviews() {
-  const avg = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
+  const [reviews, setReviews] = useState<DisplayReview[]>(
+    seed.map((r) => ({ author: r.author, rating: r.rating, text: r.text, date: r.date }))
+  );
+
+  useEffect(() => {
+    let active = true;
+    listApprovedFeedback()
+      .then((live) => {
+        if (!active || live.length === 0) return;
+        setReviews(
+          live.slice(0, 6).map((r) => ({
+            author: r.author,
+            rating: r.rating,
+            text: r.message,
+            date: new Date(r.createdAt).toISOString(),
+          }))
+        );
+      })
+      .catch(() => {
+        /* keep seed reviews */
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const avg = reviews.length ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
 
   return (
     <section className="bg-night py-16 text-white">
@@ -33,7 +69,7 @@ export function Reviews() {
         <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-brand-cyan">What our customers say</p>
-            <h2 className="font-display text-3xl font-bold sm:text-4xl">Google Reviews</h2>
+            <h2 className="font-display text-3xl font-bold sm:text-4xl">Customer Reviews</h2>
           </div>
           <div className="flex items-center gap-3">
             <span className="font-display text-3xl font-bold text-brand-cyan">{avg.toFixed(1)}</span>
@@ -57,6 +93,15 @@ export function Reviews() {
               </figcaption>
             </figure>
           ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap items-center gap-4">
+          <Link to="/reviews" className="btn-primary">
+            Read all reviews
+          </Link>
+          <Link to="/reviews" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-cyan hover:underline">
+            Leave your own review <ArrowRight size={16} aria-hidden />
+          </Link>
         </div>
       </div>
     </section>

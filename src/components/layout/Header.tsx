@@ -12,6 +12,7 @@ const NAV = [
   { to: '/sell-your-car', label: 'Sell / Trade In' },
   { to: '/finance', label: 'Finance' },
   { to: '/about', label: 'About' },
+  { to: '/reviews', label: 'Reviews' },
   { to: '/contact', label: 'Contact' },
 ];
 

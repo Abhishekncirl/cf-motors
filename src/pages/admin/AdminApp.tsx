@@ -10,6 +10,7 @@ import { VehicleEditPage } from './VehicleEditPage';
 import { PartListPage } from './PartListPage';
 import { PartEditPage } from './PartEditPage';
 import { EnquiriesPage } from './EnquiriesPage';
+import { AdminFeedbackPage } from './FeedbackPage';
 import { SettingsPage } from './SettingsPage';
 
 /** Admin sub-application (code-split from the public bundle). */
@@ -34,6 +35,7 @@ export default function AdminApp() {
           <Route path="parts/new" element={<PartEditPage mode="create" />} />
           <Route path="parts/:id" element={<PartEditPage mode="edit" />} />
           <Route path="enquiries" element={<EnquiriesPage />} />
+          <Route path="feedback" element={<AdminFeedbackPage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Routes>

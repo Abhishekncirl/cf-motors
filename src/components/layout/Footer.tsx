@@ -31,6 +31,7 @@ export function Footer() {
             <li><Link className="hover:text-brand-cyan" to="/sell-your-car">Sell / Trade In</Link></li>
             <li><Link className="hover:text-brand-cyan" to="/finance">Finance</Link></li>
             <li><Link className="hover:text-brand-cyan" to="/about">About Us</Link></li>
+            <li><Link className="hover:text-brand-cyan" to="/reviews">Reviews</Link></li>
             <li><Link className="hover:text-brand-cyan" to="/contact">Contact</Link></li>
           </ul>
         </nav>

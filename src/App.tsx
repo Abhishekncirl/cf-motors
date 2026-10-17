@@ -16,6 +16,7 @@ import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { CarPartsPage } from './pages/CarPartsPage';
 import { PartDetailPage } from './pages/PartDetailPage';
+import { FeedbackPage } from './pages/FeedbackPage';
 import { TermsPage } from './pages/legal/TermsPage';
 import { PrivacyPage } from './pages/legal/PrivacyPage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="parts" element={<CarPartsPage />} />
             <Route path="parts/:slug" element={<PartDetailPage />} />
             <Route path="about" element={<AboutPage />} />
+            <Route path="reviews" element={<FeedbackPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="terms" element={<TermsPage />} />
             <Route path="privacy" element={<PrivacyPage />} />

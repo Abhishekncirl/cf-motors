@@ -34,6 +34,25 @@ service cloud.firestore {
       allow read, update, delete: if isAdmin();
     }
 
+    // ---- Customer reviews / feedback ----
+    match /feedback/{feedbackId} {
+      // Public may read only reviews an admin has approved. Admins read all.
+      allow read: if isAdmin() || resource.data.approved == true;
+      // Anyone can submit, but only a sane shape and always unapproved first.
+      allow create: if isValidFeedback();
+      // Only admins can approve/hide (update) or delete reviews.
+      allow update, delete: if isAdmin();
+    }
+
+    function isValidFeedback() {
+      let d = request.resource.data;
+      return d.author is string && d.author.size() > 0 && d.author.size() < 100
+        && d.rating is number && d.rating >= 1 && d.rating <= 5
+        && d.message is string && d.message.size() > 0 && d.message.size() < 3000
+        && (!('subject' in d) || (d.subject is string && d.subject.size() < 200))
+        && d.approved == false;
+    }
+
     function isValidEnquiry() {
       let d = request.resource.data;
       return d.name is string && d.name.size() > 0 && d.name.size() < 200

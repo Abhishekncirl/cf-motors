@@ -119,3 +119,20 @@ export interface Review {
   date: string; // ISO
   source: 'google' | 'facebook' | 'manual';
 }
+
+/**
+ * Customer-submitted feedback (the live reviews collection). Anyone can create
+ * one; it stays hidden (`approved: false`) until an admin approves it, so no
+ * review reaches the public site without moderation. Deliberately holds no
+ * private contact details - an approved doc is world-readable.
+ */
+export interface Feedback {
+  id: string;
+  author: string;
+  rating: number; // 1-5
+  message: string;
+  /** Optional context, e.g. the car bought or service used. Non-private. */
+  subject?: string;
+  approved: boolean;
+  createdAt: number; // epoch ms
+}
